@@ -1,0 +1,3 @@
+[submodule "OpenFOAM-Solvers"]
+	path = OpenFOAM-Solvers
+	url = git@github.com:TUFRG/OpenFOAM-bodyforce-aperiodic-GT2026-179240.git
