@@ -1,0 +1,39 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2406                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    location        "constant";
+    object          BFcontrolsDict;
+}
+
+Rot             ( 1 0 0 0 1 0 0 0 1 );
+
+calibrationMode 1;
+
+rotorCalibrationMode 1;
+
+statorCalibrationMode 1;
+
+allBFZone       bfZone;
+
+rotorBFZone 	Rotor;
+
+statorBFZone 	Stator;
+
+writeRotorDevloc0    0;
+
+writeStatorDevloc0 	0;
+
+
+
+
+// ************************************************************************* //
