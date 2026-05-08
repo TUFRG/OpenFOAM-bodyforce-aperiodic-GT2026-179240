@@ -1,0 +1,111 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2112                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createPatchDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+pointSync false;
+
+tol 1e-5;
+
+// Patches to create
+
+patches
+(
+   {
+        name pCyclic;
+
+        patchInfo
+        {
+            type cyclicSlip;
+            neighbourPatch nCyclic;
+
+            transform rotational;
+            rotationAxis   (0 0 1);
+            rotationCentre (0 0 0);
+
+            matchTolerance $tol;
+        }
+
+        constructFrom patches;
+
+        patches (pPer);
+    }
+    {
+        name nCyclic;
+
+        patchInfo
+        {
+            type cyclicSlip;
+            neighbourPatch pCyclic;
+
+            transform rotational;
+            rotationAxis   (0 0 1);
+            rotationCentre (0 0 0);
+
+            matchTolerance $tol; 
+        }
+
+        constructFrom patches;
+
+        patches (nPer);
+    }
+    {
+        name rotorHubRotating;  // New patch name
+        patchInfo
+        {
+            type wall;
+        }
+        constructFrom set; //patches;
+      //  patches (FarDwStrmCas);  // Original patch to split from
+        
+        // Define the region using a box or other selection
+        set rotorHubRotating;
+    }
+    
+    {
+        name rotorHubStationary;  // New patch name
+        patchInfo
+        {
+            type wall;
+        }
+        constructFrom set; //patches;
+    //    patches (rotorHub);
+        set rotorHubStationary;
+    }  
+    {
+        name FarDwStrmHub;  // New patch name
+        patchInfo
+        {
+            type wall;
+        }
+        constructFrom set; //patches;
+      //  patches (FarDwStrmCas);  // Original patch to split from
+        
+        // Define the region using a box or other selection
+        set FarDwStrmHub;
+    }
+    
+    {
+        name FarDwStrmCas;  // New patch name
+        patchInfo
+        {
+            type wall;
+        }
+        constructFrom set; //patches;
+    //    patches (rotorHub);
+        set FarDwStrmCas;
+    }       
+);
+
+
+//************************************************************************ //

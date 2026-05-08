@@ -1,0 +1,118 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+
+/* Turbomachinery and Unsteady Flows Research Group | University of Windsor  *\
+                    ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░░░                                 
+                 ░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░                            
+               ░▒▓▓▒▒░░░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░                      
+             ░▒▓▓░   ▒▓░    ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░                  
+            ▒▓▓░   ░▒▓▓▓░ ░▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░               
+           ▒▓▒░░░  ░▓▓▓▓▒░▓▓▓▓▒░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░            
+         ░▓▓▒ ░░░░ ░▓▓▓▓▓ ▒▓▓▓▒  ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒          
+         ▒▓▒  ░░░░░ ▒▓▓▓▓░░▓▓▓▒  ░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒        
+        ▓▓▒   ░░░░░░░▓▓▓▓░░▓▓▓▒                        ░░▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓░      
+       ▒▓▓░   ░░░░░░ ░▓▓▓▒ ▓▓▓▒       ░░░▒▒▒▒▒▒▒▒▒░░░░          ░░░▒▓▓▓▓▓░     
+      ▒▓▓▒░    ░░░░░░ ▒▓▓▒ ▒▓▓▒ ░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░░     ▒░     
+      ▓▓▓░▓▓▒    ░░░░ ░▓▓▓░▒▓▓▒  ░▓▓▓▓▒░  ▒▓▓▒                   ░▒▒▓▓▓▓▒      
+     ▒▓▓░▒▓▓▓▓░   ░░░░ ▒▓▓░░▓▓▒           ▒▓▓▒    ░                      ░░▒▒░ 
+    ░▓▓▒ ▒▓▓▓▓▓▒   ░░░░░▓▓░░▓▓▒           ▒▓▓▒    ▒▓  ▒▓░▒▓▓▓▒ ▓▓▓▓░  ░▓▓░     
+    ▒▓▓░ ▒▓▓▓▓▓▓▓░  ░░░ ▒▓▒░▓▓░           ▒▓▓▒   ░▒▓  ▓▓░▒▓░   ▓▒░▒▓░▒▓▒░▓▒░   
+   ░▒▓▒░ ▒▓▓▓▓▓▓▓▓░ ░░░░░▓▒░▓▓░           ▒▓▓▒   ░▒▓  ▓▓░▒▓▓▓░ ▓▒░▒▓ ▒▓░       
+   ░▓▓▒    ░▒▓▓▓▓▓▓▒ ░░░ ▓░░▓▓            ▒▓▓▒   ░▒▓  ▓▒░▒▓░   ▓▓▓▓▒░▒▓░░▓▓░   
+   ▒▓▓▒       ░▒▓▓▓▓▒ ░░ ▒░░▓░            ▒▓▓▒   ░▒▓ ░▓▒░▒▓░   ▓▓ ▒▓░▒▓▓▓▓▓░   
+   ▒▓▓░▒▒▒░░░    ▒▓▓▓░                    ▒▓▓▒    ░▓▓▓▓░ ▒▓░   ▓▓ ░▓▓  ▓▓      
+   ▓▓▓░▓▓▓▓▓▓▓▓▒  ░▒▓░   ░░               ▒▓▓▒                          ░▒▒▒▒░ 
+  ░▓▓▓░▓▓▓▓▓▓▓▓▓▓▒░ ░  ░▓▓▓▓▓▓▒▒░░░       ░░░░               ░░░░▒▒▒▓▓▓▒▒░░    
+  ░▓▓▒░▓▓▓▓▓▓▓▓▓▓▓▓░  ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░            
+  ░▒▒░                   ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒░░░                   
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      Devloc0;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+BFcontrolsLocal
+{
+	// Include the entries from the BFcontrolsDict
+	#include			"$FOAM_CASE/constant/BFcontrolsDict"
+}
+calMode				$BFcontrolsLocal.calibrationMode; // pull out the value we want
+#remove				BFcontrolsLocal; // get rid of this temporary dictionary
+
+internalField   #codeStream
+
+{
+
+codeInclude
+#{
+	#include "fvCFD.H"
+	#include <IFstream.H>
+	#include <OFstream.H>
+	#include <ctime>
+	#include "clock.H"
+	#include "string.H"
+	#include <sstream>
+	#include <iomanip>
+#};
+
+codeOptions
+#{
+-I$(LIB_SRC)/finiteVolume/lnInclude \
+-I$(LIB_SRC)/meshTools/lnInclude
+#};
+
+codeLibs
+#{
+-lmeshTools \
+-lfiniteVolume
+#};
+
+code
+#{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+        const fvMesh& mesh = refCast<const fvMesh>(d.db());	
+        scalarField Devloc0(mesh.nCells(), 0);
+
+		if (!$calMode) // if not in calibration mode, then the Devloc file should exist
+		{
+			Pout << " \n Calibration mode not active.  Reading in Devloc file.... \n" << endl;
+			
+		    List<scalar> Devloc;
+	        IFstream dv("Devloc");
+	       	dv  >> Devloc;
+		
+	        forAll(Devloc0, i)
+	        {               
+	                Devloc0[i] = Devloc[i]; 
+	        }
+		}
+        Devloc0.writeEntry("", os);
+                
+#};
+
+};
+
+boundaryField
+{
+    ".*"
+    {
+        type            zeroGradient;
+    } 
+
+    #includeEtc "caseDicts/setConstraintTypes"
+}
+
+
+// ************************************************************************* //

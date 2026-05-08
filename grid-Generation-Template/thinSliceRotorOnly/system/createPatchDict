@@ -1,0 +1,65 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2112                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createPatchDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+pointSync false;
+
+tol 1e-5;
+
+// Patches to create
+
+patches
+(
+    {
+        name Per0;
+
+        patchInfo
+        {
+            type cyclicSlip;
+            neighbourPatch Per1;
+
+            transform rotational;
+            rotationAxis   (0 0 1);
+            rotationCentre (0 0 0);
+
+            matchTolerance $tol;
+        }
+
+        constructFrom patches;
+
+        patches (pPer);
+    }
+    {
+        name Per1;
+
+        patchInfo
+        {
+            type cyclicSlip;
+            neighbourPatch Per0;
+
+            transform rotational;
+            rotationAxis   (0 0 1);
+            rotationCentre (0 0 0);
+
+            matchTolerance $tol; 
+        }
+
+        constructFrom patches;
+
+        patches (nPer);
+    }
+);
+
+
+//************************************************************************ //

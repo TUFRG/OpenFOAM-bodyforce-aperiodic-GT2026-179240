@@ -1,0 +1,1074 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2112                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// The axis of rotation of this machine is the z axis
+// Hence the radial direction is denoted x and the axial direction is z (x = mz + c)
+// There are three positions in the circumferential cordinate in this domain 
+// The positive rotation is represented as p and negative as n while the middle position is represented as m
+
+scale  1; // The data came in millimeters so this converts it to m (SI units)
+tol 1e-10;
+
+blRadial 171.0;
+coreRadial 111.0;
+midRadial 15;
+axial 10;
+tangential 5;
+
+radGradHub 1;
+radGradCas 1;
+
+radial 30.0;
+
+xdP 0.09852009551756621;
+
+xdmG 1;
+
+xdN 0.17506645158952794;
+xdupG 6.53774893257692;
+xddwG 0.15295784685415256;
+x1dwG 0.17663683431270627;
+x1upG 5.661333344718269;
+xSdwG 0.5375590997412949;
+xSupG 1.8602605750349288;
+xdMidG 0.4404914890446066;
+xdBG 0.5555203507432485;
+
+ptX1 60.0;
+ptXS 60.0;
+ptX2 47.0;
+ptX3 94.0;
+ptX4 60.0;
+ptX5 82.0;
+ptX6 78.0;
+ptX7 268.0;
+ptX8 1.0;
+
+x2P 0.30277791501446677;
+x3P 0.2220236523532723;
+x4P 0.24837503133127856;
+x5P 0.18481265124364496;
+x6P 0.3031907187407086;
+x7P 0.05262344758765143;
+x8P 0.00883824338262615;
+
+x2N 0.514358695755425;
+x3N 0.3184217136293141;
+x4N 0.4002256670028864;
+x5N 0.2942454563924379;
+x6N 0.38590579041284534;
+x7N 0.13424558709674478;
+x8N 1.0;
+
+x2upG 9.077960704713302;
+x3upG 6.53774893257692;
+x4upG 1.0000000335075703;
+x5upG 9.077960704713302;
+x6upG 6.53774893257692;
+x7upG 13.854098257295746;
+x8upG 72.9512817123959;
+
+x2dwG 0.11015689894766754;
+x3dwG 0.15295784685415256;
+x4dwG 0.9999999664924308;
+x5dwG 0.11015689894766754;
+x6dwG 0.15295784685415256;
+x7dwG 0.07218080754360083;
+x8dwG 0.013707778349151057;
+
+x0y0m (0.0 0 -0.916);
+x1y0m (0.0 0 -0.19549880302462633);
+x2y0m (0.0 0 -0.17500000000000002);
+
+x0y1m (0.028538919200000002 0 -0.916);
+x0y1p (0.017028919564021673 0.01702891956402167 -0.916);
+x0y1n (0.017028919564021673 -0.01702891956402167 -0.916);
+x1y1m (0.028538919200000002 0 -0.15949880302462632);
+x1y1p (0.017028919564021673 0.01702891956402167 -0.16549880302462633);
+x1y1n (0.017028919564021673 -0.01702891956402167 -0.16549880302462633);
+x2y1m (0.028538919200000002 0 -0.139);
+x2y1p (0.017028919564021673 0.01702891956402167 -0.14500000000000002);
+x2y1n (0.017028919564021673 -0.01702891956402167 -0.14500000000000002);
+x0y2m (0.0655082200246263 0 -0.916);
+x0y2p (0.046321306602873646 0.04632130660287364 -0.916);
+x0y2n (0.046321306602873646 -0.04632130660287364 -0.916);
+
+x2y2m (0.045009417 0.0 -0.115);
+x2y2p (0.03182646397795308 0.03182646397795307 -0.115);
+x2y2n (0.03182646397795308 -0.03182646397795307 -0.115);
+
+x0y4m (0.2265011969753737 0 -0.916);
+x0y4p (0.16016053232815666 0.16016053232815664 -0.916);
+x0y4n (0.16016053232815666 -0.16016053232815664 -0.916);
+
+x2y3m (0.0655082200246263 0.0 -0.115);
+x2y3p (0.046321306602873646 0.04632130660287364 -0.115);
+x2y3n (0.046321306602873646 -0.04632130660287364 -0.115);
+
+x0y5m (0.247 0 -0.916);
+x0y5p (0.17465537495307726 0.17465537495307723 -0.916);
+x0y5n (0.17465537495307726 -0.17465537495307723 -0.916);
+
+x2y4m (0.23257784043245067 0 -0.115);
+x2y4p (0.16445736812350867 0.16445736812350864 -0.115);
+x2y4n (0.16445736812350867 -0.16445736812350864 -0.115);
+
+x2y5m (0.253076643457077 0 -0.115);
+x2y5p (0.17895221074842924 0.1789522107484292 -0.115);
+x2y5n (0.17895221074842924 -0.1789522107484292 -0.115);
+
+xSy0m (0.0 0 -0.288315498);
+
+xSy1m (0.028538919200000002 0 -0.288315498);
+xSy1p (0.017028919564021673 0.01702891956402167 -0.288315498);
+xSy1n (0.017028919564021673 -0.01702891956402167 -0.288315498);
+
+xSy2m (0.0655082200246263 0 -0.288315498);
+xSy2p (0.046321306602873646 0.04632130660287364 -0.288315498);
+xSy2n (0.046321306602873646 -0.04632130660287364 -0.288315498);
+
+xSy4m (0.2265011969753737 0 -0.288315498);
+xSy4p (0.16016053232815666 0.16016053232815664 -0.288315498);
+xSy4n (0.16016053232815666 -0.16016053232815664 -0.288315498);
+
+xSy5m (0.247 0 -0.288315498);
+xSy5p (0.17465537495307726 0.17465537495307723 -0.288315498);
+xSy5n (0.17465537495307726 -0.17465537495307723 -0.288315498);
+
+
+x3y2m (0.151967987 0 0.99);
+x3y2p (0.1074575941309691 0.10745759413096909 0.99);
+x3y2n (0.1074575941309691 -0.10745759413096909 0.99);
+
+x3y3m (0.1724667900246263 0 0.99);
+x3y3p (0.12195243675588968 0.12195243675588967 0.99);
+x3y3n (0.12195243675588968 -0.12195243675588967 0.99);
+
+x4y2m (0.151967987 0 0.99);
+x4y2p (0.1074575941309691 0.10745759413096909 0.99);
+x4y2n (0.1074575941309691 -0.10745759413096909 0.99);
+
+x4y3m (0.1724667900246263 0 0.99);
+x4y3p (0.12195243675588968 0.12195243675588967 0.99);
+x4y3n (0.12195243675588968 -0.12195243675588967 0.99);
+
+x3y4m (0.2441010969753737 0 0.99);
+x3y4p (0.1726055409663618 0.17260554096636177 0.99);
+x3y4n (0.1726055409663618 -0.17260554096636177 0.99);
+
+x3y5m (0.2645999 0 0.99);
+x3y5p (0.18710038359128237 0.18710038359128234 0.99);
+x3y5n (0.18710038359128237 -0.18710038359128234 0.99);
+
+x4y4m (0.2441010969753737 0 0.99);
+x4y4p (0.1726055409663618 0.17260554096636177 0.99);
+x4y4n (0.1726055409663618 -0.17260554096636177 0.99);
+
+x4y5m (0.2645999 0 0.99);
+x4y5p (0.18710038359128237 0.18710038359128234 0.99);
+x4y5n (0.18710038359128237 -0.18710038359128234 0.99);
+
+xr1y2m (0.07430828672211512 0 -0.04821998601222705);
+xr1y2p (0.052543893439561895 0.05254389343956189 -0.04821998601222705);
+xr1y2n (0.052543893439561895 -0.05254389343956189 -0.04821998601222705);
+
+xr1y3m (0.09351085557670293 0 -0.052917899990793944);
+xr1y3p (0.06612216009284252 0.06612216009284251 -0.052917899990793944);
+xr1y3n (0.06612216009284252 -0.06612216009284251 -0.052917899990793944);
+
+xr2y2m (0.09142349295124995 0 0.013550111181265161);
+xr2y2p (0.06464617182558938 0.06464617182558936 0.013550111181265161);
+xr2y2n (0.06464617182558938 -0.06464617182558936 0.013550111181265161);
+
+xr2y3m (0.11398426307168825 0 0.019669202895715752);
+xr2y3p (0.08059904536654214 0.08059904536654212 0.019669202895715752);
+xr2y3n (0.08059904536654214 -0.08059904536654212 0.019669202895715752);
+
+xr1y4m (0.2335007030328973 0 -0.03867193564274216);
+xr1y4p (0.16510993052638795 0.16510993052638792 -0.03867193564274216);
+xr1y4n (0.16510993052638795 -0.16510993052638792 -0.03867193564274216);
+
+xr1y5m (0.25399920624203837 0 -0.035078025480022666);
+xr1y5p (0.1796045611497458 0.17960456114974577 -0.035078025480022666);
+xr1y5n (0.1796045611497458 -0.17960456114974577 -0.035078025480022666);
+
+xr2y4m (0.2313081315851464 0 0.020376176258588403);
+xr2y4p (0.16355954838744727 0.16355954838744724 0.020376176258588403);
+xr2y4n (0.16355954838744727 -0.16355954838744724 0.020376176258588403);
+
+xr2y5m (0.25245200697479475 0 0.01253551935238009);
+xr2y5p (0.17851052605603096 0.17851052605603093 0.01253551935238009);
+xr2y5n (0.17851052605603096 -0.17851052605603093 0.01253551935238009);
+
+xs1y2m (0.12886752769681578 0 0.1418287613571438);
+xs1y2p (0.09112310270916367 0.09112310270916366 0.1418287613571438);
+xs1y2n (0.09112310270916367 -0.09112310270916366 0.1418287613571438);
+
+xs1y3m (0.15005827867173574 0 0.14362077652695174);
+xs1y3p (0.10610722642196502 0.106107226421965 0.14362077652695174);
+xs1y3n (0.10610722642196502 -0.106107226421965 0.14362077652695174);
+
+xs2y2m (0.1491529827949901 0 0.210925121279364);
+xs2y2p (0.10546708556853795 0.10546708556853794 0.210925121279364);
+xs2y2n (0.10546708556853795 -0.10546708556853794 0.210925121279364);
+
+xs2y3m (0.16962435430114017 0 0.21075559879291497);
+xs2y3p (0.11994253118072574 0.11994253118072573 0.21075559879291497);
+xs2y3n (0.11994253118072574 -0.11994253118072573 0.21075559879291497);
+
+xs1y4m (0.24381221245518633 0 0.14426130685352564);
+xs1y4p (0.17240126876315748 0.17240126876315748 0.14426130685352564);
+xs1y4n (0.17240126876315748 -0.17240126876315748 0.14426130685352564);
+
+xs1y5m (0.2643103342800771 0 0.14417120106840095);
+xs1y5p (0.18689562970712573 0.1868956297071257 0.14417120106840095);
+xs1y5n (0.18689562970712573 -0.1868956297071257 0.14417120106840095);
+
+xs2y4m (0.2438079385983543 0 0.21309368591826633);
+xs2y4p (0.17239824669000975 0.17239824669000972 0.21309368591826633);
+xs2y4n (0.17239824669000975 -0.17239824669000972 0.21309368591826633);
+
+xs2y5m (0.26430677525874496 0 0.21438146862331817);
+xs2y5p (0.18689311309900739 0.18689311309900736 0.21438146862331817);
+xs2y5n (0.18689311309900739 -0.18689311309900736 0.21438146862331817);
+
+xCy2m (0.09399405436000001 0 0.0212);
+xCy2p (0.06646383322917299 0.06646383322917297 0.0212);
+xCy2n (0.06646383322917299 -0.06646383322917297 0.0212);
+
+xCy3m (0.11650230684651415 0 0.027453898674969744);
+xCy3p (0.0823795711950461 0.08237957119504609 0.027453898674969744);
+xCy3n (0.0823795711950461 -0.08237957119504609 0.027453898674969744);
+
+xCy4m (0.23093146168334983 0 0.028083300837057613);
+xCy4p (0.16329320254561805 0.16329320254561802 0.028083300837057613);
+xCy4n (0.16329320254561805 -0.16329320254561802 0.028083300837057613);
+
+xCy5m (0.2518126594729554 0 0.02018540817111493);
+xCy5p (0.1780584391019457 0.17805843910194566 0.02018540817111493);
+xCy5n (0.1780584391019457 -0.17805843910194566 0.02018540817111493);
+
+x0y2ArcP (0.06550668137898874 0.0004489827463287524 -0.916);
+x0y2ArcN (0.06550668137898874 -0.0004489827463287524 -0.916);
+
+geometry
+{
+	nVal
+	{
+		type	triSurfaceMesh;
+		file	"nVal.stl";
+	} 
+	pVal 
+	{
+		type	triSurfaceMesh;
+		file	"pVal.stl";
+	}
+	mPerH
+	{
+		type	triSurfaceMesh;
+		file	"mPer.stl";
+	}
+	sLE
+	{
+		type	triSurfaceMesh;
+		file	"LES.stl";		
+	}
+	sTE
+	{
+		type	triSurfaceMesh;
+		file	"TES.stl";		
+	}
+	rLE
+	{
+		type	triSurfaceMesh;
+		file	"LE.stl";		
+	}
+	rTE
+	{
+		type	triSurfaceMesh;
+		file	"TE.stl";		
+	}	
+	nPer
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x0y0m;
+			point2	$x3y2n;
+			point3	$x3y5n; 
+       	}
+	}	
+	pPer
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x0y0m; 
+			point2	$x3y2p; 
+			point3	$x3y5p;
+       	}
+	}
+	mPer
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x0y0m; 
+			point2	$x3y2m; 
+			point3	$x3y5m;
+       	}
+	}
+	sSurf // position where viscid flow began
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$xSy0m; 
+			point2	$xSy2p; 
+			point3	$xSy5n;
+       	}
+	}
+	sIn // position where the butterfly ends
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x2y2m; 
+			point2	$x2y2p; 
+			point3	$x2y5n;
+       	}
+	}
+	sDw // position where viscid  flow ends
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x3y2m; 
+			point2	$x3y5p; 
+			point3	$x3y5n;
+       	}
+	}					
+	Hub
+	{
+		type 	triSurfaceMesh;
+		file	"Hub.stl";
+	}
+	cas
+	{
+		type 	triSurfaceMesh;
+		file	"casing.stl";
+	}
+	in
+	{
+		type 	triSurfaceMesh;
+		file	"inlet.stl";		
+	}
+	out 
+	{
+		type 	triSurfaceMesh;
+		file	"outlet.stl";
+	}
+	hubCut
+	{
+		type 	triSurfaceMesh;
+		file 	"hubCut.stl";
+	}	
+	offsetHub 
+	{
+		type 	triSurfaceMesh;
+		file	"offsetHub.stl";
+	}
+	offsetCas
+	{
+		type 	triSurfaceMesh;
+		file 	"offsetCas.stl";
+	}	
+}
+vertices
+(
+	name Mx0y0 $x0y0m
+	name Mx1y0 $x1y0m
+	name Mx2y0 $x2y0m
+	
+	name Mx0y1 $x0y1m 
+	name Px0y1 $x0y1p
+	name Nx0y1 $x0y1n 
+
+	name Mx1y1 $x1y1m
+	name Px1y1 $x1y1p
+	name Nx1y1 $x1y1n
+
+	name Mx2y1 $x2y1m
+	name Px2y1 $x2y1p
+	name Nx2y1 $x2y1n 
+
+	name Mx0y2 $x0y2m
+	name Px0y2 $x0y2p
+	name Nx0y2 $x0y2n 
+
+	name Mx2y2 $x2y2m 
+	name Px2y2 $x2y2p 
+	name Nx2y2 $x2y2n 
+		
+	name Mx0y5 $x0y5m
+	name Px0y5 $x0y5p
+	name Nx0y5 $x0y5n 
+
+	name Mx2y3 $x2y3m
+	name Px2y3 $x2y3p
+	name Nx2y3 $x2y3n
+	
+	name Mx0y4 $x0y4m
+	name Px0y4 $x0y4p
+	name Nx0y4 $x0y4n 
+
+	name Mx2y4 $x2y4m
+	name Px2y4 $x2y4p
+	name Nx2y4 $x2y4n
+		
+	name Mx2y5 $x2y5m
+	name Px2y5 $x2y5p
+	name Nx2y5 $x2y5n	
+
+	name MxSy0 $xSy0m
+	
+	name MxSy1 $xSy1m
+	name PxSy1 $xSy1p
+	name NxSy1 $xSy1n
+
+	name MxSy2 $xSy2m
+	name PxSy2 $xSy2p
+	name NxSy2 $xSy2n
+   	 	
+	name MxSy5 $xSy5m
+	name PxSy5 $xSy5p
+	name NxSy5 $xSy5n
+
+	name MxSy4 $xSy4m
+	name PxSy4 $xSy4p
+	name NxSy4 $xSy4n
+
+	name Mx3y2 $x3y2m
+	name Px3y2 $x3y2p
+	name Nx3y2 $x3y2n
+
+	name Mx3y3 $x3y3m
+	name Px3y3 $x3y3p
+	name Nx3y3 $x3y3n
+
+	name Mx3y4 $x3y4m
+	name Px3y4 $x3y4p
+	name Nx3y4 $x3y4n
+	
+	name Mx3y5 $x3y5m
+	name Px3y5 $x3y5p
+	name Nx3y5 $x3y5n
+
+	name Mx4y2 $x4y2m
+	name Px4y2 $x4y2p
+	name Nx4y2 $x4y2n
+
+	name Mx4y3 $x4y3m
+	name Px4y3 $x4y3p
+	name Nx4y3 $x4y3n
+
+	name Mx4y4 $x4y4m
+	name Px4y4 $x4y4p
+	name Nx4y4 $x4y4n		
+
+	name Mx4y5 $x4y5m
+	name Px4y5 $x4y5p
+	name Nx4y5 $x4y5n	
+
+	name Mxr1y2 $xr1y2m 
+	name Pxr1y2 $xr1y2p 
+	name Nxr1y2 $xr1y2n
+	
+	name Mxr1y3 $xr1y3m 
+	name Pxr1y3 $xr1y3p 
+	name Nxr1y3 $xr1y3n 
+	
+	name Mxr2y2 $xr2y2m 
+	name Pxr2y2 $xr2y2p 
+	name Nxr2y2 $xr2y2n 
+	
+	name Mxr2y3 $xr2y3m 
+	name Pxr2y3 $xr2y3p 
+	name Nxr2y3 $xr2y3n 	
+
+	name Mxr1y4 $xr1y4m 
+	name Pxr1y4 $xr1y4p 
+	name Nxr1y4 $xr1y4n
+	
+	name Mxr1y5 $xr1y5m 
+	name Pxr1y5 $xr1y5p 
+	name Nxr1y5 $xr1y5n 
+	
+	name Mxr2y4 $xr2y4m 
+	name Pxr2y4 $xr2y4p 
+	name Nxr2y4 $xr2y4n	
+	
+	name Mxr2y5 $xr2y5m 
+	name Pxr2y5 $xr2y5p 
+	name Nxr2y5 $xr2y5n	
+
+	name Mxs1y2 $xs1y2m 
+	name Pxs1y2 $xs1y2p 
+	name Nxs1y2 $xs1y2n 
+	
+	name Mxs1y3 $xs1y3m 
+	name Pxs1y3 $xs1y3p 
+	name Nxs1y3 $xs1y3n	
+
+	name Mxs2y2 $xs2y2m 
+	name Pxs2y2 $xs2y2p 
+	name Nxs2y2 $xs2y2n 
+	
+	name Mxs2y3 $xs2y3m 
+	name Pxs2y3 $xs2y3p 
+	name Nxs2y3 $xs2y3n 	
+
+	name Mxs1y4 $xs1y4m 
+	name Pxs1y4 $xs1y4p 
+	name Nxs1y4 $xs1y4n
+	
+	name Mxs1y5 $xs1y5m 
+	name Pxs1y5 $xs1y5p 
+	name Nxs1y5 $xs1y5n
+		 
+	name Mxs2y4 $xs2y4m 
+	name Pxs2y4 $xs2y4p 
+	name Nxs2y4 $xs2y4n	
+	
+	name Mxs2y5 $xs2y5m 
+	name Pxs2y5 $xs2y5p 
+	name Nxs2y5 $xs2y5n	
+	
+	name MxCy2 $xCy2m
+	name PxCy2 $xCy2p 
+	name NxCy2 $xCy2n 
+
+	name MxCy3 $xCy3m
+	name PxCy3 $xCy3p 
+	name NxCy3 $xCy3n 	
+
+	name MxCy4 $xCy4m
+	name PxCy4 $xCy4p 
+	name NxCy4 $xCy4n 
+
+	name MxCy5 $xCy5m
+	name PxCy5 $xCy5p 
+	name NxCy5 $xCy5n 	
+ 	
+);
+
+edges
+(
+	project Mx0y5 Nx0y5 (in cas)
+	project Mx0y5 Px0y5 (in cas)
+	project Mx0y4 Nx0y4 (in offsetCas)
+	project Mx0y4 Px0y4 (in offsetCas)	
+
+	project MxSy5 NxSy5 (sSurf cas)
+	project MxSy5 PxSy5 (sSurf cas)	
+	project Px0y5 PxSy5 (cas pPer)
+	project Nx0y5 NxSy5 (cas nPer)
+	project Mx0y5 MxSy5 (cas mPer)
+	project Px0y4 PxSy4 (offsetCas pPer)
+	project Nx0y4 NxSy4 (offsetCas nPer)
+
+	project Mx2y5 Nx2y5 (sIn cas)
+	project Mx2y5 Px2y5 (sIn cas)
+	project Mx2y4 Nx2y4 (sIn offsetCas)
+	project Mx2y4 Px2y4 (sIn offsetCas)
+	project Mx2y3 Nx2y3 (sIn offsetHub)
+	project Mx2y3 Px2y3 (sIn offsetHub)	
+	project MxSy5 Mx2y5 (mPer cas)
+	project PxSy5 Px2y5 (pPer cas)
+	project NxSy5 Nx2y5 (nPer cas)
+	project PxSy4 Px2y4 (pPer offsetCas)
+	project NxSy4 Nx2y4 (nPer offsetCas)
+		
+
+	project Mx2y0 Px2y1 (pPer Hub)
+	project Mx2y0 Nx2y1 (nPer Hub)
+	project Mx2y1 Mx2y2 (mPerH Hub)
+	project Px2y1 Mx2y1 (pVal Hub)
+	project Nx2y1 Mx2y1 (nVal Hub)
+	project Px2y1 Px2y2 (Hub pPer)
+	project Nx2y1 Nx2y2 (Hub nPer)	
+	project Mx2y2 Px2y2 (Hub sIn)
+	project Mx2y2 Nx2y2 (Hub sIn)
+
+	project Mx2y5 Mxr1y5 (mPer cas)
+	project Mx2y2 Mxr1y2 (mPer Hub)
+	project Mxr1y5 Nxr1y5 (cas rLE)
+	project Mxr1y5 Pxr1y5 (cas rLE)
+	project Mxr1y2 Nxr1y2 (Hub rLE)
+	project Mxr1y2 Pxr1y2 (Hub rLE)
+	project Px2y2 Pxr1y2 (pPer Hub)
+	project Nx2y2 Nxr1y2 (nPer Hub)
+	project Px2y5 Pxr1y5 (pPer cas)
+	project Nx2y5 Nxr1y5 (nPer cas)	
+	project Pxr1y2 Pxr1y5 (pPer rLE)
+	project Nxr1y2 Nxr1y5 (nPer rLE)
+	project Mxr1y2 Mxr1y5 (mPer rLE)
+
+	project Mxr1y5 Mxr2y5 (mPer cas)
+	project Mxr2y5 Pxr2y5 (cas rTE)
+	project Mxr2y5 Nxr2y5 (cas rTE)
+	project Pxr1y5 Pxr2y5 (pPer cas)
+	project Nxr1y5 Nxr2y5 (nPer cas)
+	project Pxr1y2 Pxr2y2 (pPer Hub)
+	project Nxr1y2 Nxr2y2 (nPer Hub)
+	project Mxr1y2 Mxr2y2 (mPer Hub)	
+	project Mxr2y2 Pxr2y2 (rTE Hub)
+	project Mxr2y2 Nxr2y2 (rTE Hub)
+	project Pxr2y2 Pxr2y5 (rTE pPer)
+	project Nxr2y2 Nxr2y5 (rTE nPer)
+	project Mxr2y2 Mxr2y5 (rTE mPer)
+
+	project Mxr2y5 Mxs1y5 (mPer cas)
+	project Mxr2y2 Mxs1y2 (mPer Hub)
+	project Pxr2y5 Pxs1y5 (pPer cas)
+	project Pxr2y2 Pxs1y2 (pPer Hub)
+	project Nxr2y5 Nxs1y5 (nPer cas)
+	project Nxr2y2 Nxs1y2 (nPer Hub)	
+	project Mxs1y5 Pxs1y5 (sLE cas)
+	project Mxs1y5 Nxs1y5 (sLE cas)
+	project Mxs1y2 Pxs1y2 (sLE Hub)
+	project Mxs1y2 Nxs1y2 (sLE Hub)
+	project Pxs1y2 Pxs1y5 (pPer sLE)
+	project Nxs1y2 Nxs1y5 (nPer sLE)
+	project Mxs1y2 Mxs1y5 (mPer sLE)
+	
+	project Mxs1y5 Mxs2y5 (mPer cas)
+	project Mxs1y2 Mxs2y2 (mPer Hub)
+	project Pxs1y5 Pxs2y5 (pPer cas)
+	project Pxs1y2 Pxs2y2 (pPer Hub)
+	project Nxs1y5 Nxs2y5 (nPer cas)
+	project Nxs1y2 Nxs2y2 (nPer Hub)
+	project Mxs2y5 Pxs2y5 (sTE cas)
+	project Mxs2y5 Nxs2y5 (sTE cas)
+	project Mxs2y2 Pxs2y2 (sTE Hub)
+	project Mxs2y2 Nxs2y2 (sTE Hub)
+	project Pxs2y2 Pxs2y5 (sTE pPer)	
+	project Nxs2y2 Nxs2y5 (sTE nPer)
+	project Mxs2y2 Mxs2y5 (sTE mPer)
+
+	project Mxs2y5 Mx3y5 (mPer cas)
+	project Mxs2y2 Mx3y2 (mPer Hub)
+	project Pxs2y5 Px3y5 (pPer cas)
+	project Pxs2y2 Px3y2 (pPer Hub)
+	project Nxs2y5 Nx3y5 (nPer cas)	
+	project Nxs2y2 Nx3y2 (nPer Hub)
+	project Mx3y5 Px3y5 (out cas)
+	project Mx3y5 Nx3y5 (out cas)
+	project Mx3y2 Px3y2 (out Hub)
+	project Mx3y2 Nx3y2 (out Hub)
+	project Px3y2 Px3y5 (pPer out)
+	project Nx3y2 Nx3y5 (nPer out)
+	project Mx3y2 Mx3y5 (mPer out)
+	
+	arc Px0y2 Mx0y2 $x0y2ArcP
+	arc Nx0y2 Mx0y2 $x0y2ArcN
+);
+
+blocks
+(
+	//     0    3     7     4     1     2     6     5
+    hex (Mx0y4 Mx0y5 Px0y5 Px0y4 MxSy4 MxSy5 PxSy5 PxSy4) ($radial $tangential $ptX1) simpleGrading ($xddwG 1 $x1dwG) // farField positive BL							0
+    hex (MxSy4 MxSy5 PxSy5 PxSy4 Mx2y4 Mx2y5 Px2y5 Px2y4) ($radial $tangential $ptXS) simpleGrading ($xddwG 1 $xSdwG)  // inlet  BL									1
+    hex (Nx0y4 Nx0y5 Mx0y5 Mx0y4 NxSy4 NxSy5 MxSy5 MxSy4) ($radial $tangential $ptX1) simpleGrading ($xddwG 1 $x1dwG)  //farField negative  BL						2
+    hex (NxSy4 NxSy5 MxSy5 MxSy4 Nx2y4 Nx2y5 Mx2y5 Mx2y4) ($radial $tangential $ptXS) simpleGrading ($xddwG 1 $xSdwG)  //inlet negative  BL							3
+    hex (Mx0y2 Mx0y4 Px0y4 Px0y2 MxSy2 MxSy4 PxSy4 PxSy2) ($coreRadial $tangential $ptX1) simpleGrading (1 1 $x1dwG) //midBlock positive farField					4
+    hex (MxSy2 MxSy4 PxSy4 PxSy2 Mx2y3 Mx2y4 Px2y4 Px2y3) ($coreRadial $tangential $ptXS) simpleGrading (1 1 $xSdwG)  //midBlock positive inlet						5
+    hex (Nx0y2 Nx0y4 Mx0y4 Mx0y2 NxSy2 NxSy4 MxSy4 MxSy2) ($coreRadial $tangential $ptX1) simpleGrading (1 1 $x1dwG)  //midBlock negative farField					6
+    hex (NxSy2 NxSy4 MxSy4 MxSy2 Nx2y3 Nx2y4 Mx2y4 Mx2y3) ($coreRadial $tangential $ptXS) simpleGrading (1 1 $xSdwG)   //midBlock negative inlet						7
+    hex (Mx0y1 Mx0y2 Px0y2 Px0y1 MxSy1 MxSy2 PxSy2 PxSy1) ($midRadial $tangential $ptX1) simpleGrading ($xdMidG 1 $x1dwG)  // lowBlock positive farField					8
+	hex (MxSy1 MxSy2 PxSy2 PxSy1 Mx1y1 Mx2y3 Px2y3 Px1y1) ($midRadial $tangential $ptXS) simpleGrading ($xdMidG 1 $xSdwG)  //lowBlock inlet positive						9
+    hex (Nx0y1 Nx0y2 Mx0y2 Mx0y1 NxSy1 NxSy2 MxSy2 MxSy1) ($midRadial $tangential $ptX1) simpleGrading ($xdMidG 1 $x1dwG)  //lowBlock negative farField					10
+    hex (NxSy1 NxSy2 MxSy2 MxSy1 Nx1y1 Nx2y3 Mx2y3 Mx1y1) ($midRadial $tangential $ptXS) simpleGrading ($xdMidG 1 $xSdwG)  //lowBlock negative inlet						11
+
+    hex (Mx1y1 Mx2y3 Px2y3 Px1y1 Mx2y1 Mx2y2 Px2y2 Px2y1) ($midRadial $tangential $radial) simpleGrading ($xdMidG 1 $xddwG) // butterfly Block positive			12
+    hex (Nx1y1 Nx2y3 Mx2y3 Mx1y1 Nx2y1 Nx2y2 Mx2y2 Mx2y1) ($midRadial $tangential $radial) simpleGrading ($xdMidG 1 $xddwG) //butterfly Block negative			13
+    hex (Mx0y0 MxSy0 NxSy1 Nx0y1 Px0y1 PxSy1 MxSy1 Mx0y1) ($ptX1 $tangential $tangential) //simpleGrading ($x1dwG 1 1) // diamond Block farField			14
+	edgeGrading 
+	(
+		$x1dwG $x1dwG $x1dwG $x1dwG
+		$xdBG $xdBG 1 1
+		$xdBG $xdBG 1 1
+	)
+    hex (MxSy0 Mx1y0 Nx1y1 NxSy1 PxSy1 Px1y1 Mx1y1 MxSy1) ($ptXS $tangential $tangential) //simpleGrading ($xSdwG 1 1) // diamond Block inlet	
+    edgeGrading 
+	(
+		$xSdwG $xSdwG $xSdwG $xSdwG
+		$xdBG $xdBG 1 1
+		$xdBG $xdBG 1 1
+	)		//	15
+    hex (Mx1y0 Mx2y0 Nx2y1 Nx1y1 Px1y1 Px2y1 Mx2y1 Mx1y1) ($radial $tangential $tangential) //simpleGrading ($xddwG 1 1) // diamond Block butterfly		16
+	edgeGrading 
+	(
+		$xddwG $xddwG $xddwG $xddwG
+		$xdBG $xdBG 1 1
+		$xdBG $xdBG 1 1
+	)
+	hex (Mx2y2 Mx2y5 Px2y5 Px2y2 Mxr1y2 Mxr1y5 Pxr1y5 Pxr1y2) ($blRadial $tangential $ptX2) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+  			(#eval{1 - $x2P} #eval{1 - $x2N} $xdmG)
+    		($x2P $x2N $x2dwG)
+		)
+	)
+	hex (Nx2y2 Nx2y5 Mx2y5 Mx2y2 Nxr1y2 Nxr1y5 Mxr1y5 Mxr1y2) ($blRadial $tangential $ptX2) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+		   	(#eval{1 - $x2P} #eval{1 - $x2N} $xdmG)
+   			($x2P $x2N $x2dwG)
+		)
+	)	
+
+	hex (Mxr1y2 Mxr1y5 Pxr1y5 Pxr1y2 Mxr2y2 Mxr2y5 Pxr2y5 Pxr2y2) Rotor ($blRadial $tangential $ptX3) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+			($x3P $x3N $x3upG)
+			(#eval{1 - 2*$x3P} #eval{1 - 2*$x3N} 1)
+			($x3P $x3N  $x3dwG)				
+		)
+	)
+	hex (Nxr1y2 Nxr1y5 Mxr1y5 Mxr1y2 Nxr2y2 Nxr2y5 Mxr2y5 Mxr2y2) Rotor ($blRadial $tangential $ptX3) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+			($x3P $x3N $x3upG)
+			(#eval{1 - 2*$x3P} #eval{1 - 2*$x3N} 1)
+			($x3P $x3N  $x3dwG)				
+		)		
+	)	
+	hex (Mxr2y2 Mxr2y5 Pxr2y5 Pxr2y2 Mxs1y2 Mxs1y5 Pxs1y5 Pxs1y2) ($blRadial $tangential $ptX5) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 	
+		(
+			($x5P $x5N  $x5upG)
+			(#eval{1 - 2*$x5P} #eval{1 - 2*$x5N} $xdmG)
+			($x5P $x5N  $x5dwG)
+		)				
+	)	
+	hex (Nxr2y2 Nxr2y5 Mxr2y5 Mxr2y2 Nxs1y2 Nxs1y5 Mxs1y5 Mxs1y2) ($blRadial $tangential $ptX5) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 			
+		(
+			($x5P $x5N  $x5upG)
+			(#eval{1 - 2*$x5P} #eval{1 - 2*$x5N} $xdmG)
+			($x5P $x5N  $x5dwG)
+		)		
+	)	
+
+	hex (Mxs1y2 Mxs1y5 Pxs1y5 Pxs1y2 Mxs2y2 Mxs2y5 Pxs2y5 Pxs2y2) Stator ($blRadial $tangential $ptX6) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+			($x6P $x6N $x6upG)
+			(#eval{1 - 2*$x6P} #eval{1 - 2*$x6N} 1)
+			($x6P $x6N  $x6dwG)				
+		)
+	)	
+	hex (Nxs1y2 Nxs1y5 Mxs1y5 Mxs1y2 Nxs2y2 Nxs2y5 Mxs2y5 Mxs2y2) Stator ($blRadial $tangential $ptX6) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+			($x6P $x6N $x6upG)
+			(#eval{1 - 2*$x6P} #eval{1 - 2*$x6N} 1)
+			($x6P $x6N  $x6dwG)				
+		)
+	)
+	hex (Mxs2y2 Mxs2y5 Pxs2y5 Pxs2y2 Mx3y2 Mx3y5 Px3y5 Px3y2) ($blRadial $tangential $ptX7) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+			($x7P $x7N $x7upG)
+	   		(#eval{1 - $x7P} #eval{1 - $x7N} 1)							
+		)
+	)	
+	hex (Nxs2y2 Nxs2y5 Mxs2y5 Mxs2y2 Nx3y2 Nx3y5 Mx3y5 Mx3y2) ($blRadial $tangential $ptX7) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+			($x7P $x7N $x7upG)
+	   		(#eval{1 - $x7P} #eval{1 - $x7N} 1)							
+		)
+	)			 
+);
+
+faces
+(
+	project (Mx2y0 Nx2y1 Mx2y1 Px2y1) Hub
+	project (Mx2y1 Mx2y2 Px2y2 Px2y1) Hub
+	project (Nx2y1 Nx2y2 Mx2y2 Mx2y1) Hub
+
+	project (Mx2y2 Mxr1y2 Pxr1y2 Px2y2) Hub
+	project (Nx2y2 Nxr1y2 Mxr1y2 Mx2y2) Hub	
+	project (Mxr1y2 Mxr2y2 Pxr2y2 Pxr1y2) Hub
+	project (Nxr1y2 Nxr2y2 Mxr2y2 Mxr1y2) Hub	
+	project (Mxr2y2 Mxs1y2 Pxs1y2 Pxr2y2) Hub
+	project (Nxr2y2 Nxs1y2 Mxs1y2 Mxr2y2) Hub		
+	project (Mxs1y2 Mxs2y2 Pxs2y2 Pxs1y2) Hub
+	project (Nxs1y2 Nxs2y2 Mxs2y2 Mxs1y2) Hub
+	project (Mxs2y2 Mx3y2 Px3y2 Pxs2y2) Hub
+	project (Nxs2y2 Nx3y2 Mx3y2 Mxs2y2) Hub	
+
+	project (Mx0y5 Px0y5 PxSy5 MxSy5) cas
+	project (Nx0y5 Mx0y5 MxSy5 NxSy5) cas
+	project (MxSy5 PxSy5 Px2y5 Mx2y5) cas
+	project (NxSy5 MxSy5 Mx2y5 Nx2y5) cas
+	project (Mx2y5 Px2y5 Pxr1y5 Mxr1y5) cas
+	project (Nx2y5 Mx2y5 Mxr1y5 Nxr1y5) cas
+	project (Mxr1y5 Pxr1y5 Pxr2y5 Mxr2y5) cas
+	project (Nxr1y5 Mxr1y5 Mxr2y5 Nxr2y5) cas
+	project (Mxr2y5 Pxr2y5 Pxs1y5 Mxs1y5) cas
+	project (Nxr2y5 Mxr2y5 Mxs1y5 Nxs1y5) cas	
+	project (Mxs1y5 Pxs1y5 Pxs2y5 Mxs2y5) cas
+	project (Nxs1y5 Mxs1y5 Mxs2y5 Nxs2y5) cas	
+	project (Mxs2y5 Pxs2y5 Px3y5 Mx3y5) cas
+	project (Nxs2y5 Mxs2y5 Mx3y5 Nx3y5) cas
+	
+);
+
+boundary
+(
+	inlet
+	{
+		type patch;
+		faces
+		(
+			// 0 3 2 1
+			(Mx0y4 Px0y4 Px0y5 Mx0y5)
+			(Nx0y4 Mx0y4 Mx0y5 Nx0y5)
+			(Mx0y2 Px0y2 Px0y4 Mx0y4)
+			(Nx0y2 Mx0y2 Mx0y4 Nx0y4)	
+			(Mx0y1 Px0y1 Px0y2 Mx0y2)
+			(Nx0y1 Mx0y1 Mx0y2 Nx0y2)			
+			(Nx0y1 Mx0y0 Px0y1 Mx0y1)						
+		);
+	}
+	outlet
+	{
+		type patch;
+		faces
+		(
+			// 4 5 6 7
+			(Mx3y2 Mx3y5 Px3y5 Px3y2)
+			(Nx3y2 Nx3y5 Mx3y5 Mx3y2)
+												
+		);
+	}	
+	hub
+	{
+		type wall;
+		faces
+		(
+			// 0 4 7 3
+			(Mx2y0 Nx2y1 Mx2y1 Px2y1)
+			(Mx2y1 Mx2y2 Px2y2 Px2y1)
+			(Nx2y1 Nx2y2 Mx2y2 Mx2y1)
+			(Mx2y2 Mxr1y2 Pxr1y2 Px2y2)
+			(Nx2y2 Nxr1y2 Mxr1y2 Mx2y2)	
+			(Mxr1y2 Mxr2y2 Pxr2y2 Pxr1y2)
+			(Nxr1y2 Nxr2y2 Mxr2y2 Mxr1y2)
+			(Mxr2y2 Mxs1y2 Pxs1y2 Pxr2y2)
+			(Nxr2y2 Nxs1y2 Mxs1y2 Mxr2y2)
+			(Mxs1y2 Mxs2y2 Pxs2y2 Pxs1y2)
+			(Nxs1y2 Nxs2y2 Mxs2y2 Mxs1y2)
+			(Mxs2y2 Mx3y2 Px3y2 Pxs2y2)
+			(Nxs2y2 Nx3y2 Mx3y2 Mxs2y2)										
+		);
+	}
+	FarUpstrmCas
+	{
+		type wall;
+		faces
+		(
+			// 1 2 5 6
+			(Mx0y5 Px0y5 PxSy5 MxSy5)
+			(Nx0y5 Mx0y5 MxSy5 NxSy5)							
+		);
+	}
+	casing 
+	{
+		type wall;
+		faces
+		(
+			// 1 2 5 6
+			(MxSy5 PxSy5 Px2y5 Mx2y5)
+			(NxSy5 MxSy5 Mx2y5 Nx2y5)
+			(Mx2y5 Px2y5 Pxr1y5 Mxr1y5)
+			(Nx2y5 Mx2y5 Mxr1y5 Nxr1y5)
+			(Mxr1y5 Pxr1y5 Pxr2y5 Mxr2y5)
+			(Nxr1y5 Mxr1y5 Mxr2y5 Nxr2y5)
+			(Mxr2y5 Pxr2y5 Pxs1y5 Mxs1y5)
+			(Nxr2y5 Mxr2y5 Mxs1y5 Nxs1y5)
+			(Mxs1y5 Pxs1y5 Pxs2y5 Mxs2y5)
+			(Nxs1y5 Mxs1y5 Mxs2y5 Nxs2y5)
+			(Mxs2y5 Pxs2y5 Px3y5 Mx3y5)
+			(Nxs2y5 Mxs2y5 Mx3y5 Nx3y5)																		
+										
+		);
+	}		
+	pPer
+	{
+		type wall;
+		faces
+		(
+			//(0 1 2 3)
+			(Px0y5 Px0y4 PxSy4 PxSy5)
+			(Px0y4 Px0y2 PxSy2 PxSy4)
+			(Px0y2 Px0y1 PxSy1 PxSy2)
+			(Px0y1 Mx0y0 MxSy0 PxSy1)
+			(PxSy5 PxSy4 Px2y4 Px2y5)
+			(PxSy4 PxSy2 Px2y3 Px2y4)
+			(PxSy2 PxSy1 Px1y1 Px2y3)
+			(PxSy1 MxSy0 Mx1y0 Px1y1) 	
+			(Px1y1 Mx1y0 Mx2y0 Px2y1)
+			(Px2y3 Px1y1 Px2y1 Px2y2)
+			(Px2y5 Px2y2 Pxr1y2 Pxr1y5)
+			(Pxr1y5 Pxr1y2 Pxr2y2 Pxr2y5)
+			(Pxr2y5 Pxr2y2 Pxs1y2 Pxs1y5)
+			(Pxs1y5 Pxs1y2 Pxs2y2 Pxs2y5)
+			(Pxs2y5 Pxs2y2 Px3y2 Px3y5)	
+		);
+	}
+	nPer
+	{
+		type wall;
+		faces
+		(
+			//(0 1 5 4)
+			(Nx0y4 Nx0y5 NxSy5 NxSy4)
+			(Nx0y2 Nx0y4 NxSy4 NxSy2)
+			(Nx0y1 Nx0y2 NxSy2 NxSy1)
+			(Mx0y0 Nx0y1 NxSy1 MxSy0)
+			(NxSy4 NxSy5 Nx2y5 Nx2y4)
+			(NxSy2 NxSy4 Nx2y4 Nx2y3)
+			(NxSy1 NxSy2 Nx2y3 Nx1y1)	
+			(MxSy0 NxSy1 Nx1y1 Mx1y0) 
+			(Mx1y0 Nx1y1 Nx2y1 Mx2y0)	
+			(Nx1y1 Nx2y3 Nx2y2 Nx2y1)
+			(Nx2y2 Nx2y5 Nxr1y5 Nxr1y2)
+			(Nxr1y2 Nxr1y5 Nxr2y5 Nxr2y2)
+			(Nxr2y2 Nxr2y5 Nxs1y5 Nxs1y2) 
+			(Nxs1y2 Nxs1y5 Nxs2y5 Nxs2y2)
+			(Nxs2y2 Nxs2y5 Nx3y5 Nx3y2)
+		);
+	}	
+	master
+	{
+		type wall;
+		faces
+		(
+			(Mx2y2 Px2y2 Px2y5 Mx2y5)
+			(Nx2y2 Mx2y2 Mx2y5 Nx2y5)
+		);		
+	}
+	slave
+	{
+		type wall;
+		faces
+		(
+			(Mx2y4 Mx2y5 Px2y5 Px2y4)
+			(Nx2y4 Nx2y5 Mx2y5 Mx2y4)
+			(Mx2y3 Mx2y4 Px2y4 Px2y3)
+			(Nx2y3 Nx2y4 Mx2y4 Mx2y3)
+			(Mx2y2 Mx2y3 Px2y3 Px2y2)
+			(Nx2y2 Nx2y3 Mx2y3 Mx2y2)						
+		);		
+	}	
+);
+
+mergePatchPairs
+(
+	(master slave)
+);
+
+
+// ************************************************************************* //

@@ -7,10 +7,19 @@ Created on Fri Feb 20 23:31:46 2026
 """
 import os
 import re
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from scipy.interpolate import LinearNDInterpolator, NearestNDInterpolator
+
+def rMatrix(points, R):
+    r11,r12,r13,r21,r22,r23,r31,r32,r33 = R
+    R = np.array([
+        [ r11, r12, r13],
+        [ r21, r22, r23],
+        [r31, r32, r33]])
+    return points @ R.T 
 
 def continuous_f(thetaEval, c, M):
     """Vectorized Fourier series evaluation"""
@@ -117,9 +126,13 @@ def hybrid_interpolate(interp_tuple, points):
         result[mask] = nearest(points)[mask]
     return result
 
-def signWithTolerance(d2, tol=1e-6):
-    if np.abs(d2) < tol:
-        return 0 #treat as 0
+def signWithTolerance(d2, refMag=1.0, tol=1e-3):
+    """
+    Sign with tolerance relative to field magnitude.
+    tol is a fraction of refMag — defaults to 0.1% of field magnitude.
+    """
+    if np.abs(d2) < tol * refMag:
+        return 0
     return np.sign(d2)
 
 def computeDiscreteD2(xVal, yVal):
@@ -139,66 +152,82 @@ def computeDiscreteD2(xVal, yVal):
     xMid = np.array(xMid)
     return d2, xMid
 
-def checkInflections(xVal, yVal, xFourier, yFourier):
+def checkInflections(xVal, yVal, xFourier, yFourier, refMag=None):
     """
     For each interval between consecutive discrete points:
     - If discrete d2 does not change sign: fitted curve should have 0 sign changes
     - If discrete d2 changes sign once: fitted curve should have exactly 1 sign change
+    refMag: reference magnitude for tolerance — passed in from optimizeHarmonics
+            defaults to max of discrete d2 if not provided
     """
     d2Discrete, xMid = computeDiscreteD2(xVal, yVal)
     d2Fourier, xFourierD2 = computeDiscreteD2(xFourier, yFourier)
+    
+    # Fall back to local magnitude if not provided
+    if refMag is None:
+        refMag = np.max(np.abs(d2Discrete)) if np.max(np.abs(d2Discrete)) > 0 else 1.0
     violations = 0
-    # tol = 0.05*np.max(np.abs(d2Discrete)) # 5% of the maximum second derivative   
     for i in range(len(d2Discrete) - 1):
         xLeft  = xMid[i]
         xRight = xMid[i+1]
-        # expected number of sign changes from discrete data
-        s1 = signWithTolerance(d2Discrete[i])
-        s2 = signWithTolerance(d2Discrete[i+1])
-        # print(s1)
+        s1 = signWithTolerance(d2Discrete[i],   refMag=refMag)
+        s2 = signWithTolerance(d2Discrete[i+1], refMag=refMag)
         if s1 == 0 or s2 == 0:
             continue
-        if s1 == s2:
-            expectedSignChanges = 0
-        else:
-            expectedSignChanges = 1
-        # find fitted d2 points within this interval
+        expectedSignChanges = 0 if s1 == s2 else 1
+        # Find fitted d2 points within this interval
         mask = (xFourierD2 >= xLeft) & (xFourierD2 <= xRight)
         d2Interval = d2Fourier[mask]
         if len(d2Interval) < 2:
             continue
-        # count sign changes in fitted d2 within this interval
-        signChanges = np.sum(np.diff(np.sign(d2Interval)) != 0) #conunt the number of changes not equal to 0  
+        # Filter near-zero values before counting sign changes
+        nonZero = d2Interval[np.abs(d2Interval) > 1e-3 * refMag]
+        if len(nonZero) < 2:
+            continue
+        signChanges = np.sum(np.diff(np.sign(nonZero)) != 0)
         if signChanges > expectedSignChanges:
             violations += signChanges - expectedSignChanges
-            # print(f"  Violation at interval {i}: xLeft={xLeft:.3f} xRight={xRight:.3f} expected={expectedSignChanges} got={signChanges}")
     return violations
 
 def optimizeHarmonics(field, Nr, rSections, Nb, rGridPoints, rGrid, NGrid, gridCellID, rCellID, scale):
     mMax = int(np.floor(0.5*(Nb-1)))
     bestM = 2
     fieldCamber = changeArrayStructure(Nr, rSections, Nb, field)
-    origVal = fieldCamber[-2, 4]
-    discrete_x = origVal[:, 0]%(2 * np.pi)
-    discrete_y = origVal[:, 3]
-    angle = np.linspace(0, 2*np.pi, 1000)
-    derivate, xVal = computeDiscreteD2(discrete_x, discrete_y)
-    if np.mean(derivate) < 1e-06:
-        print(f"M={mMax}")
-        return mMax #basically uniform field 
+    # Check if field is uniform across ALL sections and blades
+    allDerivates = []
+    for sec in range(fieldCamber.shape[1]): #axis 1 is the number of sections 
+        for blade in range(fieldCamber.shape[2]): #axis 2 is the number of blades
+            origVal = fieldCamber[:,sec, blade] #axis 0 is the number of points
+            discrete_x = origVal[:, 0] % (2 * np.pi)
+            discrete_y = origVal[:, 3]
+            derivate, _ = computeDiscreteD2(discrete_x, discrete_y)
+            allDerivates.append(np.mean(np.abs(derivate)))
+    if np.max(allDerivates) < 1e-06:
+        print(f"M={mMax} (uniform field)")
+        return mMax
+    # Find the most conservative M — lowest M with zero violations across ALL points
     for M in range(mMax, 1, -1):
-        Nl = int(2*M+1) + 3
-        num = np.linspace(1, M, M)
         newFieldCamber = cMatrix(Nr, rSections, Nb, fieldCamber, M=M)
-        fieldData = newFieldCamber[-2, 4]
-        Fval = np.zeros(1000)
-        for a in range(1000):
-            Fval[a] = (fieldData[0, 3] +
-                      sum(fieldData[0, 4:4+M]  * np.cos(angle[a] * num)) +
-                      sum(fieldData[0, 4+M:Nl] * np.sin(angle[a] * num)))
-        violations = checkInflections(discrete_x, discrete_y, angle, Fval)
-        print(f"M={M:3d}  violations={violations}")
-        if violations == 0:
+        angle = np.linspace(0, 2*np.pi, 1000) #Evaluate the signal at 1000 points for each z,r location
+        num = np.linspace(1, M, M)
+        Nl = int(2*M+1) + 3 
+        totalViolations = 0
+        for sec in range(fieldCamber.shape[1]): #axis 1 is the number of sections 
+            for blade in range(fieldCamber.shape[2]): #axis 2 is the number of blades
+                origVal = fieldCamber[:,sec, blade] #axis 0 is the number of points
+                discrete_x = origVal[:, 0] % (2 * np.pi)
+                discrete_y = origVal[:, 3]
+                fieldData = newFieldCamber[:,sec, blade]           
+                Fval = np.zeros(1000)
+                for a in range(1000):
+                    Fval[a] = (fieldData[0, 3] +
+                              sum(fieldData[0, 4:4+M] * np.cos(angle[a] * num)) +
+                              sum(fieldData[0, 4+M:Nl] * np.sin(angle[a] * num)))      
+                refMag = np.max(np.abs(discrete_y)) if np.max(np.abs(discrete_y)) > 0 else 1.0
+                violations = checkInflections(discrete_x, discrete_y, angle, Fval, refMag=refMag)
+                totalViolations += violations 
+        print(f"M={M:3d}  total violations across all sections/blades={totalViolations}")
+        if totalViolations == 0:
             return M
     return bestM
     
@@ -291,16 +320,6 @@ parser.add_argument(
     help="number of stator blade profiles"
 )
 parser.add_argument(
-    "Nr", 
-    type=int,
-    help="number of point on rotor blade profile"
-)
-parser.add_argument(
-    "Ns", 
-    type=int,
-    help="number of point on stator blade profile"
-)
-parser.add_argument(
     "scale", 
     type=float,
     help="scales"
@@ -334,8 +353,6 @@ Nbr = args.Nbr  # Total number of blades in the annulus for rotor
 Nbs = args.Nbs  # Total number of blades in the annulus for stator
 rSections = args.rSections  # Number of rotor blade profiles
 sSections = args.sSections  # Number of stator blade profiles
-Nr = args.Nr  # Number of points on rotor blade profiles
-Ns = args.Ns  # Number of points on stator blade profiles
 scale = args.scale
 casePath = args.casePath
 periodicOrAperiodic = args.periodicOrAperiodic  # if periodic select 0 otherwise select 1
@@ -344,19 +361,21 @@ RmatrixCoeff = args.RmatrixCoeff  # Define based on your machine axis
 
 #%%% Load all input Data
 # filePath = '/home/adekola/Documents/New_PhD/RUN/bodyForceECL5/boundaryConditionTest/temp/'
+Nr = 101
+Ns = 101
 NrB = Nr#201
 NsB = Ns#241
 Np = 10
 filePath = '/{}/'.format(casePath)#'/fullWheel/'
 if periodicOrAperiodic == 0:
     inputPath = '../inputData/periodic/'
-    plotPath = '../plots/periodic/
-     if not os.path.exists(plotPath):
+    plotPath = '../plots/periodic/'
+    if not os.path.exists(plotPath):
         os.makedirs(plotPath)
 else:
     inputPath = '../inputData/nonPeriodic/'
-    plotPath = '../plots/nonPeriodic/
-     if not os.path.exists(plotPath):
+    plotPath = '../plots/nonPeriodic/'
+    if not os.path.exists(plotPath):
         os.makedirs(plotPath)    
 
 #%%

@@ -12,13 +12,13 @@ import numpy as np
 #%% Used function 
 def cart2pol(x,y,z):
     r = np.sqrt(x**2 + y**2)
-    theta = np.atan2(y,x)
+    theta = np.arctan2(y,x)
     z = z
     return theta, r, z
 
 def cart2pol2(x,y,z):
     r = np.sqrt(x**2 + y**2)
-    theta = np.atan2(y,x)
+    theta = np.arctan2(y,x)
     theta = np.unwrap(theta)
     z = z
     return theta, r, z
@@ -64,7 +64,7 @@ periodicOrAperiodic = args.periodicOrAperiodic  # if periodic select 0 otherwise
 
 Ns = 101 #number o
 Nr = 101
-if periodicORaperiodic == 0:
+if periodicOrAperiodic == 0:
     filePath = '../inputData/periodic/'
     dataPath = '../processedData/periodic/'
 else:

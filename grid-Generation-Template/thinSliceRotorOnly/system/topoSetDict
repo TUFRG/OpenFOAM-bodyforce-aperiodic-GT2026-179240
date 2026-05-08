@@ -1,0 +1,47 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+//scale 0.001;
+
+actions
+(
+
+
+    // Create cellZone for moving cells in inlet region
+    {
+        name    bfZone;
+        type    cellSet;
+        action  new;
+        source  zoneToCell;
+        sourceInfo
+        {
+        	zones
+        	(
+        		Rotor
+        		Stator
+        	);
+        }
+    }
+    {
+	name	bfZone;
+	type	cellZoneSet;
+	action	new;
+	source	setToCellZone;
+	set		bfZone;
+    }
+
+);
+
+// ************************************************************************* //

@@ -7,7 +7,7 @@ Created on Tue Oct 28 04:42:58 2025
 """
 import os
 import argparse
-#import numpy as np 
+import numpy as np 
 from scipy.interpolate import interp1d, CubicSpline
 #import matplotlib.pyplot as plt
 import getCamber as gC
@@ -28,13 +28,13 @@ def vectorRot3D (x,y,z,theta):
 
 def cart2pol(x,y,z):
     r = np.sqrt(x**2 + y**2)
-    theta = np.atan2(y,x)
+    theta = np.arctan2(y,x)
     z = z
     return theta, r, z
 
 def cart2pol2(x,y,z):
     r = np.sqrt(x**2 + y**2)
-    theta = np.atan2(y,x)
+    theta = np.arctan2(y,x)
     theta = np.unwrap(theta)
     z = z
     return theta, r, z
@@ -100,7 +100,6 @@ Ncr = 101
 Ncs = 101
 thetaR = np.linspace(0, 2*np.pi,Nbr, endpoint=False)
 thetaS = np.linspace(0, 2*np.pi,Nbs, endpoint=False)
-periodicOrAperiodic = 1 #if periodic select 0 otherwise select 1
 
 
 rBladeData = np.zeros([Nbr, rSections, Nr, 3])
@@ -110,12 +109,12 @@ rBlade = np.zeros((rSections, Nr, 3))
 sBlade = np.zeros((sSections, Ns, 3))
 if periodicOrAperiodic == 0:
     for a in range(rSections):
-        rBlade[a,:] = np.loadtxt('../rawData/rotor/blade{}.txt'.format(a), delimiter=',')
+        rBlade[a,:] = np.loadtxt('../rawData/periodic/bladeSurface/rotor/blade{}.txt'.format(a), delimiter=',')
     for b in range(sSections):
-        sBlade[b,:] = np.loadtxt('../rawData/stator/blade0/blade{}.txt'.format(b), delimiter=',')
+        sBlade[b,:] = np.loadtxt('../rawData/periodic/bladeSurface/stator/blade{}.txt'.format(b), delimiter=',')
 else:
     for a in range(rSections):
-       rBlade[a,:] = np.loadtxt('../rawData/rotor/blade{}.txt'.format(a), delimiter=',')   
+       rBlade[a,:] = np.loadtxt('../rawData/periodic/bladeSurface/rotor/blade{}.txt'.format(a), delimiter=',')   
     
 for c in range(Nbr):
     for d in range(rSections):
@@ -125,6 +124,7 @@ for c in range(Nbr):
             inputPath = '../processedData/periodic/rotor/blade{}'.format(c)
             if not os.path.exists(inputPath):
                 os.makedirs(inputPath)
+                print(inputPath)
             np.savetxt(inputPath + '/blade{}.txt'.format(d),rBladeData[c,d,:] , delimiter=',')
             # np.savetxt(inputPath + '/camber{}.txt'.format(b),camberData[a,b,:] , delimiter=',')
         else:
@@ -146,14 +146,14 @@ for c in range(Nbs):
                 os.makedirs(inputPath)
             np.savetxt(inputPath + '/blade{}.txt'.format(d),sBladeData[c,d,:] , delimiter=',')
         else:
-            nonAxiBlade = np.loadtxt('../rawData/stator/blade{}/blade{}.txt'.format(c,d), delimiter=',')
+            nonAxiBlade = np.loadtxt('../rawData/nonPeriodic/bladeSurface/stator/blade{}/blade{}.txt'.format(c,d), delimiter=',')
             inputPath = '../processedData/nonPeriodic/stator/blade{}'.format(c)
             if not os.path.exists(inputPath):
                 os.makedirs(inputPath)
             abcBlade = rMatrix( nonAxiBlade, RmatrixCoeff)
             sBladeData[c,d,:] = abcBlade
             np.savetxt(inputPath + '/blade{}.txt'.format(d),sBladeData[c,d,:] , delimiter=',')
- 
+
 #%% Get camber
 rCamberData = np.zeros([Nbr, rSections, Ncr, 3])
 sCamberData = np.zeros([Nbs, sSections, Ncs, 3])
@@ -199,33 +199,30 @@ def computeArcLength(curve):
     return frac, fracSum
 
 def scaleMeridionalExtent(curveA, curveB):
-    fracA, sA = computeArcLength(curveA)
-    fracB, sB = computeArcLength(curveB)
-    rA = np.sqrt(curveA[:,0]**2 + curveA[:,1]**2)
-    zA = curveA[:,2]
-    rB = np.sqrt(curveB[:,0]**2 + curveB[:,1]**2)
-    zB = curveB[:,2]
-    #Now map the meridional coord of curveA to curveB. First match the end points 
-    rA0, zA0 = rA[0], zA[0] 
-    rA1, zA1 = rA[-1], zA[-1]
-    rB0, zB0 = rB[0], zB[0]  #reference curve
-    rB1, zB1 = rB[-1], zB[-1]
+    '''
+    This will basically make CurveA and CurveB follow the same meridional Path and meridional extent.
+    That is the only way to guarantee that the same grid is valid for both cases.
+    '''
+    # Compute fractional meridional arc length for both curves
+    fracA, _ = computeArcLength(curveA)
+    fracB, _ = computeArcLength(curveB)
+    # Extract theta from A
+    thetaA = np.arctan2(curveA[:, 1], curveA[:, 0])
+    # Extract r, z from B
+    rB = np.sqrt(curveB[:, 0]**2 + curveB[:, 1]**2)
+    zB = curveB[:, 2]
+    # Interpolate B's r,z onto A's meridional fractions
+    # This gives us B's geometry at the same meridional stations as A
+    # rB_interp = np.interp(fracA, fracB, rB)
+    # zB_interp = np.interp(fracA, fracB, zB)
+    rB_interp = CubicSpline(fracB, rB)(fracA)
+    zB_interp = CubicSpline(fracB, zB)(fracA)
+    # Reconstruct 3D curve using B's r,z and A's theta
+    x = rB_interp * np.cos(thetaA)
+    y = rB_interp * np.sin(thetaA)
+    z = zB_interp
     
-    rLineA = (1-fracA)*rA0 + fracA*rA1
-    zLineA = (1-fracA)*zA0 + fracA*zA1
-    rLineB = (1-fracB)*rB0 + fracB*rB1
-    zLineB = (1-fracB)*zB0 + fracB*zB1
-    
-    newRA = rA - rLineA + rLineB
-    newZA = zA - zLineA + zLineB
-    theta = np.arctan2(curveA[:,1], curveA[:,0])
-    
-    x = newRA * np.cos(theta)
-    y = newRA * np.sin(theta)
-    z = newZA
-
-    newCurve = np.column_stack((x, y, z))
-    return newCurve 
+    return np.column_stack((x, y, z))
 
 if periodicOrAperiodic != 0:
     baselineBlade = np.zeros((sSections, Ncr, 3))

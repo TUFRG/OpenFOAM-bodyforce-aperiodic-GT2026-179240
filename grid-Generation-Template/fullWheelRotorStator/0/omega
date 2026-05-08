@@ -1,0 +1,74 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "10000";
+    object      omega;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 -1 0 0 0 0];
+
+U 166;
+w #eval{$U/(0.07*0.5)};
+internalField   uniform $w;
+
+//internalField  uniform 10000; // 89.81667;
+
+boundaryField
+{
+	#includeEtc "caseDicts/setConstraintTypes"
+
+	inlet
+	{
+        type            turbulentMixingLengthFrequencyInlet;
+    //	mixingLength    #eval{0.07*0.247*2};
+    	mixingLength    #eval{0.07*0.25*2};
+    	value           $internalField;	
+	}
+    outlet
+    {
+        type            zeroGradient;  
+    }
+	rotorHubRotating
+	{
+        type            omegaWallFunction;
+        value           $internalField;	
+	}
+	casing
+	{
+        type            omegaWallFunction;
+        value           $internalField;	
+	}
+	rotorHubStationary
+	{
+        type            omegaWallFunction;
+        value           $internalField;	
+	}
+	FarDwStrmCas
+	{
+        type            omegaWallFunction;
+        value           $internalField;	
+	}
+	FarDwStrmHub
+	{
+        type            omegaWallFunction;
+        value           $internalField;	
+	}
+	FarUpstrmCas
+	{
+        type            omegaWallFunction;
+        value           $internalField;	
+	}			
+}
+
+
+// ************************************************************************* //

@@ -15,7 +15,7 @@ def cart2pol(x,y,z):
     Convert Cartesian to cylindrical WITHOUT arbitrary offsets
     """
     r = np.sqrt(x**2 + y**2)
-    theta = np.atan2(y, x)
+    theta = np.arctan2(y, x)
     # Normalize to [0, 2π)
     # theta = theta % (2 * np.pi)
     return theta, r, z
@@ -175,7 +175,7 @@ periodicOrAperiodic = args.periodicOrAperiodic  # if periodic select 0 otherwise
 
 Ns = 101 #number o
 Nr = 101            
-if periodicORaperiodic == 0:
+if periodicOrAperiodic == 0:
     filePath = '../inputData/periodic/'
     dataPath = '../processedData/periodic/'
 else:

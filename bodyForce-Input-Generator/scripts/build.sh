@@ -9,8 +9,8 @@ PYTHON=python
 #input Parameter
 Nbr=16 #Total nuber of blades in the annulus for rotor
 Nbs=31 #Total nuber of blades in the annulus for stator
-Nr=101 #Number of points on each surface rotor blade profile
-Ns=101 #Number of points on each surface stator blade profile
+Nr=201 #Number of points on each surface rotor blade profile
+Ns=201 #Number of points on each surface stator blade profile
 rSections=23 # Number of rotor blade profiles
 sSections=23 # Number of stator blade profiles
 RmatrixCoeff="1 0 0 0 1 0 0 0 1" #Rotation matrix for transformation

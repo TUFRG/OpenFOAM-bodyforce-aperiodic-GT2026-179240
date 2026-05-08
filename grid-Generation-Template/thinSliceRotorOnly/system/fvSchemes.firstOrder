@@ -1,0 +1,69 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+	default         steadyState;
+}
+
+gradSchemes
+{
+	default        cellLimited Gauss linear 1; // cellLimited leastSquares 1;
+
+}
+
+divSchemes
+{
+	default         none;
+	div(phi,U)      Gauss upwind; //Gauss limitedLinear 0.8;
+	div(phid,p)     Gauss upwind; //Gauss limitedLinear 0.8;  
+	div(phiv,p)     Gauss upwind; //Gauss limitedLinear 0.8;
+	div(phi,K)      Gauss upwind; //Gauss limitedLinear 0.8;
+	div(phi,Ekp)    Gauss upwind; //Gauss limitedLinear 0.8;
+	div(phi,e)      Gauss upwind; //Gauss limitedLinear 0.8;
+	div(phi,h)      Gauss upwind; //Gauss limitedLinear 0.8;
+	div(phi,k)      Gauss upwind; //Gauss limitedLinear 0.8;
+	div(phi,nuTilda) Gauss upwind;
+	div(phi,epsilon) Gauss upwind; //Gauss limitedLinear 0.8;
+	div(phi,omega)   Gauss upwind; //Gauss limitedLinear 0.8;
+	div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+	div(phiMRF,p)	Gauss linear;
+}
+
+laplacianSchemes
+{
+	default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+	default         linear;
+}
+
+snGradSchemes
+{
+	default         corrected;
+}
+
+wallDist
+{
+	method 	    meshWave;
+	nRequired       yes;
+}
+
+
+// ************************************************************************* //

@@ -20,12 +20,12 @@ import camberFunctions as cf
 
 def cart2pol(x,y,z):
     r = np.sqrt(x**2 + y**2)
-    theta = np.atan2(y,x)#%(2*np.pi)
+    theta = np.arctan2(y,x)#%(2*np.pi)
     z = z
     return theta, r, z
 def cart2pol2(x,y,z):
     r = np.sqrt(x**2 + y**2)
-    theta = np.atan2(y,x)
+    theta = np.arctan2(y,x)
     theta = np.unwrap(theta)
     z = z
     return theta, r, z

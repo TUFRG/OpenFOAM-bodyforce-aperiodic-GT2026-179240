@@ -1,0 +1,75 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      nut;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 2 -1 0 0 0 0];
+
+I 0.05;
+U 166;
+
+
+Kval #eval{1.5*$I*$I*$U*$U}; //k=1.5*I^2*U^2
+Wval #eval{$U/(0.07*0.494)}; //0.494 is the inlet Diameter
+vt #eval{$Kval/$Wval};
+//internalField   uniform $vt;
+
+internalField   uniform 0.0167; // k/omega
+
+boundaryField
+{
+	#includeEtc "caseDicts/setConstraintTypes"
+
+	inlet
+	{
+		type            calculated;
+		value           $internalField;		
+	}
+    outlet
+    {
+		type            calculated;
+		value           $internalField; 
+    }
+	hub
+	{
+		type            nutkWallFunction;
+		value			uniform 1e-8;	
+	}
+	casing
+	{
+		type            nutkWallFunction;
+		value			uniform 1e-8;			
+	}
+	spinningHub
+	{
+		type            nutkWallFunction;
+		value			uniform 1e-8;	
+	}
+	FarDwStrmHub
+	{
+		type            nutkWallFunction;
+		value			uniform 1e-8;			
+	}
+	FarDwStrmCas
+	{
+		type            nutkWallFunction;
+		value			uniform 1e-8;			
+	}			
+}
+
+
+
+
+// ************************************************************************* //

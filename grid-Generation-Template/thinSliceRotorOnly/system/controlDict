@@ -1,0 +1,219 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2312                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    location        "system";
+    object          controlDict;
+}
+
+application     rhoSimpleFoamBF;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime        1000;
+
+deltaT          1;
+
+writeControl    runTime;
+
+writeInterval   100;
+
+purgeWrite      1;
+
+writeFormat     binary;
+
+writePrecision  10;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   8;
+
+runTimeModifiable true;
+
+functions
+{
+    flowRatePatch(name=inlet)
+    {
+        name            inlet;
+        type            surfaceFieldValue;
+        libs            ( "libfieldFunctionObjects.so" );
+        writeFields     false;
+        writeControl    timeStep;
+        writeInterval   1;
+        log             yes;
+        regionType      patch;
+        fields          ( phi );
+        operation       sum;
+    }
+    flowRatePatch(name=outlet)
+    {
+        name            outlet;
+        type            surfaceFieldValue;
+        libs            ( "libfieldFunctionObjects.so" );
+        writeFields     false;
+        writeControl    timeStep;
+        writeInterval   1;
+        log             yes;
+        regionType      patch;
+        fields          ( phi );
+        operation       sum;
+    }
+    yPlus
+    {
+        type            yPlus;
+        libs            ( fieldFunctionObjects );
+        writeFields     yes;
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    totalPressureFunc
+    {
+        type            pressure;
+        libs            ( fieldFunctionObjects );
+        mode            isentropic;
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    vorticity1
+    {
+        type            vorticity;
+        libs            ( fieldFunctionObjects );
+        enabled         true;
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    MachNumber
+    {
+        type            MachNo;
+        libs            ( "libfieldFunctionObjects.so" );
+        enabled         true;
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    totalTField
+    {
+        type            exprField;
+        libs            ( fieldFunctionObjects );
+        field           totalT;
+        expression      "T + sqr(mag(U))/(2*1004.5)";
+        dimensions      [ 0 0 0 1 0 0 0 ];
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    entropyField
+    {
+        type            exprField;
+        libs            ( fieldFunctionObjects );
+        field           entropy;
+        expression      "1004.5*log(totalT/288.15) - 287.7*log('isentropic(p)'/101325)";
+        dimensions      [ 0 2 -2 -1 0 0 0 ];
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    coordinateTransform
+    {
+        type            fieldCoordinateSystemTransform;
+        libs            ( fieldFunctionObjects );
+        log             true;
+        fields          ( U );
+        executeControl  writeTime;
+        writeControl    writeTime;
+        coordinateSystem
+        {
+            type            cylindrical;
+            origin          ( 0 0 0 );
+            rotation
+            {
+                type            cylindrical;
+                axis            ( 0 0 1 );
+            }
+        }
+    }
+    flowAngle
+    {
+        type            exprField;
+        libs            ( fieldFunctionObjects );
+        field           alphaFlow;
+        expression      "radToDeg(atan2('U:Transformed'.y(),'U:Transformed'.z()))";
+        dimensions      [ 0 0 0 0 0 0 0 ];
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    massAvgInletpt
+    {
+        type            surfaceFieldValue;
+        libs            ( fieldFunctionObjects );
+        enabled         yes;
+        log             yes;
+        writeFields     yes;
+        surfaceFormat   raw;
+        regionType      patch;
+        name            inlet;
+        operation       weightedAverage;
+        weightField     phi;
+        fields          ( p T isentropic(p) totalT entropy U rho alphaFlow Ma);
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    massAvgOutletpt
+    {
+        type            surfaceFieldValue;
+        libs            ( fieldFunctionObjects );
+        log             yes;
+        writeFields     yes;
+        surfaceFormat   raw;
+        regionType      patch;
+        name            outlet;
+        operation       weightedAverage;
+        weightField     phi;
+        fields          ( p T isentropic(p) totalT entropy U rho alphaFlow Ma);
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    linesample
+    {
+        type            sets;
+        libs            ( "libsampling.so" );
+        executeControl  writeTime;
+        writeControl    writeTime;
+        interpolationScheme cellPoint;
+        setFormat       csv;
+        sets            ( line1 
+        					{ 
+        						type uniform ; 
+        						nPoints 200 ; 
+        						start ( 0.114306 0 0.100819 ) ; 
+        						end ( 0.260027 0 0.100819 ) ; 
+        						axis xyz ; 
+        					} 
+        				  line2
+        				  	{
+        						type uniform ; 
+        						nPoints 200 ; 
+        						start ( 0.151944 0 0.395 ) ; 
+        						end ( 0.262021 0 0.395 ) ; 
+        						axis xyz ;        				  		
+        				  	}
+        				);
+        fields          ( p T isentropic(p) totalT entropy U rho alphaFlow );
+    }
+
+}
+
+
+// ************************************************************************* //

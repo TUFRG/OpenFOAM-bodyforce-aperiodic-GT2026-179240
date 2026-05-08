@@ -1,0 +1,650 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2112                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// The axis of rotation of this machine is the z axis
+// Hence the radial direction is denoted x and the axial direction is z (x = mz + c)
+// There are three positions in the circumferential cordinate in this domain 
+// The positive rotation is represented as p and negative as n while the middle position is represented as m
+
+scale  1; // The data came in millimeters so this converts it to m (SI units)
+tol 1e-10;
+
+blRadial 41.0;
+coreRadial 23.0;
+tangential 1;
+
+radGradHub 1;
+radGradCas 1;
+
+radial 9.0;
+
+xdP 0.09737420126042261;
+
+xdmG 1;
+
+xdN 0.22066669039883938;
+xdupG 33.80909018963315;
+xddwG 0.029577844135735692;
+x1dwG 0.0011191873758788174;
+x1upG 893.5054322023351;
+xSdwG 0.0011191873758788174;
+xSupG 893.5054322023351;
+
+ptX1 43.0;
+ptXS 43.0;
+ptX2 34.0;
+ptX3 26.0;
+ptX4 83.0;
+ptX5 23.0;
+ptX6 23.0;
+ptX7 66.0;
+ptX8 124.0;
+
+x2P 0.07888672540328232;
+x3P 0.21944127941864291;
+x4P 2.7986129775013078;
+x5P 0.18266308211670662;
+x6P 0.29966428586831784;
+x7P 0.05201138051580175;
+x8P 1;
+
+x2N 0.2209560666025711;
+x3N 0.35884593261323455;
+x4N 0.4838722911247079;
+x5N 0.32795787730746356;
+x6N 0.4147019028006082;
+x7N 0.17159108339756773;
+x8N 0.001561026816498164;
+
+x2upG 41.133539049935024;
+x3upG 32.296320647299694;
+x4upG 268.2011973810094;
+x5upG 41.133539049935024;
+//x4upG 1002;
+x6upG 32.296320647299694;
+x7upG 62.5225114974525;
+x8upG 7.2659276258224965;
+
+x2dwG 0.024311061559425425;
+x3dwG 0.03096327940636824;
+x4dwG 0.00372854412942605;
+x5dwG 0.024311061559425425;
+x6dwG 0.03096327940636824;
+x7dwG 0.01599423913162454;
+x8dwG 0.1376286761302279;
+
+x0y0m (0.0 0 -0.916);
+x1y0m (0.0 0 -0.17702603799847294);
+x2y0m (0.0 0 -0.17500000000000002);
+
+x0y1m (0.028538919200000002 0 -0.916);
+x0y1p (0.024078861114186934 0.0004202980841456665 -0.916);
+x0y1n (0.024078861114186934 -0.0004202980841456665 -0.916);
+x1y1m (0.028538919200000002 0 -0.14102603799847294);
+x1y1p (0.024078861114186934 0.0004202980841456665 -0.14702603799847294);
+x1y1n (0.024078861114186934 -0.0004202980841456665 -0.14702603799847294);
+x2y1m (0.028538919200000002 0 -0.139);
+x2y1p (0.024078861114186934 0.0004202980841456665 -0.14500000000000002);
+x2y1n (0.024078861114186934 -0.0004202980841456665 -0.14500000000000002);
+x0y2m (0.047035454998472934 0 -0.916);
+x0y2p (0.047028291270855324 0.0008208818775959079 -0.916);
+x0y2n (0.047028291270855324 -0.0008208818775959079 -0.916);
+
+x2y2m (0.045009417 0.0 -0.115);
+x2y2p (0.045002561847782896 0.000785522638989178 -0.115);
+x2y2n (0.045002561847782896 -0.000785522638989178 -0.115);
+
+x0y4m (0.24497396200152707 0 -0.916);
+x0y4p (0.24493665128055622 0.004275385151402297 -0.916);
+x0y4n (0.24493665128055622 -0.004275385151402297 -0.916);
+
+x2y3m (0.047035454998472934 0.0 -0.115);
+x2y3p (0.047028291270855324 0.0008208818775959079 -0.115);
+x2y3n (0.047028291270855324 -0.0008208818775959079 -0.115);
+
+x0y5m (0.247 0 -0.916);
+x0y5p (0.24696238070362864 0.004310744390009028 -0.916);
+x0y5n (0.24696238070362864 -0.004310744390009028 -0.916);
+
+x2y4m (0.251050605458604 0 -0.115);
+x2y4p (0.25101236923540177 0.004381437202789664 -0.115);
+x2y4n (0.25101236923540177 -0.004381437202789664 -0.115);
+
+x2y5m (0.253076643457077 0 -0.115);
+x2y5p (0.2530380986584742 0.004416796441396394 -0.115);
+x2y5n (0.2530380986584742 -0.004416796441396394 -0.115);
+
+xSy0m (0.0 0 -0.406933);
+
+xSy1m (0.028538919200000002 0 -0.406933);
+xSy1p (0.024078861114186934 0.0004202980841456665 -0.406933);
+xSy1n (0.024078861114186934 -0.0004202980841456665 -0.406933);
+
+xSy2m (0.047035454998472934 0 -0.406933);
+xSy2p (0.047028291270855324 0.0008208818775959079 -0.406933);
+xSy2n (0.047028291270855324 -0.0008208818775959079 -0.406933);
+
+xSy4m (0.24497396200152707 0 -0.406933);
+xSy4p (0.24493665128055622 0.004275385151402297 -0.406933);
+xSy4n (0.24493665128055622 -0.004275385151402297 -0.406933);
+
+xSy5m (0.247 0 -0.406933);
+xSy5p (0.24696238070362864 0.004310744390009028 -0.406933);
+xSy5n (0.24696238070362864 -0.004310744390009028 -0.406933);
+
+
+x3y2m (0.151967987 0 0.99);
+x3y2p (0.15194484153950644 0.002652207074579817 0.99);
+x3y2n (0.15194484153950644 -0.002652207074579817 0.99);
+
+x3y3m (0.15399402499847292 0 0.99);
+x3y3p (0.15397057096257885 0.0026875663131865467 0.99);
+x3y3n (0.15397057096257885 -0.0026875663131865467 0.99);
+
+x4y2m (0.165596448473 0 0.99);
+x4y2p (0.16557122733181318 0.0028900565233214727 0.99);
+x4y2n (0.16557122733181318 -0.0028900565233214727 0.99);
+
+x4y3m (0.16762248647147293 0 0.99);
+x4y3p (0.1675969567548856 0.0029254157619282026 0.99);
+x4y3n (0.1675969567548856 -0.0029254157619282026 0.99);
+
+x3y4m (0.24894540052852707 0 0.99);
+x3y4p (0.24890748493823245 0.0043446963107161875 0.99);
+x3y4n (0.24890748493823245 -0.0043446963107161875 0.99);
+
+x3y5m (0.2645999 0 0.99);
+x3y5p (0.26455960015361163 0.004617904998064574 0.99);
+x3y5n (0.26455960015361163 -0.004617904998064574 0.99);
+
+x4y4m (0.24894540052852707 0 0.99);
+x4y4p (0.24890748493823245 0.0043446963107161875 0.99);
+x4y4n (0.24890748493823245 -0.0043446963107161875 0.99);
+
+x4y5m (0.250971438527 0 0.99);
+x4y5p (0.2509332143613049 0.004380055549322918 0.99);
+x4y5n (0.2509332143613049 -0.004380055549322918 0.99);
+
+xr1y2m (0.0743082867221151 0 -0.04821998601222705);
+xr1y2p (0.07429696921012706 0.0012968584215325505 -0.04821998601222705);
+xr1y2n (0.07429696921012706 -0.0012968584215325505 -0.04821998601222705);
+
+xr1y3m (0.07620817326858186 0 -0.04869457537209064);
+xr1y3p (0.07619656639467047 0.0013300160137262153 -0.04869457537209064);
+xr1y3n (0.07619656639467047 -0.0013300160137262153 -0.04869457537209064);
+
+xr2y2m (0.09142349295124995 0 0.013550111181265161);
+xr2y2p (0.09140956871045385 0.0015955599569013384 0.013550111181265161);
+xr2y2n (0.09140956871045385 -0.0015955599569013384 0.013550111181265161);
+
+xr2y3m (0.09360967185281523 0 0.01402437521119579);
+xr2y3p (0.09359541464638342 0.0016337140396360697 0.01402437521119579);
+xr2y3n (0.09359541464638342 -0.0016337140396360697 0.01402437521119579);
+
+xr1y4m (0.25197318467935687 0 -0.035283472873013554);
+xr1y4p (0.2519348079428707 0.004397538430320835 -0.035283472873013554);
+xr1y4n (0.2519348079428707 -0.004397538430320835 -0.035283472873013554);
+
+xr1y5m (0.25399920624203837 0 -0.035078025480022666);
+xr1y5p (0.2539605209326549 0.004432897382083452 -0.035078025480022666);
+xr1y5n (0.2539605209326549 -0.004432897382083452 -0.035078025480022666);
+
+xr2y4m (0.25035807851816627 0 0.013321666663346455);
+xr2y4p (0.25031994777017136 0.004369350941156376 0.013321666663346455);
+xr2y4n (0.25031994777017136 -0.004369350941156376 0.013321666663346455);
+
+xr2y5m (0.25245200697479475 0 0.01253551935238009);
+xr2y5p (0.25241355731135373 0.00440589503163205 0.01253551935238009);
+xr2y5n (0.25241355731135373 -0.00440589503163205 0.01253551935238009);
+
+xs1y2m (0.12886752769681578 0 0.1418287613571438);
+xs1y2p (0.12884790054816367 0.002249048469932719 0.1418287613571438);
+xs1y2n (0.12884790054816367 -0.002249048469932719 0.1418287613571438);
+
+xs1y3m (0.1309666302493302 0 0.1420179848228135);
+xs1y3p (0.13094668339719212 0.00228568286083274 0.1420179848228135);
+xs1y3n (0.13094668339719212 -0.00228568286083274 0.1420179848228135);
+
+xs2y2m (0.1491529827949901 0 0.210925121279364);
+xs2y2p (0.14913026607327173 0.002603078477071322 0.210925121279364);
+xs2y2n (0.14913026607327173 -0.002603078477071322 0.210925121279364);
+
+xs2y3m (0.15117441616778363 0 0.21089666541407848);
+xs2y3p (0.15115139157197155 0.0026383573538792037 0.21089666541407848);
+xs2y3n (0.15115139157197155 -0.0026383573538792037 0.21089666541407848);
+
+xs1y4m (0.262284359589888 0 0.14417957518001687);
+xs1y4p (0.26224441241151963 0.004577493245705344 0.14417957518001687);
+xs1y4n (0.26224441241151963 -0.004577493245705344 0.14417957518001687);
+
+xs1y5m (0.2643103342800771 0 0.14417120106840095);
+xs1y5p (0.2642700785359504 0.004612851379430174 0.14417120106840095);
+xs1y5n (0.2642700785359504 -0.004612851379430174 0.14417120106840095);
+
+xs2y4m (0.26228073334409724 0 0.2142315335100747);
+xs2y4p (0.2622407867180237 0.004577429958989963 0.2142315335100747);
+xs2y4n (0.2622407867180237 -0.004577429958989963 0.2142315335100747);
+
+xs2y5m (0.26430677525874496 0 0.21438146862331817);
+xs2y5p (0.26426652005667445 0.004612789265943367 0.21438146862331817);
+xs2y5n (0.26426652005667445 -0.004612789265943367 0.21438146862331817);
+
+xCy2m (0.09399405436000001 0 0.0212);
+xCy2p (0.09397973861025057 0.0016404224393788405 0.0212);
+xCy2n (0.09397973861025057 -0.0016404224393788405 0.0212);
+
+xCy3m (0.11941023882528701 0 0.028447266948746677);
+xCy3p (0.11939205206753745 0.0020839960207520007 0.028447266948746677);
+xCy3n (0.11939205206753745 -0.0020839960207520007 0.028447266948746677);
+
+xCy4m (0.22828334164396544 0 0.029037648233166256);
+xCy4p (0.22824857298531787 0.003984093661231734 0.029037648233166256);
+xCy4n (0.22824857298531787 -0.003984093661231734 0.029037648233166256);
+
+xCy5m (0.2518126623574541 0 0.02018536411951623);
+xCy5p (0.251774310069295 0.004394736929516731 0.02018536411951623);
+xCy5n (0.251774310069295 -0.004394736929516731 0.02018536411951623);
+
+x0y2ArcP (0.047035454452910026 7.163909442366341e-06 -0.916);
+x0y2ArcN (0.047035454452910026 -7.163909442366341e-06 -0.916);
+
+geometry
+{
+
+	sLE
+	{
+		type	triSurfaceMesh;
+		file	"LES.stl";		
+	}
+	sTE
+	{
+		type	triSurfaceMesh;
+		file	"TES.stl";		
+	}	
+	nPer
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x2y2n;
+			point2	$x3y2n;
+			point3	$x3y5n; 
+       	}
+	}	
+	pPer
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x2y2p; 
+			point2	$x3y2p; 
+			point3	$x3y5p;
+       	}
+	}
+	mPer
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x0y0m; 
+			point2	$x4y2m; 
+			point3	$x4y5m;
+       	}
+	}
+	sSurf // position where viscid flow began
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$xSy0m; 
+			point2	$xSy2p; 
+			point3	$xSy5n;
+       	}
+	}
+	sIn // position where the butterfly ends
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x2y2m; 
+			point2	$x2y2p; 
+			point3	$x2y5n;
+       	}
+	}
+	sDw // position where viscid  flow ends
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x3y2m; 
+			point2	$x3y5p; 
+			point3	$x3y5n;
+       	}
+	}					
+	Hub
+	{
+		type 	triSurfaceMesh;
+		file	"Hub.stl";
+	}
+	cas
+	{
+		type 	triSurfaceMesh;
+		file	"casing.stl";
+	}
+}
+vertices
+(
+
+	name Mx2y2 $x2y2m 
+	name Px2y2 $x2y2p 
+	name Nx2y2 $x2y2n 
+		
+	name Mx0y5 $x0y5m
+	name Px0y5 $x0y5p
+	name Nx0y5 $x0y5n 
+
+	name Mx2y3 $x2y3m
+	name Px2y3 $x2y3p
+	name Nx2y3 $x2y3n
+	
+	name Mx0y4 $x0y4m
+	name Px0y4 $x0y4p
+	name Nx0y4 $x0y4n 
+
+	name Mx2y4 $x2y4m
+	name Px2y4 $x2y4p
+	name Nx2y4 $x2y4n
+		
+	name Mx2y5 $x2y5m
+	name Px2y5 $x2y5p
+	name Nx2y5 $x2y5n	
+
+	name Mx3y2 $x3y2m
+	name Px3y2 $x3y2p
+	name Nx3y2 $x3y2n
+
+	name Mx3y3 $x3y3m
+	name Px3y3 $x3y3p
+	name Nx3y3 $x3y3n
+
+	name Mx3y4 $x3y4m
+	name Px3y4 $x3y4p
+	name Nx3y4 $x3y4n
+	
+	name Mx3y5 $x3y5m
+	name Px3y5 $x3y5p
+	name Nx3y5 $x3y5n
+
+	name Mx4y2 $x4y2m
+	name Px4y2 $x4y2p
+	name Nx4y2 $x4y2n
+
+	name Mx4y3 $x4y3m
+	name Px4y3 $x4y3p
+	name Nx4y3 $x4y3n	
+
+	name Mxr1y2 $xr1y2m 
+	name Pxr1y2 $xr1y2p 
+	name Nxr1y2 $xr1y2n 
+
+	name Mxr1y3 $xr1y3m 
+	name Pxr1y3 $xr1y3p 
+	name Nxr1y3 $xr1y3n 
+	
+	name Mxr2y2 $xr2y2m 
+	name Pxr2y2 $xr2y2p 
+	name Nxr2y2 $xr2y2n 
+
+	name Mxr2y3 $xr2y3m 
+	name Pxr2y3 $xr2y3p 
+	name Nxr2y3 $xr2y3n 	
+
+	name Mxr1y4 $xr1y4m 
+	name Pxr1y4 $xr1y4p 
+	name Nxr1y4 $xr1y4n
+	
+	name Mxr1y5 $xr1y5m 
+	name Pxr1y5 $xr1y5p 
+	name Nxr1y5 $xr1y5n 
+
+	name Mxr2y4 $xr2y4m 
+	name Pxr2y4 $xr2y4p 
+	name Nxr2y4 $xr2y4n	
+	
+	name Mxr2y5 $xr2y5m 
+	name Pxr2y5 $xr2y5p 
+	name Nxr2y5 $xr2y5n	
+
+	name Mxs1y2 $xs1y2m 
+	name Pxs1y2 $xs1y2p 
+	name Nxs1y2 $xs1y2n 
+
+	name Mxs1y3 $xs1y3m 
+	name Pxs1y3 $xs1y3p 
+	name Nxs1y3 $xs1y3n	
+
+	name Mxs2y2 $xs2y2m 
+	name Pxs2y2 $xs2y2p 
+	name Nxs2y2 $xs2y2n 
+
+	name Mxs2y3 $xs2y3m 
+	name Pxs2y3 $xs2y3p 
+	name Nxs2y3 $xs2y3n 	
+
+	name Mxs1y4 $xs1y4m 
+	name Pxs1y4 $xs1y4p 
+	name Nxs1y4 $xs1y4n
+	
+	name Mxs1y5 $xs1y5m 
+	name Pxs1y5 $xs1y5p 
+	name Nxs1y5 $xs1y5n
+	 
+	name Mxs2y4 $xs2y4m 
+	name Pxs2y4 $xs2y4p 
+	name Nxs2y4 $xs2y4n	
+	
+	name Mxs2y5 $xs2y5m 
+	name Pxs2y5 $xs2y5p 
+	name Nxs2y5 $xs2y5n	
+
+	
+ 	
+);
+
+edges
+(
+
+	project Px2y2 Nx2y2 (sIn Hub)
+	project Px2y5 Nx2y5 (sIn cas)
+	
+	project Px2y2 Pxs1y2 (pPer Hub)
+	project Nx2y2 Nxs1y2 (nPer Hub)
+	project Px2y5 Pxs1y5 (pPer cas)
+	project Nx2y5 Nxs1y5 (nPer cas)		
+	
+	project Nxs1y5 Pxs1y5 (sLE cas)
+	project Nxs1y2 Pxs1y2 (sLE Hub)
+	project Pxs1y2 Pxs1y5 (pPer sLE)
+	project Nxs1y2 Nxs1y5 (nPer sLE)
+	
+
+	project Pxs1y5 Pxs2y5 (pPer cas)
+	project Pxs1y2 Pxs2y2 (pPer Hub)
+	project Nxs1y5 Nxs2y5 (nPer cas)
+	project Nxs1y2 Nxs2y2 (nPer Hub)
+	project Nxs2y5 Pxs2y5 (sTE cas)
+	project Nxs2y2 Pxs2y2 (sTE Hub)
+	project Pxs2y2 Pxs2y5 (sTE pPer)	
+	project Nxs2y2 Nxs2y5 (sTE nPer)
+
+	project Pxs2y5 Px3y5 (pPer cas)
+	project Pxs2y2 Px3y2 (pPer Hub)
+	project Nxs2y5 Nx3y5 (nPer cas)	
+	project Nxs2y2 Nx3y2 (nPer Hub)
+	project Nx3y5 Px3y5 (sDw cas)
+	project Nx3y2 Px3y2 (sDw Hub)
+	project Px3y2 Px3y5 (pPer sDw)
+	project Nx3y2 Nx3y5 (nPer sDw)
+
+	
+	
+);
+
+blocks
+(
+	//     0    3     7     4     1     2     6     5
+
+
+	hex (Nx2y2 Nx2y5 Px2y5 Px2y2 Nxs1y2 Nxs1y5 Pxs1y5 Pxs1y2) ($blRadial $tangential $ptX2) 
+	simpleGrading
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+			(#eval{1 - $x2P} #eval{1 - $x2N} 1)
+   			($x2P $x2N  $x2dwG)
+   		//	(1 1  $x2dwG)
+		)
+	)	
+	hex (Nxs1y2 Nxs1y5 Pxs1y5 Pxs1y2 Nxs2y2 Nxs2y5 Pxs2y5 Pxs2y2) Stator ($blRadial $tangential $ptX6) 
+	simpleGrading 
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+			($x6P $x6N $x6upG)
+			(#eval{1 - 2*$x6P} #eval{1 - 2*$x6N} 1)
+			($x6P $x6N  $x6dwG)				
+		)
+	)	
+	hex (Nxs2y2 Nxs2y5 Pxs2y5 Pxs2y2 Nx3y2 Nx3y5 Px3y5 Px3y2) ($blRadial $tangential $ptX7) 
+	simpleGrading //( 1 1 1)
+	(
+		(
+			($xdP $xdN $xdupG)
+			(#eval{1 - 2*$xdP} #eval{1 - 2*$xdN} $xdmG)
+			($xdP $xdN  $xddwG)			
+		)
+		1 
+		(
+		//	(1 1 $x7upG)
+			($x7P $x7N $x7upG)
+	   		(#eval{1 - $x7P} #eval{1 - $x7N} 1)				
+		)
+	)
+);
+
+faces
+(
+
+	project (Nx2y2 Nxs1y2 Pxs1y2 Px2y2) Hub		
+	project (Nxs1y2 Nxs2y2 Pxs2y2 Pxs1y2) Hub
+	project (Nxs2y2 Nx3y2 Px3y2 Pxs2y2) Hub	
+
+	project (Nx2y5 Px2y5 Pxs1y5 Nxs1y5) cas
+	project (Nxs1y5 Pxs1y5 Pxs2y5 Nxs2y5) cas	
+	project (Nxs2y5 Pxs2y5 Px3y5 Nx3y5) cas
+	
+);
+
+boundary
+(
+	inlet
+	{
+		type patch;
+		faces
+		(
+			// 0 3 2 1
+			(Nx2y2 Px2y2 Px2y5 Nx2y5)					
+		);
+	}
+	outlet
+	{
+		type patch;
+		faces
+		(
+			// 4 5 6 7
+			(Nx3y2 Nx3y5 Px3y5 Px3y2)
+												
+		);
+	}		
+	hub
+	{
+		type wall;
+		faces
+		(
+			// 0 4 7 3
+			(Nx2y2 Nxs1y2 Pxs1y2 Px2y2)
+			(Nxs1y2 Nxs2y2 Pxs2y2 Pxs1y2)
+			(Nxs2y2 Nx3y2 Px3y2 Pxs2y2)									
+		);
+	}
+	casing 
+	{
+		type wall;
+		faces
+		(
+			// 1 2 5 6
+			(Nx2y5 Px2y5 Pxs1y5 Nxs1y5)
+			(Nxs1y5 Pxs1y5 Pxs2y5 Nxs2y5)
+			(Nxs2y5 Pxs2y5 Px3y5 Nx3y5)																									
+		);
+	}	
+	pPer
+	{
+		type wall;
+		faces
+		(
+			//(0 1 2 3)
+			(Px2y5 Px2y2 Pxs1y2 Pxs1y5)
+			(Pxs1y5 Pxs1y2 Pxs2y2 Pxs2y5)
+			(Pxs2y5 Pxs2y2 Px3y2 Px3y5)
+	
+		);
+	}
+	nPer
+	{
+		type wall;
+		faces
+		(
+			//(0 1 5 4)
+			(Nx2y2 Nx2y5 Nxs1y5 Nxs1y2)
+			(Nxs1y2 Nxs1y5 Nxs2y5 Nxs2y2)
+			(Nxs2y2 Nxs2y5 Nx3y5 Nx3y2)
+		);
+	}	
+);
+
+mergePatchPairs
+(
+
+);
+
+
+// ************************************************************************* //

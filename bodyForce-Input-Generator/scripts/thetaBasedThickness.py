@@ -45,7 +45,7 @@ parser.add_argument(
     type=int,
     help="periodic (0) or nonPeriodic (1)"
 )
-
+args = parser.parse_args()
 # Use parsed arguments
 Nbr = args.Nbr  # Total number of blades in the annulus for rotor
 Nbs = args.Nbs  # Total number of blades in the annulus for stator
@@ -59,7 +59,7 @@ Np = 10 #Number of interpolated profiles between each blade profiles
 N = 101 #number of points on thickness
 distro = 'cosine'
 #%%
-if periodicORaperiodic == 0:
+if periodicOrAperiodic == 0:
     dataPath = '../processedData/periodic/'
 else:
     dataPath = '../processedData/nonPeriodic/'
@@ -69,7 +69,7 @@ rBlade = np.zeros([Nbr, rSections, Nr, 3])
 sBlade = np.zeros([Nbs, sSections, Ns, 3])
 for a in range(Nbr):
     for b in range(rSections):
-        if periodicORaperiodic == 0:
+        if periodicOrAperiodic == 0:
             rBlade[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/blade{}.txt'.format(a,b), delimiter=',')
             outputDatapath = '../inputData/periodic/'
         else:
@@ -78,7 +78,7 @@ for a in range(Nbr):
             
 for c in range(Nbs):
     for d in range(sSections):
-        if periodicORaperiodic == 0:
+        if periodicOrAperiodic == 0:
             sBlade[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/blade{}.txt'.format(c,d), delimiter=',')
             outputDatapath = '../inputData/periodic/'
         else:

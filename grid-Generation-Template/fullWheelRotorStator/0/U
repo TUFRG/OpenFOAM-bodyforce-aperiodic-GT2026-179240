@@ -1,0 +1,71 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+Uz				166;
+internalField   uniform ( 0 0 $Uz);
+boundaryField
+{
+	#includeEtc "caseDicts/setConstraintTypes"
+    
+
+
+	inlet
+	{
+		 type           pressureInletOutletVelocity;
+		 rho 			rho;
+		 phi 			phi;
+		 value 			uniform (0 0 0);		 
+	}
+	outlet
+	{
+		type            inletOutlet;
+		value			uniform (0 0 0);
+		inletValue      uniform (0 0 0);		
+	}	
+	rotorHubStationary
+	{
+		type			noSlip;
+	}
+	casing
+	{
+       type            noSlip;			
+	}
+	rotorHubRotating
+	{
+		type 			rotatingWallVelocity;
+		origin 			(0 0 0);
+		axis 			(0 0 1);
+		omega 			-1151.9173;
+	}
+	FarDwStrmCas
+	{
+       type            slip;			
+	}
+	FarDwStrmHub
+	{
+       type            slip;			
+	}
+	FarUpstrmCas
+	{
+       type            slip;			
+	}			
+}
+
+
+// ************************************************************************* //

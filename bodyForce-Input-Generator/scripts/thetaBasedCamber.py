@@ -176,8 +176,7 @@ periodicOrAperiodic = args.periodicOrAperiodic  # if periodic select 0 otherwise
 
 Nr=101
 Ns=101
-periodicORaperiodic = 1
-if periodicORaperiodic == 0:
+if periodicOrAperiodic == 0:
     dataPath = '../processedData/periodic/'
     outputDataPath = '../inputData/periodic/'
 else:
@@ -235,7 +234,7 @@ rNth = np.zeros([Nbr, rSections, Nr+2,4])
 rNr = np.zeros([Nbr, rSections, Nr+2, 4])
 rNc = np.zeros([Nbr, rSections, Nr+2, 4])
 
-rNr, rNth, rNc, Ra, Rr, Rth, Rc = computeCamber(Ar, Br, Cr, Nbr, rSections, Nr, periodicORaperiodic)
+rNr, rNth, rNc, Ra, Rr, Rth, Rc = computeCamber(Ar, Br, Cr, Nbr, rSections, Nr, periodicOrAperiodic)
 
 A = []
 Br = []
@@ -245,7 +244,7 @@ sNth = np.zeros([Nbs, sSections, Ns+2, 4])
 sNr = np.zeros([Nbs, sSections, Ns+2, 4])
 sNc = np.zeros([Nbs, sSections, Ns+2, 4])
 
-sNr, sNth, sNc, A, Br, Bth, Bc = computeCamber(As, Bs, Cs, Nbs, sSections, Ns, periodicORaperiodic)
+sNr, sNth, sNc, A, Br, Bth, Bc = computeCamber(As, Bs, Cs, Nbs, sSections, Ns, periodicOrAperiodic)
 #%%
 '''
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
