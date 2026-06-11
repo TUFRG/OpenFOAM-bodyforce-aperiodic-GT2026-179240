@@ -1,5 +1,5 @@
 # OpenFOAM-bodyforce-aperiodic-GT2026-179240
-Contains submodules sourced from repositories for body force input generation, custom OpenFOAM solvers, gird generation templates, and example cases
+Contains submodules sourced from repositories for body force input generation, custom OpenFOAM solvers, grid generation templates, and example cases
 
 A sample Data has been included for a quick and easy test.
 
@@ -23,15 +23,16 @@ HOW TO USE
 
 	This will generate all the input data needed for the body force computation. 
 
-- BUILD GRID / INTERPOLATE DATA UNTO GRID
+- BUILD GRID / INTERPOLATE DATA ONTO GRID
 
 	In the grid-Generation-Template, 
 
 	cd scripts
 	bash build.sh 
 
-	This will build the grid and Interpolate the data unto the grid 
+	This will build the grid and Interpolate the data onto the grid 
 
 *****************************************************************************************
 DETAILS OF FOLDER CONTENTS 
 
+(forthcoming)
