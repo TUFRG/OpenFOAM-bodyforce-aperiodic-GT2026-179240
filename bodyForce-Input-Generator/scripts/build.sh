@@ -15,8 +15,11 @@ rSections=23 # Number of rotor blade profiles
 sSections=23 # Number of stator blade profiles
 RmatrixCoeff="1 0 0 0 1 0 0 0 1" #Rotation matrix for transformation
 periodicOrAperiodic=0 #if periodic select 0 otherwise select 1
-stage=2 #if rotorAlone select 0, if statorAlone select 1, if stage select 2
-casePath='/caseSetup/fullWheel/'
+stage=1 #if rotorAlone select 0, if statorAlone select 1, if stage select 2
+scales=0.001
+casePath='/caseSetup/fullWheel/' #change this to your casefolder path 
+
+gridTemplateOrMyGeometry=0 # if using provided template set as 0, otherwise if using your own grid set as 1
 #******************************************************************************************************#
 #DO NOT TOUCH ANYTHING FROM HERE
 echo "Running preprocessing..."
@@ -35,6 +38,9 @@ echo "Running blade thickness Definition..."
 $PYTHON thetaBasedThickness.py  $Nbr $Nbs $rSections $sSections $Nr $Ns $periodicOrAperiodic 
 echo "blade thickness Definition complete!"
 echo "All input data generated and Stored"
+
+if [[$gridTemplateOrMyGeometry -eq 1]]; then
+	$PYTHON functionalizedInterpolation.py  $Nbr $Nbs $rSections $sSections $scales $periodicOrAperiodic $stage --RmatrixCoeff $RmatrixCoeff $casePath
 
 
 

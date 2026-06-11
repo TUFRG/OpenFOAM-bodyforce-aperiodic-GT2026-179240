@@ -153,42 +153,41 @@ def computeDiscreteD2(xVal, yVal):
     return d2, xMid
 
 def checkInflections(xVal, yVal, xFourier, yFourier, refMag=None):
-    """
-    For each interval between consecutive discrete points:
-    - If discrete d2 does not change sign: fitted curve should have 0 sign changes
-    - If discrete d2 changes sign once: fitted curve should have exactly 1 sign change
-    refMag: reference magnitude for tolerance — passed in from optimizeHarmonics
-            defaults to max of discrete d2 if not provided
-    """
     d2Discrete, xMid = computeDiscreteD2(xVal, yVal)
     d2Fourier, xFourierD2 = computeDiscreteD2(xFourier, yFourier)
     
-    # Fall back to local magnitude if not provided
     if refMag is None:
         refMag = np.max(np.abs(d2Discrete)) if np.max(np.abs(d2Discrete)) > 0 else 1.0
+
     violations = 0
     for i in range(len(d2Discrete) - 1):
         xLeft  = xMid[i]
         xRight = xMid[i+1]
-        s1 = signWithTolerance(d2Discrete[i],   refMag=refMag)
-        s2 = signWithTolerance(d2Discrete[i+1], refMag=refMag)
-        if s1 == 0 or s2 == 0:
-            continue
-        expectedSignChanges = 0 if s1 == s2 else 1
-        # Find fitted d2 points within this interval
-        mask = (xFourierD2 >= xLeft) & (xFourierD2 <= xRight)
-        d2Interval = d2Fourier[mask]
+
+        # Count sign changes in the DISCRETE d2 within this interval
+        maskDiscrete = (xMid >= xLeft) & (xMid <= xRight)
+        d2DiscreteInterval = d2Discrete[maskDiscrete]
+        nonZeroDiscrete = d2DiscreteInterval[np.abs(d2DiscreteInterval) > 1e-3 * refMag]
+        if len(nonZeroDiscrete) < 2:
+            expectedSignChanges = 0 if signWithTolerance(d2Discrete[i], refMag=refMag) == signWithTolerance(d2Discrete[i+1], refMag=refMag) else 1
+        else:
+            expectedSignChanges = np.sum(np.diff(np.sign(nonZeroDiscrete)) != 0)
+
+        # Count sign changes in fitted Fourier d2 within this interval
+        maskFourier = (xFourierD2 >= xLeft) & (xFourierD2 <= xRight)
+        d2Interval = d2Fourier[maskFourier]
         if len(d2Interval) < 2:
             continue
-        # Filter near-zero values before counting sign changes
         nonZero = d2Interval[np.abs(d2Interval) > 1e-3 * refMag]
         if len(nonZero) < 2:
             continue
         signChanges = np.sum(np.diff(np.sign(nonZero)) != 0)
+
         if signChanges > expectedSignChanges:
             violations += signChanges - expectedSignChanges
-    return violations
 
+    return violations
+    
 def optimizeHarmonics(field, Nr, rSections, Nb, rGridPoints, rGrid, NGrid, gridCellID, rCellID, scale):
     mMax = int(np.floor(0.5*(Nb-1)))
     bestM = 2
