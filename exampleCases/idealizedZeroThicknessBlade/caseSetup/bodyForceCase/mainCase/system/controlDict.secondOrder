@@ -1,0 +1,213 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2406                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    location        "system";
+    object          controlDict;
+}
+
+application     rhoSimpleFoamBF;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime        20000;
+
+deltaT          1;
+
+writeControl    runTime;
+
+writeInterval   100;
+
+purgeWrite      2;
+
+writeFormat     binary;
+
+writePrecision  10;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   8;
+
+runTimeModifiable true;
+
+functions
+{
+    flowRatePatch(name=inlet)
+    {
+        name            inlet;
+        type            surfaceFieldValue;
+        libs            ( "libfieldFunctionObjects.so" );
+        writeFields     false;
+        writeControl    timeStep;
+        writeInterval   1;
+        log             yes;
+        regionType      patch;
+        fields          ( phi );
+        operation       sum;
+    }
+    flowRatePatch(name=outlet)
+    {
+        name            outlet;
+        type            surfaceFieldValue;
+        libs            ( "libfieldFunctionObjects.so" );
+        writeFields     false;
+        writeControl    timeStep;
+        writeInterval   1;
+        log             yes;
+        regionType      patch;
+        fields          ( phi );
+        operation       sum;
+    }
+    yPlus
+    {
+        type            yPlus;
+        libs            ( fieldFunctionObjects );
+        writeFields     yes;
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    totalP
+	{
+		type			exprField;
+		libs			(fieldFunctionObjects);
+		field 			totalP;
+		expression		"p + 0.5*(mag(U)*mag(U))";
+		dimensions		[0 2 -2 0 0 0 0];
+        executeControl  writeTime;
+        writeControl    writeTime;		
+	}
+    coordinateTransform
+    {
+        type            fieldCoordinateSystemTransform;
+        libs            ( fieldFunctionObjects );
+        log             true;
+        fields          ( U );
+        executeControl  writeTime;
+        writeControl    writeTime;
+        coordinateSystem
+        {
+            type            cylindrical;
+            origin          ( 0 0 0 );
+            rotation
+            {
+                type            cylindrical;
+                axis            (0 0 1);
+            }
+        }
+    }
+    flowAngle
+    {
+        type            exprField;
+        libs            ( fieldFunctionObjects );
+        field           alphaFlow;
+        expression      "radToDeg(atan2('U:Transformed'.y(),'U:Transformed'.z()))";
+        dimensions      [ 0 0 0 0 0 0 0 ];
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    radialFlowAngle
+    {
+        type            exprField;
+        libs            ( fieldFunctionObjects );
+        field           radialFlow;
+        expression      "radToDeg(atan2('U:Transformed'.x(),'U:Transformed'.z()))";
+        dimensions      [ 0 0 0 0 0 0 0 ];
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    VthRel
+    {
+        type            exprField;
+        libs            ( "libfieldFunctionObjects.so" );
+        field           Urel;
+        variables       ( "x = pos().x()" 
+        				  "y = pos().y()" 
+        				  "r = sqrt((x*x)+(y*y))" 
+        				  "Uy = ('U:Transformed'.y())");
+        expression      "Uy - (r * 0)";
+        dimensions      [ 0 1 -1 0 0 0 0 ];
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    relAphaFlow
+    {
+        type            exprField;
+        libs            ( fieldFunctionObjects );
+        field           relFlow;
+        expression      "radToDeg(atan2(Urel,'U:Transformed'.z()))";
+        dimensions      [ 0 0 0 0 0 0 0 ];
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    massAvgInletpt
+    {
+        type            surfaceFieldValue;
+        libs            ( fieldFunctionObjects );
+        enabled         yes;
+        log             yes;
+        writeFields     yes;
+        surfaceFormat   raw;
+        regionType      patch;
+        name            inlet;
+        operation       weightedAverage;
+        weightField     phi;
+        fields          (p totalP U alphaFlow radialFlow Urel relFlow U:Transformed);
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    massAvgOutletpt
+    {
+        type            surfaceFieldValue;
+        libs            ( fieldFunctionObjects );
+        log             yes;
+        writeFields     yes;
+        surfaceFormat   raw;
+        regionType      patch;
+        name            outlet;
+        operation       weightedAverage;
+        weightField     phi;
+        fields          (p totalP U alphaFlow radialFlow Urel relFlow U:Transformed);
+        executeControl  writeTime;
+        writeControl    writeTime;
+    }
+    rotorInlet
+    {
+        type            surfaces;
+        libs            ( "libsampling.so" );
+        executeControl  writeTime;
+        writeControl    writeTime;
+        surfaceFormat   raw;
+        fields          (p totalP U alphaFlow radialFlow Urel relFlow U:Transformed);
+        interpolationScheme cellPoint;
+        surfaces        ( zNormal { type cuttingPlane ; planeType pointAndNormal ; pointAndNormalDict { point ( 0 0 -0.01 ) ; normal ( 0 0 1 ) ; } interpolate true ; triangulate false ; } );
+    }
+    rotorOutlet
+    {
+        type            surfaces;
+        libs            ( "libsampling.so" );
+        executeControl  writeTime;
+        writeControl    writeTime;
+        surfaceFormat   raw;
+        fields          (p totalP U alphaFlow radialFlow Urel relFlow U:Transformed);
+        interpolationScheme cellPoint;
+        surfaces        ( zNormal { type cuttingPlane ; planeType pointAndNormal ; pointAndNormalDict { point ( 0 0 0.11 ) ; normal ( 0 0 1 ) ; } interpolate true ; triangulate false ; } );
+    }    
+}
+
+
+// ************************************************************************* //

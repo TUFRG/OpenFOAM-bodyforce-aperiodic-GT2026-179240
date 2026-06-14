@@ -1,0 +1,413 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2112                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// The axis of rotation of this machine is the z axis
+// Hence the radial direction is denoted x and the axial direction is z (x = mz + c)
+// There are three positions in the circumferential cordinate in this domain 
+// The positive rotation is represented as p and negative as n while the middle position is represented as m
+
+scale  1; //0.001; // The data came in millimeters so this converts it to m (SI units)
+tol 3e-3;
+
+//ptsX 200; //This is the number of cells along X
+ptsY 30; // This is the number of cells along Z
+//ptsZ 50;
+
+ptX1 135.0;
+ptX2 116.0;
+ptX3 191.0;
+
+ptsZ 94.0;
+
+x1P 0.12181540493939327;
+x2P 0.2690190197474956;
+x3P 0.0553555974350084;
+z1P 0.09781405788834344;
+z2P 0.09781405788834344;
+z3P 0.09781405788834344;
+ 
+x1N 0.4338982403332305;
+x2N 0.3433609677857968;
+x3N 0.36558583880291795;
+z1N 0.1702127659574468;
+z2N 0.1702127659574468;
+z3N 0.1702127659574468;
+
+x1upG 0.07863713226936993;
+x2upG 0.23591139680810977;
+x3upG 0.07863713226936993;
+z1upG 5.927178356336234;
+z2upG 5.927178356336234;
+z3upG 5.927178356336234;
+
+x1mG 1;
+x2mG 1;
+x3mG 1;
+z1mG 1;
+z2mG 1;
+z3mG 1;
+
+z1G 0.3;
+z3G  7;
+ 
+x1dwG 8.477759137795276;
+x2dwG 4.238879568897638;
+x3dwG 12.716638706692915;
+z1dwG 0.1687143426232461;
+z2dwG 0.1687143426232461;
+z3dwG 0.1687143426232461;
+
+B 4;		//Number of blades
+Angle #eval{360/$B};		//Angle for 2 blade passages
+pAng #eval{0.5*$Angle};		//positive Angle
+nAng #eval{-0.5*$Angle};	//negative Angle
+
+xInH -0.32212051596088964;
+rInH 0.05988544284000001;
+xInC -0.32212051596088964;
+rInC 0.1570960763076;
+
+xLEH -0.05821804790970867;
+rLEH 0.05718102334788649;
+xLEC -0.04964107478460678;
+rLEC 0.15452885371741348;
+
+xTEH -0.029160287542347847;
+rTEH 0.05321306699922518;
+xTEC -0.014295549892993312;
+rTEC 0.1531989824575728;
+
+xOutH 0.35189697484320004;
+rOutH 0.07534564187982214;
+xOutC 0.35189697484320004;
+rOutC 0.1478252606691894;
+
+x0r0m ($xInH $rInH 0);
+x0r1m ($xInC $rInC 0);
+
+x1r0p ($xInH #eval{$rInH * cos(degToRad($pAng))} #eval{$rInH * sin(degToRad($pAng))});
+x1r1p ($xInC #eval{$rInC * cos(degToRad($pAng))} #eval{$rInC * sin(degToRad($pAng))});
+x2r0p ($xLEH #eval{$rLEH * cos(degToRad($pAng))} #eval{$rLEH * sin(degToRad($pAng))});
+x2r1p ($xLEC #eval{$rLEC * cos(degToRad($pAng))} #eval{$rLEC * sin(degToRad($pAng))});
+x3r0p ($xTEH #eval{$rTEH * cos(degToRad($pAng))} #eval{$rTEH * sin(degToRad($pAng))});
+x3r1p ($xTEC #eval{$rTEC * cos(degToRad($pAng))} #eval{$rTEC * sin(degToRad($pAng))});
+x4r0p ($xOutH #eval{$rOutH * cos(degToRad($pAng))} #eval{$rOutH * sin(degToRad($pAng))});
+x4r1p ($xOutC #eval{$rOutC * cos(degToRad($pAng))} #eval{$rOutC * sin(degToRad($pAng))});
+
+x1r0n ($xInH #eval{$rInH * cos(degToRad($nAng))} #eval{$rInH * sin(degToRad($nAng))});
+x1r1n ($xInC #eval{$rInC * cos(degToRad($nAng))} #eval{$rInC * sin(degToRad($nAng))});
+x2r0n ($xLEH #eval{$rLEH * cos(degToRad($nAng))} #eval{$rLEH * sin(degToRad($nAng))});
+x2r1n ($xLEC #eval{$rLEC * cos(degToRad($nAng))} #eval{$rLEC * sin(degToRad($nAng))});
+x3r0n ($xTEH #eval{$rTEH * cos(degToRad($nAng))} #eval{$rTEH * sin(degToRad($nAng))});
+x3r1n ($xTEC #eval{$rTEC * cos(degToRad($nAng))} #eval{$rTEC * sin(degToRad($nAng))});
+x4r0n ($xOutH #eval{$rOutH * cos(degToRad($nAng))} #eval{$rOutH * sin(degToRad($nAng))});
+x4r1n ($xOutC #eval{$rOutC * cos(degToRad($nAng))} #eval{$rOutC * sin(degToRad($nAng))});
+
+x4r0m ($xOutH $rOutH 0);
+x4r1m ($xOutC $rOutC 0);
+
+geometry
+{
+	hub
+	{
+		type 	triSurfaceMesh;
+		file	"hub.stl";
+	}
+	LE
+	{
+		type	triSurfaceMesh;
+		file	"LE.stl";		
+	}
+	TE
+	{
+		type	triSurfaceMesh;
+		file	"TE.stl";		
+	}
+	cas
+	{
+		type 	triSurfaceMesh;
+		file	"casing.stl";
+	}
+	inlet
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x1r0p;
+			point2	$x1r0n;
+			point3	$x1r1p; 
+       	}
+	}
+	outlet
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x4r0p;
+			point2	$x4r0n;
+			point3	$x4r1p; 
+       	}
+	}
+	nPer
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x1r0n;
+			point2	$x1r1n;
+			point3	$x4r1n; 
+       	}
+	}	
+	pPer
+	{
+    	type searchablePlane;
+    	planeType embeddedPoints;
+    	embeddedPointsDict
+    	{
+    		point1	$x1r0p; 
+			point2	$x1r1p; 
+			point3	$x4r1p;
+       	}
+	}		
+}
+vertices
+(
+/*	name Px1r0 $x1r0p
+	name Px2r0 $x2r0p
+	name Px3r0 $x3r0p
+	name Px4r0 $x4r0p
+
+	name Px1r1 $x1r1p
+	name Px2r1 $x2r1p
+	name Px3r1 $x3r1p
+	name Px4r1 $x4r1p
+
+	name Nx1r0 $x1r0n
+	name Nx2r0 $x2r0n
+	name Nx3r0 $x3r0n
+	name Nx4r0 $x4r0n
+
+	name Nx1r1 $x1r1n
+	name Nx2r1 $x2r1n
+	name Nx3r1 $x3r1n
+	name Nx4r1 $x4r1n*/
+
+	name Px1r0 project $x1r0p (hub pPer inlet)
+	name Px2r0 project $x2r0p (hub pPer LE)
+	name Px3r0 project $x3r0p (hub pPer TE)
+	name Px4r0 project $x4r0p (hub pPer outlet)
+
+	name Px1r1 project $x1r1p (cas pPer inlet)
+	name Px2r1 project $x2r1p (cas pPer LE)
+	name Px3r1 project $x3r1p (cas pPer TE)
+	name Px4r1 project $x4r1p (cas pPer outlet)
+
+	name Nx1r0 project $x1r0n (hub nPer inlet)
+	name Nx2r0 project $x2r0n (hub nPer LE)
+	name Nx3r0 project $x3r0n (hub nPer TE)
+	name Nx4r0 project $x4r0n (hub nPer outlet)
+
+	name Nx1r1 project $x1r1n (cas nPer inlet)
+	name Nx2r1 project $x2r1n (cas nPer LE)
+	name Nx3r1 project $x3r1n (cas nPer TE)
+	name Nx4r1 project $x4r1n (cas nPer outlet)	
+				
+);
+
+edges
+(
+
+	project Px1r0 Nx1r0 (hub inlet)
+	project Px1r1 Nx1r1 (cas inlet)
+ 	
+	project Px2r0 Nx2r0 (hub LE)
+	project Px2r1 Nx2r1 (cas LE)
+	project Px3r0 Nx3r0 (hub TE)
+	project Px3r1 Nx3r1 (cas TE)
+	
+
+	project Px1r0 Px2r0 (hub pPer)
+	project Px2r0 Px3r0 (hub pPer)
+	project Px3r0 Px4r0 (hub pPer)
+	
+	project Nx1r0 Nx2r0 (hub nPer)
+	project Nx2r0 Nx3r0 (hub nPer)
+	project Nx3r0 Nx4r0 (hub nPer)
+
+	project Px1r1 Px2r1 (cas pPer)
+	project Px2r1 Px3r1 (cas pPer)
+	project Px3r1 Px4r1 (cas pPer)
+	
+	project Nx1r1 Nx2r1 (cas nPer)
+	project Nx2r1 Nx3r1 (cas nPer)
+	project Nx3r1 Nx4r1 (cas nPer)
+
+	project Px1r0 Px1r1 (pPer inlet)
+	project Px2r0 Px2r1 (pPer LE)
+	project Px3r0 Px3r1 (pPer TE)
+	project Px4r0 Px4r1 (pPer outlet)
+
+	project Nx1r0 Nx1r1 (nPer inlet)
+	project Nx2r0 Nx2r1 (nPer LE)
+	project Nx3r0 Nx3r1 (nPer TE)
+	project Nx4r0 Nx4r1 (nPer outlet)	
+
+	project Px4r0 Nx4r0 (hub outlet)
+	project Px4r1 Nx4r1 (cas outlet)
+);
+
+blocks
+(
+	//     0    1     2     3     4     5     6     7
+ 	hex (Px1r0 Px2r0 Nx2r0 Nx1r0 Px1r1 Px2r1 Nx2r1 Nx1r1) Rotor ($ptX1 $ptsY $ptsZ) 
+ 	simpleGrading 
+ 	(
+		(
+			(#eval{1 - $x1P} #eval{1 - $x1N} $z1G)
+   			($x1P $x1N $x1upG)
+   		)  		
+		1
+		(
+			($z1P $z1N $z1upG)
+			(#eval{1 - 2*$z1P} #eval{1 - 2*$z1N} $z1mG)
+			($z1P $z1N  $z1dwG)
+		)
+	) 
+ 	hex (Px2r0 Px3r0 Nx3r0 Nx2r0 Px2r1 Px3r1 Nx3r1 Nx2r1) Stator ($ptX2 $ptsY $ptsZ) 
+ 	simpleGrading 
+ 	(
+		(
+			($x2P $x2N $x2dwG)
+			(#eval{1 - 2*$x2P} #eval{1 - 2*$x2N} $x2mG)
+			($x2P $x2N  $x2upG)
+		)	
+		1 
+		(
+			($z2P $z2N $z2upG)
+			(#eval{1 - 2*$z2P} #eval{1 - 2*$z2N} $z2mG)
+			($z2P $z2N  $z2dwG)
+		)
+	)
+ 	hex (Px3r0 Px4r0 Nx4r0 Nx3r0 Px3r1 Px4r1 Nx4r1 Nx3r1) ($ptX3 $ptsY $ptsZ) 
+ 	simpleGrading 
+ 	(		
+		(
+   			($x3P $x3N $x3dwG)
+   			(#eval{1 - $x3P} #eval{1 - $x3N} $z3G)
+   		) 
+		1 
+		(
+			($z3P $z3N $z3upG)
+			(#eval{1 - 2*$z3P} #eval{1 - 2*$z3N} $z3mG)
+			($z3P $z3N  $z3dwG)
+		)
+	)
+);
+
+faces
+(
+	project (Px1r0 Px2r0 Nx2r0 Nx1r0) hub
+	project (Px2r0 Px3r0 Nx3r0 Nx2r0) hub
+	project (Px3r0 Px4r0 Nx4r0 Nx3r0) hub
+
+	project (Px1r1 Px2r1 Nx2r1 Nx1r1) cas
+	project (Px2r1 Px3r1 Nx3r1 Nx2r1) cas
+	project (Px3r1 Px4r1 Nx4r1 Nx3r1) cas
+
+	project (Px1r0 Px1r1 Px2r1 Px2r0) pPer
+	project	(Px2r0 Px2r1 Px3r1 Px3r0) pPer
+	project	(Px3r0 Px3r1 Px4r1 Px4r0) pPer
+
+	project (Nx1r0 Nx1r1 Nx2r1 Nx2r0) nPer
+	project	(Nx2r0 Nx2r1 Nx3r1 Nx3r0) nPer
+	project	(Nx3r0 Nx3r1 Nx4r1 Nx4r0) nPer
+	
+);
+
+boundary
+(
+	inlet
+	{
+		type patch;
+		faces
+		(
+			// 0 3 7 4
+			(Px1r0 Nx1r0 Nx1r1 Px1r1)
+		);
+	}
+	outlet
+	{
+		type patch;
+		faces
+		(
+			// 1 2 6 5 	
+			(Px4r0 Nx4r0 Nx4r1 Px4r1)
+		);
+	}	
+	hub
+	{
+		type wall;
+		faces
+		(
+			// 0 1 2 3
+			(Px1r0 Px2r0 Nx2r0 Nx1r0)
+			(Px2r0 Px3r0 Nx3r0 Nx2r0)
+			(Px3r0 Px4r0 Nx4r0 Nx3r0)
+		);
+	}
+	casing
+	{
+		type wall;
+		faces
+		(
+			// 4 5 6 7 
+			(Px1r1 Px2r1 Nx2r1 Nx1r1)
+			(Px2r1 Px3r1 Nx3r1 Nx2r1)
+			(Px3r1 Px4r1 Nx4r1 Nx3r1)
+		);
+	}
+	nPer
+	{
+		type wall;
+		faces
+		(
+			//(3 7 6 2)
+			(Nx1r0 Nx1r1 Nx2r1 Nx2r0)
+			(Nx2r0 Nx2r1 Nx3r1 Nx3r0)
+			(Nx3r0 Nx3r1 Nx4r1 Nx4r0) 			
+		);
+	}
+	pPer
+	{
+		type wall;
+		faces
+		(
+			//(0 4 5 1)
+			(Px1r0 Px1r1 Px2r1 Px2r0)
+			(Px2r0 Px2r1 Px3r1 Px3r0)
+			(Px3r0 Px3r1 Px4r1 Px4r0)			
+		);
+	}
+);
+
+mergePatchPairs
+(
+);
+
+
+// ************************************************************************* //

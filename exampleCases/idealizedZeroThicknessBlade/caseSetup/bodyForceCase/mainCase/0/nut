@@ -1,0 +1,77 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      nut;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 2 -1 0 0 0 0];
+
+I 0.05;
+U 119;
+
+
+Kval #eval{1.5*$I*$I*$U*$U}; //k=1.5*I^2*U^2
+Wval #eval{$U/(0.07*0.5)};
+vt #eval{$Kval/$Wval};
+internalField   uniform $vt;
+
+boundaryField
+{
+	#includeEtc "caseDicts/setConstraintTypes"
+	
+	inlet
+	{
+		type            calculated;
+		value           $internalField;
+	}
+	outlet
+	{
+		type            calculated;
+		value           $internalField;		
+	}
+	hub
+	{		
+		type            nutUWallFunction;
+		blending        binomial;
+		n               2;
+		Cmu             0.09;
+		kappa           0.41;
+		E               9.8;
+		value           $internalField;		
+	}
+	casing
+	{
+		type            nutUWallFunction;
+		blending        binomial;
+		n               2;
+		Cmu             0.09;
+		kappa           0.41;
+		E               9.8;
+		value           $internalField;			
+	}
+/*	blade
+	{		
+		type            nutUWallFunction;
+		blending        binomial;
+		n               2;
+		Cmu             0.09;
+		kappa           0.41;
+		E               9.8;
+		value           $internalField;		
+	}*/
+
+}
+
+
+// ************************************************************************* //

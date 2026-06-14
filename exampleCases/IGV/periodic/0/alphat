@@ -1,0 +1,61 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      alphat;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [1 -1 -1 0 0 0 0];
+
+I 0.05;
+U 166;
+v 0.000014607;
+Prt 0.85;
+
+val #eval{1.5*$I*$I*$U*$U}; //k=1.5*I^2*U^2
+vt #eval{$v*($val-1)}; 
+apha #eval{$vt/$Prt}; //vt is turbulence viscosity Prt Turbulence Prandtl Number
+
+//internalField   uniform $apha;
+internalField   uniform #eval{0.008452174 / 0.85};
+
+boundaryField
+{
+	#includeEtc "caseDicts/setConstraintTypes"
+
+	inlet
+	{
+		type            calculated;
+		value           $internalField;		
+	}
+    outlet
+    {
+		type            calculated;
+		value           $internalField; 
+    }
+	hub
+	{
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           $internalField;	
+	}
+	casing
+	{
+        type            compressible::alphatWallFunction;
+        Prt             0.85;
+        value           $internalField;		
+	}	
+}
+
+
+// ************************************************************************* //

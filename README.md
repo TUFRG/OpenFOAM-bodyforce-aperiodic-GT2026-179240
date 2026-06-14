@@ -124,4 +124,21 @@ DETAILS OF FOLDER CONTENTS
 	CFD mesh
 
 - grid-Generation-Template
+	This folder contains the provided grid templates. There are 3 difference templates as detailled in the
+	paper, however, there are 6 folders here for full wheel and thin slice of rotor and stator, rotor alone and 
+	stator alone template. 
+	The name of each folder is self explanatory for which template the case describes. 
+
+	-	RawData
+	This folder contains the geometry data that defines the grid. The grid generator requires the camber
+	surface data and the gas path
+	-	gasPath 
+	The has path data should come in the cylindrical coordinate system (r,theta,z). The data is need for the
+	hub and casing in text formart (.txt) and should be comma delimeted. The length of data for hub and 
+	casing can be different but the unit must be consistent with the camber data. The names cannot be different 
+	from the name shown in this folder
+	-	camberData
+	The camberData is the same camber data generated from our in house code. 
+
+*****************************************************************************************
  

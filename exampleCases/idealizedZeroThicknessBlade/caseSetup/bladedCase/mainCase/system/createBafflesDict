@@ -1,0 +1,59 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2312                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createBafflesDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Process only internal faces
+internalFacesOnly true;
+
+/*baffles
+{
+    bladeBaffles
+    {
+        type        faceZone;
+        zoneName    blade;
+        
+        patches
+        {
+            master
+            {
+                name            bladeSuction;
+                type            wall;
+            }
+            slave
+            {
+                name            bladePressure;
+                type            wall;
+            }
+        }
+    }
+}*/
+
+baffles
+{
+    bladeBaffle
+    {
+        type        searchableSurface;
+        surface     triSurfaceMesh;
+        name        allBlades.stl;  // Corresponds to constant/triSurface/blade1.stl
+        // flip      false;  // Optional: Flip orientation if needed
+
+        patchPairs
+        {
+            type    wall;
+        }
+    }
+}
+
+// ************************************************************************* //

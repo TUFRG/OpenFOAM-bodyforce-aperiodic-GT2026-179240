@@ -1,0 +1,150 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+libs (turbulenceModelSchemes);
+
+application     	rhoSimpleFoam;
+
+startFrom       	latestTime;
+
+startTime       	0;
+
+stopAt          	endTime;
+
+endTime         	5000;  
+
+deltaT          	1; //1e-07; 
+
+writeControl    	timeStep;
+
+writeInterval   	500; //2500; //0.000001;
+
+purgeWrite      	0;
+
+writeFormat     	ascii;
+
+writePrecision  	10;
+
+writeCompression 	off;
+
+timeFormat      	general;
+
+timePrecision   	8;
+
+runTimeModifiable 	true;
+
+//adjustTimeStep  	yes;
+
+//maxCo			1;
+
+intvl			500;
+
+
+functions
+{
+
+//	#includeFunc flowRatePatch(name=inlet)
+//	#includeFunc flowRatePatch(name=Dwoutlet)
+	#includeFunc yPlus
+}
+
+/*turbulenceFields1
+{
+    // Mandatory entries (unmodifiable)
+    type            turbulenceFields;
+    libs            (fieldFunctionObjects);
+
+    // Mandatory entries (runtime modifiable)
+    // Either field or fields entries
+    fields          (epsilon L);
+
+    // Optional (inherited) entries
+    region          region0;
+    enabled         true;
+    log             true;
+    timeStart       0;
+    timeEnd         5000;
+    executeControl  timeStep;
+    executeInterval $intvl;
+    writeControl    timeStep;
+    writeInterval   $intvl;
+}
+
+	totalPressureFunc
+	{
+		type			pressure;
+		libs			(fieldFunctionObjects);
+		mode			isentropic;
+		writeControl		writeTime;
+		executeControl		runTime;
+		executeInterval		$intvl;
+	}
+	
+	vorticity1
+	{
+		type			vorticity;
+		libs			(fieldFunctionObjects);
+		enabled			false;
+		writeControl		writeTime;
+		executeControl		runTime;
+		executeInterval		$intvl;
+	}
+	
+	MachNumber
+    	{
+		type			MachNo;
+       		libs			("libfieldFunctionObjects.so");
+		enabled			true;
+       		executeControl		runTime;
+		executeInterval		$intvl;
+       		writeControl		writeTime;
+    	}
+
+
+	data
+    	{
+        	type            surfaces;
+        	libs		("libsampling.so");
+        	writeControl    runTime;
+			writeInterval   $intvl;
+
+        	surfaceFormat	csv;
+
+        	fields          ( Ma T U p rho isentropic(p) turbulenceProperties:L);
+
+        	interpolationScheme cell;
+
+        	surfaces
+        	(
+            		rotorOutlet
+            		{
+                		type           patch;
+                		patches		   (interface2);
+                		interpolate	   true;
+            		}
+            		domainOutlet
+            		{
+                		type           patch;
+                		patches		   (Dwoutlet);
+                		interpolate	   true;
+            		}
+        	);
+    	}
+
+}*/
+
+// ************************************************************************* //

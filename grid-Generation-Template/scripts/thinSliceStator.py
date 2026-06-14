@@ -249,97 +249,111 @@ def commonRatio(y1, delta, n):
 #lowCount Nr=50 Nz = 30
 #medCount Nr=60 Nz = 45
 #highCount Nr=70 Nz = 70
-parser = argparse.ArgumentParser(description="Getting the Geometry parameters.")
-parser.add_argument(
-    "Nbr", 
-    type=int,
-    help="number of rotor blades"
-)
-parser.add_argument(
-    "Nbs", 
-    type=int,
-    help="number of stator blades"
-)
-parser.add_argument(
-    "rSections", 
-    type=int,
-    help="number of rotor blade profiles"
-)
-parser.add_argument(
-    "sSections", 
-    type=int,
-    help="number of stator blade profiles"
-)
-parser.add_argument(
-    "res", 
-    type=int,
-    help="stl resolution"
-)
-parser.add_argument(
-    "domainExtn", 
-    type=float,
-    help="domain extension"
-)
-parser.add_argument(
-    "velocity", 
-    type=float,
-    help="farstream velocity"
-)
-parser.add_argument(
-    "target_yPlus",
-    type=float,
-    help="target_yplus"
-)
-parser.add_argument(
-    "NrCells", 
-    type=int,
-    help="number of cells radial direction"
-)
-parser.add_argument(
-    "NzCells", 
-    type=int,
-    help="number of cells in axial direction"
-)
-parser.add_argument(
-    "NqCells", 
-    type=int,
-    help="number of cells in circumferential direction"
-)
-parser.add_argument(
-    "hubZ",
-    type=float,
-    help="Axial location where rotor hub stops rotating"
-)
-parser.add_argument(
-    "spinnerIdx", 
-    type=int,
-    help="index on hub where spinner nose ends"
-)
-parser.add_argument(
-    "scales",
-    type=float,
-    help="convert to meters or SI units"
-)
-# Parse arguments
-args = parser.parse_args()
+# parser = argparse.ArgumentParser(description="Getting the Geometry parameters.")
+# parser.add_argument(
+#     "Nbr", 
+#     type=int,
+#     help="number of rotor blades"
+# )
+# parser.add_argument(
+#     "Nbs", 
+#     type=int,
+#     help="number of stator blades"
+# )
+# parser.add_argument(
+#     "rSections", 
+#     type=int,
+#     help="number of rotor blade profiles"
+# )
+# parser.add_argument(
+#     "sSections", 
+#     type=int,
+#     help="number of stator blade profiles"
+# )
+# parser.add_argument(
+#     "res", 
+#     type=int,
+#     help="stl resolution"
+# )
+# parser.add_argument(
+#     "domainExtn", 
+#     type=float,
+#     help="domain extension"
+# )
+# parser.add_argument(
+#     "velocity", 
+#     type=float,
+#     help="farstream velocity"
+# )
+# parser.add_argument(
+#     "target_yPlus",
+#     type=float,
+#     help="target_yplus"
+# )
+# parser.add_argument(
+#     "NrCells", 
+#     type=int,
+#     help="number of cells radial direction"
+# )
+# parser.add_argument(
+#     "NzCells", 
+#     type=int,
+#     help="number of cells in axial direction"
+# )
+# parser.add_argument(
+#     "NqCells", 
+#     type=int,
+#     help="number of cells in circumferential direction"
+# )
+# parser.add_argument(
+#     "hubZ",
+#     type=float,
+#     help="Axial location where rotor hub stops rotating"
+# )
+# parser.add_argument(
+#     "spinnerIdx", 
+#     type=int,
+#     help="index on hub where spinner nose ends"
+# )
+# parser.add_argument(
+#     "scales",
+#     type=float,
+#     help="convert to meters or SI units"
+# )
+# # Parse arguments
+# args = parser.parse_args()
 
-# Use parsed arguments
-Nbr = args.Nbr  # Total number of blades in the annulus for rotor
-Nbs = args.Nbs  # Total number of blades in the annulus for stator
-rSections = args.rSections  # Number of rotor blade profiles
-sSections = args.sSections  # Number of stator blade profiles
-res = args.res  
-domainExtn = args.domainExtn  
-velocity = args.velocity 
-target_yPlus = args.target_yPlus
-Nr = args.NrCells
-Nz = args.NzCells 
-Nq = args.NqCells 
-hubZ = args.hubZ
-spinnerIdx = args.spinnerIdx
-scales = args.scales
+# # Use parsed arguments
+# Nbr = args.Nbr  # Total number of blades in the annulus for rotor
+# Nbs = args.Nbs  # Total number of blades in the annulus for stator
+# rSections = args.rSections  # Number of rotor blade profiles
+# sSections = args.sSections  # Number of stator blade profiles
+# res = args.res  
+# domainExtn = args.domainExtn  
+# velocity = args.velocity 
+# target_yPlus = args.target_yPlus
+# Nr = args.NrCells
+# Nz = args.NzCells 
+# Nq = args.NqCells 
+# hubZ = args.hubZ
+# spinnerIdx = args.spinnerIdx
+# scales = args.scales
 
 filePath = '../rawData/'
+Nbr = 60
+Nbs = 60
+rSections = 5
+sSections = 5
+domainExtn = 1.5
+velocity = 166
+target_yPlus = 2
+Nr = 60 #Number of cells in the radial direction 
+Nz = 45 # Total Number of cells in the axial direction 
+Nq = 90
+hubZ = 21.2
+spinnerIdx = 13
+scales = 0.001
+
 
 Np = 101
 Ncp = 101
@@ -354,20 +368,20 @@ percent = 0.313 #Set the percentage upstream and downstream of the domain where 
 percentDw = 0.9
 
 #%%
-rotorCamberData = np.zeros((rSections, Np, 3))
+# rotorCamberData = np.zeros((rSections, Np, 3))
 statorCamberData = np.zeros((sSections, Np, 3))
 hubData = np.loadtxt(filePath + '/gasPath/hub.txt', delimiter=',', skiprows=0)[:,[2,1,0]]
 hubData = np.delete(hubData, 1, 1)
 casData = np.loadtxt(filePath + '/gasPath/casing.txt', delimiter=',', skiprows=1)[:,[2,1,0]]
 casData = np.delete(casData,1, 1)
-rLEData = np.zeros((rSections,2)) #z,r
-rTEData = np.zeros((rSections,2))
+# rLEData = np.zeros((rSections,2)) #z,r
+# rTEData = np.zeros((rSections,2))
 sLEData = np.zeros((sSections,2))
 sTEData = np.zeros((sSections,2))
-for a in range(rSections):
-        rotorCamberData[a,:,:] = np.loadtxt(filePath + '/camberData/rotor/camber{}.txt'.format(a), delimiter=',')
-        rLEData[a,:] = np.column_stack((rotorCamberData[a,:,:][0,2], np.sqrt(rotorCamberData[a,:,:][0,1]**2+rotorCamberData[a,:,:][0,0]**2)))
-        rTEData[a,:] = np.column_stack((rotorCamberData[a,:,:][-1,2], np.sqrt(rotorCamberData[a,:,:][-1,1]**2+rotorCamberData[a,:,:][-1,0]**2)))
+# for a in range(rSections):
+#         rotorCamberData[a,:,:] = np.loadtxt(filePath + '/camberData/rotor/camber{}.txt'.format(a), delimiter=',')
+#         rLEData[a,:] = np.column_stack((rotorCamberData[a,:,:][0,2], np.sqrt(rotorCamberData[a,:,:][0,1]**2+rotorCamberData[a,:,:][0,0]**2)))
+#         rTEData[a,:] = np.column_stack((rotorCamberData[a,:,:][-1,2], np.sqrt(rotorCamberData[a,:,:][-1,1]**2+rotorCamberData[a,:,:][-1,0]**2)))
 
 for b in range(sSections):
         statorCamberData[b,:,:] = np.loadtxt(filePath + '/camberData/stator/camber{}.txt'.format(b), delimiter=',')       
@@ -377,37 +391,37 @@ for b in range(sSections):
  
 hubData *= scales
 casData *= scales
-rLEData *= scales
-rTEData *= scales
+# rLEData *= scales
+# rTEData *= scales
 sLEData *= scales
 sTEData *= scales
 hubZ *= scales
 #%% Ensure that the LE/TE of rotor and stator lies within hub and casing 
 #first Extend the curves
-rLEDataExtn = extndCurve(rLEData, length)
-rTEDataExtn = extndCurve(rTEData, length)
+# rLEDataExtn = extndCurve(rLEData, length)
+# rTEDataExtn = extndCurve(rTEData, length)
 sLEDataExtn = extndCurve(sLEData, length)
 sTEDataExtn = extndCurve(sTEData, length)
 #find the intersection on the hub and casing 
-rLEInterXHub = TwoLinesIntersect(hubData, rLEDataExtn)
-rTEInterXHub = TwoLinesIntersect(hubData, rTEDataExtn)
+# rLEInterXHub = TwoLinesIntersect(hubData, rLEDataExtn)
+# rTEInterXHub = TwoLinesIntersect(hubData, rTEDataExtn)
 sLEInterXHub = TwoLinesIntersect(hubData, sLEDataExtn)
 sTEInterXHub = TwoLinesIntersect(hubData, sTEDataExtn)
 
-rLEInterXCas = TwoLinesIntersect(casData, rLEDataExtn)
-rTEInterXCas = TwoLinesIntersect(casData, rTEDataExtn)
+# rLEInterXCas = TwoLinesIntersect(casData, rLEDataExtn)
+# rTEInterXCas = TwoLinesIntersect(casData, rTEDataExtn)
 sLEInterXCas = TwoLinesIntersect(casData, sLEDataExtn)
 sTEInterXCas = TwoLinesIntersect(casData, sTEDataExtn)
 #newly defined LE/TE curves
-rLEHubIdx = np.argmin(abs(rLEData[:,1]-rLEInterXHub[1]))
-rLECasIdx = np.argmin(abs(rLEData[:,1]-rLEInterXCas[1]))
-newRLEData = np.vstack((rLEInterXHub, rLEData[rLEHubIdx+1:rLECasIdx], rLEInterXCas))
-newRLEData = densifyCurve(newRLEData, res-2, 'uniform') # I am subtracting 5 because I will add the intersection to the offset hub and casing 
+# rLEHubIdx = np.argmin(abs(rLEData[:,1]-rLEInterXHub[1]))
+# rLECasIdx = np.argmin(abs(rLEData[:,1]-rLEInterXCas[1]))
+# newRLEData = np.vstack((rLEInterXHub, rLEData[rLEHubIdx+1:rLECasIdx], rLEInterXCas))
+# newRLEData = densifyCurve(newRLEData, res-2, 'uniform') # I am subtracting 5 because I will add the intersection to the offset hub and casing 
 
-rTEHubIdx = np.argmin(abs(rTEData[:,1]-rTEInterXHub[1]))
-rTECasIdx = np.argmin(abs(rTEData[:,1]-rTEInterXCas[1]))
-newRTEData = np.vstack((rTEInterXHub, rTEData[rTEHubIdx+1:rTECasIdx], rTEInterXCas))
-newRTEData = densifyCurve(newRTEData, res-2, 'uniform')
+# rTEHubIdx = np.argmin(abs(rTEData[:,1]-rTEInterXHub[1]))
+# rTECasIdx = np.argmin(abs(rTEData[:,1]-rTEInterXCas[1]))
+# newRTEData = np.vstack((rTEInterXHub, rTEData[rTEHubIdx+1:rTECasIdx], rTEInterXCas))
+# newRTEData = densifyCurve(newRTEData, res-2, 'uniform')
 
 sLEHubIdx = np.argmin(abs(sLEData[:,1]-sLEInterXHub[1]))
 sLECasIdx = np.argmin(abs(sLEData[:,1]-sLEInterXCas[1]))
@@ -419,35 +433,43 @@ sTECasIdx = np.argmin(abs(sTEData[:,1]-sTEInterXCas[1]))
 newSTEData = np.vstack((sTEInterXHub, sTEData[sTEHubIdx+1:sTECasIdx], sTEInterXCas))
 newSTEData = densifyCurve(newSTEData, res-2, 'uniform')
 #%%Building the hubCut surface
-modHub = hubData
-modCas = np.vstack(([[hubData[0,0]-3*casData[0,1], casData[0,1]], casData]))
+diameter = casData[0,1] - hubData[0,1]
+inletAxial = 2*diameter
+hubFunc = interp1d(hubData[:,0], hubData[:,1], fill_value='extrapolate')
+hub = np.zeros((res-3,2))
+hub[:,0] = np.linspace(hubData[0,0]-inletAxial, hubData[-1,0]+inletAxial, res-3)
+hub[:,1] = hubFunc(hub[:,0])
 
-hubFunc = interp1d(modHub[:,0], modHub[:,1],)
-casFunc = interp1d(modCas[:,0], modCas[:,1],)
+casFunc = interp1d(casData[:,0], casData[:,1], fill_value='extrapolate')
+cas = np.zeros((res-3,2))
+cas[:,0] = np.linspace(casData[0,0]-inletAxial, casData[-1,0]+inletAxial, res-3)
+cas[:,1] = casFunc(cas[:,0])
 
 # hubFunc = CubicSpline(modHub[:,0], modHub[:,1],)
 # casFunc = CubicSpline(modCas[:,0], modCas[:,1],)
 
-hubR = hubFunc(hubZ)
-distH = abs(rTEInterXHub[0] - hubZ)
-casZ = rTEInterXCas[0] + distH
-casR = casFunc(casZ)
+# hubR = hubFunc(hubZ)
+# distH = abs(rTEInterXHub[0] - hubZ)
+# casZ = rTEInterXCas[0] + distH
+# casR = casFunc(casZ)
 stageExitH = hubData[-1]
-hub = np.zeros((res-5,2))
-# hub[:,0] = np.linspace(modHub[0,0], hubData[-1,0]+domainExtn*2*casData[0,1], res-5)
-hub[:,0] = np.linspace(modHub[0,0], modHub[-1,0], res-5)
-hub[:,1] = hubFunc(hub[:,0])
+# hub = np.zeros((res-3,2))
+# # hub[:,0] = np.linspace(modHub[0,0], hubData[-1,0]+domainExtn*2*casData[0,1], res-5)
+# hub[:,0] = np.linspace(modHub[0,0], modHub[-1,0], res-3)
+# hub[:,1] = hubFunc(hub[:,0])
 
 # stageExitH = [0.395, sTEInterXHub[1]]
-hub = insertPoints_batch(hub, [rLEInterXHub, rTEInterXHub,  sLEInterXHub, sTEInterXHub, stageExitH])
-cas = np.zeros((res-5,2))
-# cas[:,0] = np.linspace(hubData[0,0]-domainExtn*2*casData[0,1] , casData[-1,0]+domainExtn*2*casData[0,1], res-5)
-cas[:,0] = np.linspace(modCas[0,0] , modCas[-1,0], res-5)
-cas[:,1] = casFunc(cas[:,0])
+# hub = insertPoints_batch(hub, [rLEInterXHub, rTEInterXHub,  sLEInterXHub, sTEInterXHub, stageExitH])
+hub = insertPoints_batch(hub, [sLEInterXHub, sTEInterXHub, stageExitH])
+# cas = np.zeros((res-3,2))
+# # cas[:,0] = np.linspace(hubData[0,0]-domainExtn*2*casData[0,1] , casData[-1,0]+domainExtn*2*casData[0,1], res-5)
+# cas[:,0] = np.linspace(modCas[0,0] , modCas[-1,0], res-3)
+# cas[:,1] = casFunc(cas[:,0])
 
 # stageExitC = [0.395, sTEInterXCas[1]]
 stageExitC = casData[-1]
-cas = insertPoints_batch(cas, [rLEInterXCas, rTEInterXCas,  sLEInterXCas, sTEInterXCas, stageExitC])
+# cas = insertPoints_batch(cas, [rLEInterXCas, rTEInterXCas,  sLEInterXCas, sTEInterXCas, stageExitC])
+cas = insertPoints_batch(cas, [sLEInterXCas, sTEInterXCas, stageExitC])
 
 
 #define the position for inviscid region 
@@ -461,7 +483,7 @@ outletX = np.linspace(hub[-1,0], cas[-1,0], rSections)
 plt.plot(hub[:,0], hub[:,1], 'k')
 plt.plot(cas[:,0], cas[:,1], 'k')
 plt.plot(newSTEData [:,0], newSTEData[:,1], 'k')
-plt.plot(newRTEData [:,0], newRTEData[:,1], 'k')
+# plt.plot(newRTEData [:,0], newRTEData[:,1], 'k')
 # plt.plot(offsetTE[:,0], offsetTE[:,1], 'k')
 plt.axis('equal')
 #%% Generate the curves on the nose (The butterfly curve)
@@ -536,9 +558,9 @@ inviscidOutRh = hubFunc(cas[-1,0]-domainExtn*2*casData[0,1]*percent)
 # plt.plot(hubZ, hubR, 'k.')
 # plt.plot(offsetTE[:,0], offsetTE[:,1])
 #%% Determine flow properties 
-mid = int(0.5*rTEData.shape[0])
+mid = int(0.5*sTEData.shape[0])
 # domLen = cas[-1,0] - cas[0,0]
-domLen = rTEData[mid,0] - rLEData[mid,0] 
+domLen = sTEData[mid,0] - sLEData[mid,0] 
 # domLen = newRTEData[int(np.floor(0.5*rSections)),0] - newRLEData[int(np.floor(0.5*rSections)),0]
 delThick, y1 = yPlusCalc(velocity, domLen, target_yPlus)
 # y1 = 0.000006
@@ -553,23 +575,26 @@ offsetHub = np.zeros((res,res+4,3))
 offsetCas = np.zeros((res,res+4,3))
 
 #Determine the intersection of the cross passage curve on the offset 
-rLEOffsetH = TwoLinesIntersect(offHub, newRLEData)
-rTEOffsetH = TwoLinesIntersect(offHub, newRTEData)
+# rLEOffsetH = TwoLinesIntersect(offHub, newRLEData)
+# rTEOffsetH = TwoLinesIntersect(offHub, newRTEData)
 sLEOffsetH = TwoLinesIntersect(offHub, newSLEData) 
 sTEOffsetH = TwoLinesIntersect(offHub, newSTEData) 
 
-rLEOffsetC = TwoLinesIntersect(offCas, newRLEData)
-rTEOffsetC = TwoLinesIntersect(offCas, newRTEData)
+# rLEOffsetC = TwoLinesIntersect(offCas, newRLEData)
+# rTEOffsetC = TwoLinesIntersect(offCas, newRTEData)
 sLEOffsetC = TwoLinesIntersect(offCas, newSLEData) 
 sTEOffsetC = TwoLinesIntersect(offCas, newSTEData) 
 
-newRLEData = insertPoints_batch(newRLEData, [rLEOffsetH, rLEOffsetC])
-newRTEData = insertPoints_batch(newRTEData, [rTEOffsetH, rTEOffsetC])
+# newRLEData = insertPoints_batch(newRLEData, [rLEOffsetH, rLEOffsetC])
+# newRTEData = insertPoints_batch(newRTEData, [rTEOffsetH, rTEOffsetC])
 newSLEData = insertPoints_batch(newSLEData, [sLEOffsetH, sLEOffsetC])
 newSTEData = insertPoints_batch(newSTEData, [sTEOffsetH, sTEOffsetC])
 
-offCas = insertPoints_batch(offCas, [rLEOffsetC,rTEOffsetC,sLEOffsetC,sTEOffsetC])
-offHub = insertPoints_batch(offHub, [rLEOffsetH,rTEOffsetH,sLEOffsetH,sTEOffsetH])
+# offCas = insertPoints_batch(offCas, [rLEOffsetC,rTEOffsetC,sLEOffsetC,sTEOffsetC])
+# offHub = insertPoints_batch(offHub, [rLEOffsetH,rTEOffsetH,sLEOffsetH,sTEOffsetH])
+offCas = insertPoints_batch(offCas, [sLEOffsetC,sTEOffsetC])
+offHub = insertPoints_batch(offHub, [sLEOffsetH,sTEOffsetH])
+
 
 for c in range(res):
     offsetHub[c,:,:] = np.array(vectorRotZ3D(offHub[:,1], 0, offHub[:,0], theta[c])).T
@@ -595,7 +620,7 @@ for d in range(res):
 # plt.plot(cas[:,0], cas[:,1], 'k')
 # plt.plot(casData[:,0], casData[:,1], 'r')
 #%% Rotate all surfaces 
-newNsection = len(newRTEData)
+newNsection = len(newSTEData)
 rotInlet = np.zeros((res, rSections, 3))
 rotOutlet = np.zeros((res, rSections, 3))
 rotLE = np.zeros((res, newNsection, 3))
@@ -609,8 +634,8 @@ rotCas = np.zeros((res, len(cas), 3))
 for b in range(res):
     rotInlet[b,:,:] = np.array(vectorRotZ3D(inletR,0,inletX,theta[b])).T
     rotOutlet[b,:,:] = np.array(vectorRotZ3D(outletR,0,outletX,theta[b])).T
-    rotLE[b,:,:] = np.array(vectorRotZ3D(newRLEData[:,1],0,newRLEData[:,0],theta[b])).T
-    rotTE[b,:,:] = np.array(vectorRotZ3D(newRTEData[:,1],0,newRTEData[:,0],theta[b])).T
+    # rotLE[b,:,:] = np.array(vectorRotZ3D(newRLEData[:,1],0,newRLEData[:,0],theta[b])).T
+    # rotTE[b,:,:] = np.array(vectorRotZ3D(newRTEData[:,1],0,newRTEData[:,0],theta[b])).T
     staLE[b,:,:] = np.array(vectorRotZ3D(newSLEData[:,1],0,newSLEData[:,0],theta[b])).T
     staTE[b,:,:] = np.array(vectorRotZ3D(newSTEData[:,1],0,newSTEData[:,0],theta[b])).T
     rotHub[b,:,:] = np.array(vectorRotZ3D(hub[:,1],0,hub[:,0],theta[b])).T
@@ -802,28 +827,28 @@ HcoreBlk2 = blkLen2 - k*delThick
 NcoreBlk2 = HcoreBlk2/yn2
 blk2CellCount = NcoreBlk2 + 1*newNbcX2
 #for block3
-blkLen3 = rTEData[mid,0] - rLEData[mid,0] 
-NbcX3 = 2.5*(Nbl)
-blkFrac3 = k*delThick/blkLen3
-r3, yn3 = commonRatio(y1, k*delThick, NbcX3)
-gradHBlk3 = yn3/y1
-gradCBlk3 = y1/yn3
-newNbcX3 = 1 + np.log(yn3/y1)/np.log(r3)
-HcoreBlk3 = blkLen3 - 2*k*delThick
-NcoreBlk3 = HcoreBlk3/yn3
-blk3CellCount = NcoreBlk3 + 2*newNbcX3
+# blkLen3 = rTEData[mid,0] - rLEData[mid,0] 
+# NbcX3 = 2.5*(Nbl)
+# blkFrac3 = k*delThick/blkLen3
+# r3, yn3 = commonRatio(y1, k*delThick, NbcX3)
+# gradHBlk3 = yn3/y1
+# gradCBlk3 = y1/yn3
+# newNbcX3 = 1 + np.log(yn3/y1)/np.log(r3)
+# HcoreBlk3 = blkLen3 - 2*k*delThick
+# NcoreBlk3 = HcoreBlk3/yn3
+# blk3CellCount = NcoreBlk3 + 2*newNbcX3
 
 #for block5
-blkLen5 = sLEData[mid,0] - rTEData[mid,0] 
-NbcX5 = 2*(Nbl)
-blkFrac5 = k*delThick/blkLen5
-r5, yn5 = commonRatio(y1, k*delThick, NbcX5)
-gradHBlk5 = yn5/y1
-gradCBlk5 = y1/yn5
-newNbcX5 = 1 + np.log(yn5/y1)/np.log(r5)
-HcoreBlk5 = blkLen5 - 2*k*delThick
-NcoreBlk5 = HcoreBlk5/yn5
-blk5CellCount = NcoreBlk5 + 2*newNbcX5
+# blkLen5 = sLEData[mid,0] - rTEData[mid,0] 
+# NbcX5 = 2*(Nbl)
+# blkFrac5 = k*delThick/blkLen5
+# r5, yn5 = commonRatio(y1, k*delThick, NbcX5)
+# gradHBlk5 = yn5/y1
+# gradCBlk5 = y1/yn5
+# newNbcX5 = 1 + np.log(yn5/y1)/np.log(r5)
+# HcoreBlk5 = blkLen5 - 2*k*delThick
+# NcoreBlk5 = HcoreBlk5/yn5
+# blk5CellCount = NcoreBlk5 + 2*newNbcX5
 #for block6
 blkLen6 = sTEData[mid,0] - sLEData[mid,0] 
 NbcX6 = 2.5*(Nbl)
@@ -870,9 +895,9 @@ blk8CellCount = NcoreBlk8 + newNbcX8
 # ptX1 = np.round(blk1CellCount)
 # ptXS = np.round(blkSCellCount)
 ptX2 = np.round(blk2CellCount)
-ptX3 = np.round(blk3CellCount)
+# ptX3 = np.round(blk3CellCount)
 # ptX4 = np.round(blk4CellCount)
-ptX5 = np.round(blk5CellCount)
+# ptX5 = np.round(blk5CellCount)
 ptX6 = np.round(blk6CellCount)
 ptX7 = np.round(blk7CellCount)
 ptX8 = np.round(blk8CellCount)
@@ -880,9 +905,9 @@ ptX8 = np.round(blk8CellCount)
 # xS1 = blkFrac1
 # xSP = blkFracS
 x2P = blkFrac2
-x3P = blkFrac3
+# x3P = blkFrac3
 # x4P = blkFrac4
-x5P = blkFrac5
+# x5P = blkFrac5
 x6P = blkFrac6
 x7P = blkFrac7
 x8P = blkFrac8
@@ -890,9 +915,9 @@ x8P = blkFrac8
 # x1N = newNbcX1/blk1CellCount
 # xSN = newNbcXS/blkSCellCount
 x2N = newNbcX2/blk2CellCount
-x3N = newNbcX3/blk3CellCount
+# x3N = newNbcX3/blk3CellCount
 # x4N = newNbcX4/blk4CellCount
-x5N = newNbcX5/blk5CellCount
+# x5N = newNbcX5/blk5CellCount
 x6N = newNbcX6/blk6CellCount
 x7N = newNbcX7/blk7CellCount
 x8N = newNbcX8/blk8CellCount
@@ -900,9 +925,9 @@ x8N = newNbcX8/blk8CellCount
 # x1upG = gradHBlk1
 # xSupG = gradHBlkS
 x2upG = gradHBlk2
-x3upG = gradHBlk3
+# x3upG = gradHBlk3
 # x4upG = gradHBlk4
-x5upG = gradHBlk5
+# x5upG = gradHBlk5
 x6upG = gradHBlk6
 x7upG = gradHBlk7
 x8upG = gradHBlk8
@@ -910,9 +935,9 @@ x8upG = gradHBlk8
 # x1dwG = gradCBlk1
 # xSdwG = gradCBlkS
 x2dwG = gradCBlk2
-x3dwG = gradCBlk3
+# x3dwG = gradCBlk3
 # x4dwG = gradCBlk4
-x5dwG = gradCBlk5
+# x5dwG = gradCBlk5
 x6dwG = gradCBlk6
 x7dwG = gradCBlk7
 x8dwG = gradCBlk8
@@ -1042,37 +1067,37 @@ x3y5n = [cas[-1,1]*xAngN, cas[-1,1]*yAngN, cas[-1,0]]
 # x4y5p = [exitRc*xAngP, exitRc*yAngP, cas[-1,0]]
 # x4y5n = [exitRc*xAngN, exitRc*yAngN, cas[-1,0]]
 
-xr1y2m = [newRLEData[0,1], 0, newRLEData[0,0]]
-xr1y2p = [newRLEData[0,1]*xAngP, newRLEData[0,1]*yAngP, newRLEData[0,0]]
-xr1y2n = [newRLEData[0,1]*xAngN, newRLEData[0,1]*yAngN, newRLEData[0,0]]
+# xr1y2m = [newRLEData[0,1], 0, newRLEData[0,0]]
+# xr1y2p = [newRLEData[0,1]*xAngP, newRLEData[0,1]*yAngP, newRLEData[0,0]]
+# xr1y2n = [newRLEData[0,1]*xAngN, newRLEData[0,1]*yAngN, newRLEData[0,0]]
 
-xr1y3m = [rLEOffsetH[1], 0, rLEOffsetH[0]]
-xr1y3p = [rLEOffsetH[1]*xAngP, rLEOffsetH[1]*yAngP, rLEOffsetH[0]]
-xr1y3n = [rLEOffsetH[1]*xAngN, rLEOffsetH[1]*yAngN, rLEOffsetH[0]]
+# xr1y3m = [rLEOffsetH[1], 0, rLEOffsetH[0]]
+# xr1y3p = [rLEOffsetH[1]*xAngP, rLEOffsetH[1]*yAngP, rLEOffsetH[0]]
+# xr1y3n = [rLEOffsetH[1]*xAngN, rLEOffsetH[1]*yAngN, rLEOffsetH[0]]
 
-xr2y2m = [newRTEData[0,1], 0, newRTEData[0,0]]
-xr2y2p = [newRTEData[0,1]*xAngP, newRTEData[0,1]*yAngP, newRTEData[0,0]]
-xr2y2n = [newRTEData[0,1]*xAngN, newRTEData[0,1]*yAngN, newRTEData[0,0]]
+# xr2y2m = [newRTEData[0,1], 0, newRTEData[0,0]]
+# xr2y2p = [newRTEData[0,1]*xAngP, newRTEData[0,1]*yAngP, newRTEData[0,0]]
+# xr2y2n = [newRTEData[0,1]*xAngN, newRTEData[0,1]*yAngN, newRTEData[0,0]]
 
-xr2y3m = [rTEOffsetH[1], 0, rTEOffsetH[0]]
-xr2y3p = [rTEOffsetH[1]*xAngP, rTEOffsetH[1]*yAngP, rTEOffsetH[0]]
-xr2y3n = [rTEOffsetH[1]*xAngN, rTEOffsetH[1]*yAngN, rTEOffsetH[0]]
+# xr2y3m = [rTEOffsetH[1], 0, rTEOffsetH[0]]
+# xr2y3p = [rTEOffsetH[1]*xAngP, rTEOffsetH[1]*yAngP, rTEOffsetH[0]]
+# xr2y3n = [rTEOffsetH[1]*xAngN, rTEOffsetH[1]*yAngN, rTEOffsetH[0]]
 
-xr1y4m = [rLEOffsetC[1], 0, rLEOffsetC[0]]
-xr1y4p = [rLEOffsetC[1]*xAngP, rLEOffsetC[1]*yAngP, rLEOffsetC[0]]
-xr1y4n = [rLEOffsetC[1]*xAngN, rLEOffsetC[1]*yAngN, rLEOffsetC[0]]
+# xr1y4m = [rLEOffsetC[1], 0, rLEOffsetC[0]]
+# xr1y4p = [rLEOffsetC[1]*xAngP, rLEOffsetC[1]*yAngP, rLEOffsetC[0]]
+# xr1y4n = [rLEOffsetC[1]*xAngN, rLEOffsetC[1]*yAngN, rLEOffsetC[0]]
 
-xr1y5m = [newRLEData[-1,1], 0, newRLEData[-1,0]]
-xr1y5p = [newRLEData[-1,1]*xAngP, newRLEData[-1,1]*yAngP, newRLEData[-1,0]]
-xr1y5n = [newRLEData[-1,1]*xAngN, newRLEData[-1,1]*yAngN, newRLEData[-1,0]]
+# xr1y5m = [newRLEData[-1,1], 0, newRLEData[-1,0]]
+# xr1y5p = [newRLEData[-1,1]*xAngP, newRLEData[-1,1]*yAngP, newRLEData[-1,0]]
+# xr1y5n = [newRLEData[-1,1]*xAngN, newRLEData[-1,1]*yAngN, newRLEData[-1,0]]
 
-xr2y4m = [rTEOffsetC[1], 0, rTEOffsetC[0]]
-xr2y4p = [rTEOffsetC[1]*xAngP, rTEOffsetC[1]*yAngP, rTEOffsetC[0]]
-xr2y4n = [rTEOffsetC[1]*xAngN, rTEOffsetC[1]*yAngN, rTEOffsetC[0]]
+# xr2y4m = [rTEOffsetC[1], 0, rTEOffsetC[0]]
+# xr2y4p = [rTEOffsetC[1]*xAngP, rTEOffsetC[1]*yAngP, rTEOffsetC[0]]
+# xr2y4n = [rTEOffsetC[1]*xAngN, rTEOffsetC[1]*yAngN, rTEOffsetC[0]]
 
-xr2y5m = [newRTEData[-1,1], 0, newRTEData[-1,0]]
-xr2y5p = [newRTEData[-1,1]*xAngP, newRTEData[-1,1]*yAngP, newRTEData[-1,0]]
-xr2y5n = [newRTEData[-1,1]*xAngN, newRTEData[-1,1]*yAngN, newRTEData[-1,0]]
+# xr2y5m = [newRTEData[-1,1], 0, newRTEData[-1,0]]
+# xr2y5p = [newRTEData[-1,1]*xAngP, newRTEData[-1,1]*yAngP, newRTEData[-1,0]]
+# xr2y5n = [newRTEData[-1,1]*xAngN, newRTEData[-1,1]*yAngN, newRTEData[-1,0]]
 
 xs1y2m = [newSLEData[0,1], 0, newSLEData[0,0]]
 xs1y2p = [newSLEData[0,1]*xAngP, newSLEData[0,1]*yAngP, newSLEData[0,0]]
@@ -1205,30 +1230,30 @@ f.write('x3y5n ({} {} {}); \n'.format(x3y5n[0], x3y5n[1], x3y5n[2]))
 # f.write('x4y5m ({} {} {}); \n'.format(x4y5m[0], x4y5m[1], x4y5m[2]))
 # f.write('x4y5p ({} {} {}); \n'.format(x4y5p[0], x4y5p[1], x4y5p[2]))
 # f.write('x4y5n ({} {} {}); \n'.format(x4y5n[0], x4y5n[1], x4y5n[2]))
-f.write('xr1y2m ({} {} {}); \n'.format(xr1y2m[0], xr1y2m[1], xr1y2m[2]))
-f.write('xr1y2p ({} {} {}); \n'.format(xr1y2p[0], xr1y2p[1], xr1y2p[2]))
-f.write('xr1y2n ({} {} {}); \n'.format(xr1y2n[0], xr1y2n[1], xr1y2n[2]))
-f.write('xr1y3m ({} {} {}); \n'.format(xr1y3m[0], xr1y3m[1], xr1y3m[2]))
-f.write('xr1y3p ({} {} {}); \n'.format(xr1y3p[0], xr1y3p[1], xr1y3p[2]))
-f.write('xr1y3n ({} {} {}); \n'.format(xr1y3n[0], xr1y3n[1], xr1y3n[2]))
-f.write('xr1y4m ({} {} {}); \n'.format(xr1y4m[0], xr1y4m[1], xr1y4m[2]))
-f.write('xr1y4p ({} {} {}); \n'.format(xr1y4p[0], xr1y4p[1], xr1y4p[2]))
-f.write('xr1y4n ({} {} {}); \n'.format(xr1y4n[0], xr1y4n[1], xr1y4n[2]))
-f.write('xr1y5m ({} {} {}); \n'.format(xr1y5m[0], xr1y5m[1], xr1y5m[2]))
-f.write('xr1y5p ({} {} {}); \n'.format(xr1y5p[0], xr1y5p[1], xr1y5p[2]))
-f.write('xr1y5n ({} {} {}); \n'.format(xr1y5n[0], xr1y5n[1], xr1y5n[2]))
-f.write('xr2y2m ({} {} {}); \n'.format(xr2y2m[0], xr2y2m[1], xr2y2m[2]))
-f.write('xr2y2p ({} {} {}); \n'.format(xr2y2p[0], xr2y2p[1], xr2y2p[2]))
-f.write('xr2y2n ({} {} {}); \n'.format(xr2y2n[0], xr2y2n[1], xr2y2n[2]))
-f.write('xr2y3m ({} {} {}); \n'.format(xr2y3m[0], xr2y3m[1], xr2y3m[2]))
-f.write('xr2y3p ({} {} {}); \n'.format(xr2y3p[0], xr2y3p[1], xr2y3p[2]))
-f.write('xr2y3n ({} {} {}); \n'.format(xr2y3n[0], xr2y3n[1], xr2y3n[2]))
-f.write('xr2y4m ({} {} {}); \n'.format(xr2y4m[0], xr2y4m[1], xr2y4m[2]))
-f.write('xr2y4p ({} {} {}); \n'.format(xr2y4p[0], xr2y4p[1], xr2y4p[2]))
-f.write('xr2y4n ({} {} {}); \n'.format(xr2y4n[0], xr2y4n[1], xr2y4n[2]))
-f.write('xr2y5m ({} {} {}); \n'.format(xr2y5m[0], xr2y5m[1], xr2y5m[2]))
-f.write('xr2y5p ({} {} {}); \n'.format(xr2y5p[0], xr2y5p[1], xr2y5p[2]))
-f.write('xr2y5n ({} {} {}); \n'.format(xr2y5n[0], xr2y5n[1], xr2y5n[2]))
+# f.write('xr1y2m ({} {} {}); \n'.format(xr1y2m[0], xr1y2m[1], xr1y2m[2]))
+# f.write('xr1y2p ({} {} {}); \n'.format(xr1y2p[0], xr1y2p[1], xr1y2p[2]))
+# f.write('xr1y2n ({} {} {}); \n'.format(xr1y2n[0], xr1y2n[1], xr1y2n[2]))
+# f.write('xr1y3m ({} {} {}); \n'.format(xr1y3m[0], xr1y3m[1], xr1y3m[2]))
+# f.write('xr1y3p ({} {} {}); \n'.format(xr1y3p[0], xr1y3p[1], xr1y3p[2]))
+# f.write('xr1y3n ({} {} {}); \n'.format(xr1y3n[0], xr1y3n[1], xr1y3n[2]))
+# f.write('xr1y4m ({} {} {}); \n'.format(xr1y4m[0], xr1y4m[1], xr1y4m[2]))
+# f.write('xr1y4p ({} {} {}); \n'.format(xr1y4p[0], xr1y4p[1], xr1y4p[2]))
+# f.write('xr1y4n ({} {} {}); \n'.format(xr1y4n[0], xr1y4n[1], xr1y4n[2]))
+# f.write('xr1y5m ({} {} {}); \n'.format(xr1y5m[0], xr1y5m[1], xr1y5m[2]))
+# f.write('xr1y5p ({} {} {}); \n'.format(xr1y5p[0], xr1y5p[1], xr1y5p[2]))
+# f.write('xr1y5n ({} {} {}); \n'.format(xr1y5n[0], xr1y5n[1], xr1y5n[2]))
+# f.write('xr2y2m ({} {} {}); \n'.format(xr2y2m[0], xr2y2m[1], xr2y2m[2]))
+# f.write('xr2y2p ({} {} {}); \n'.format(xr2y2p[0], xr2y2p[1], xr2y2p[2]))
+# f.write('xr2y2n ({} {} {}); \n'.format(xr2y2n[0], xr2y2n[1], xr2y2n[2]))
+# f.write('xr2y3m ({} {} {}); \n'.format(xr2y3m[0], xr2y3m[1], xr2y3m[2]))
+# f.write('xr2y3p ({} {} {}); \n'.format(xr2y3p[0], xr2y3p[1], xr2y3p[2]))
+# f.write('xr2y3n ({} {} {}); \n'.format(xr2y3n[0], xr2y3n[1], xr2y3n[2]))
+# f.write('xr2y4m ({} {} {}); \n'.format(xr2y4m[0], xr2y4m[1], xr2y4m[2]))
+# f.write('xr2y4p ({} {} {}); \n'.format(xr2y4p[0], xr2y4p[1], xr2y4p[2]))
+# f.write('xr2y4n ({} {} {}); \n'.format(xr2y4n[0], xr2y4n[1], xr2y4n[2]))
+# f.write('xr2y5m ({} {} {}); \n'.format(xr2y5m[0], xr2y5m[1], xr2y5m[2]))
+# f.write('xr2y5p ({} {} {}); \n'.format(xr2y5p[0], xr2y5p[1], xr2y5p[2]))
+# f.write('xr2y5n ({} {} {}); \n'.format(xr2y5n[0], xr2y5n[1], xr2y5n[2]))
 f.write('xs1y2m ({} {} {}); \n'.format(xs1y2m[0], xs1y2m[1], xs1y2m[2]))
 f.write('xs1y2p ({} {} {}); \n'.format(xs1y2p[0], xs1y2p[1], xs1y2p[2]))
 f.write('xs1y2n ({} {} {}); \n'.format(xs1y2n[0], xs1y2n[1], xs1y2n[2]))
@@ -1276,37 +1301,37 @@ f.write('xddwG {}; \n'.format(xddwG))
 # f.write('ptX1 {}; \n'.format(ptX1))
 # f.write('ptXS {}; \n'.format(ptXS))
 f.write('ptX2 {}; \n'.format(ptX2))
-f.write('ptX3 {}; \n'.format(ptX3))
+# f.write('ptX3 {}; \n'.format(ptX3))
 # f.write('ptX4 {}; \n'.format(ptX4))
-f.write('ptX5 {}; \n'.format(ptX5))
+# f.write('ptX5 {}; \n'.format(ptX5))
 f.write('ptX6 {}; \n'.format(ptX6))
 f.write('ptX7 {}; \n'.format(ptX7))
 f.write('ptX8 {}; \n'.format(ptX8))
 f.write('x2P {}; \n'.format(x2P))
-f.write('x3P {}; \n'.format(x3P))
+# f.write('x3P {}; \n'.format(x3P))
 # f.write('x4P {}; \n'.format(x4P))
-f.write('x5P {}; \n'.format(x5P))
+# f.write('x5P {}; \n'.format(x5P))
 f.write('x6P {}; \n'.format(x6P))
 f.write('x7P {}; \n'.format(x7P))
 f.write('x8P {}; \n'.format(x8P))
 f.write('x2N {}; \n'.format(x2N))
-f.write('x3N {}; \n'.format(x3N))
+# f.write('x3N {}; \n'.format(x3N))
 # f.write('x4N {}; \n'.format(x4N))
-f.write('x5N {}; \n'.format(x5N))
+# f.write('x5N {}; \n'.format(x5N))
 f.write('x6N {}; \n'.format(x6N))
 f.write('x7N {}; \n'.format(x7N))
 f.write('x8N {}; \n'.format(x8N))
 f.write('x2upG {}; \n'.format(x2upG))
-f.write('x3upG {}; \n'.format(x3upG))
+# f.write('x3upG {}; \n'.format(x3upG))
 # f.write('x4upG {}; \n'.format(x4upG))
-f.write('x5upG {}; \n'.format(x5upG))
+# f.write('x5upG {}; \n'.format(x5upG))
 f.write('x6upG {}; \n'.format(x6upG))
 f.write('x7upG {}; \n'.format(x7upG))
 f.write('x8upG {}; \n'.format(x8upG))
 f.write('x2dwG {}; \n'.format(x2dwG))
-f.write('x3dwG {}; \n'.format(x3dwG))
+# f.write('x3dwG {}; \n'.format(x3dwG))
 # f.write('x4dwG {}; \n'.format(x4dwG))
-f.write('x5dwG {}; \n'.format(x5dwG))
+# f.write('x5dwG {}; \n'.format(x5dwG))
 f.write('x6dwG {}; \n'.format(x6dwG))
 f.write('x7dwG {}; \n'.format(x7dwG))
 f.write('x8dwG {}; \n'.format(x8dwG))

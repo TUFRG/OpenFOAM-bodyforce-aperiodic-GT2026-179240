@@ -1,0 +1,114 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+
+/* Turbomachinery and Unsteady Flows Research Group | University of Windsor  *\
+                    ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░░░                                 
+                 ░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░                            
+               ░▒▓▓▒▒░░░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░                      
+             ░▒▓▓░   ▒▓░    ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░                  
+            ▒▓▓░   ░▒▓▓▓░ ░▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░               
+           ▒▓▒░░░  ░▓▓▓▓▒░▓▓▓▓▒░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░            
+         ░▓▓▒ ░░░░ ░▓▓▓▓▓ ▒▓▓▓▒  ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒          
+         ▒▓▒  ░░░░░ ▒▓▓▓▓░░▓▓▓▒  ░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒        
+        ▓▓▒   ░░░░░░░▓▓▓▓░░▓▓▓▒                        ░░▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓░      
+       ▒▓▓░   ░░░░░░ ░▓▓▓▒ ▓▓▓▒       ░░░▒▒▒▒▒▒▒▒▒░░░░          ░░░▒▓▓▓▓▓░     
+      ▒▓▓▒░    ░░░░░░ ▒▓▓▒ ▒▓▓▒ ░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░░     ▒░     
+      ▓▓▓░▓▓▒    ░░░░ ░▓▓▓░▒▓▓▒  ░▓▓▓▓▒░  ▒▓▓▒                   ░▒▒▓▓▓▓▒      
+     ▒▓▓░▒▓▓▓▓░   ░░░░ ▒▓▓░░▓▓▒           ▒▓▓▒    ░                      ░░▒▒░ 
+    ░▓▓▒ ▒▓▓▓▓▓▒   ░░░░░▓▓░░▓▓▒           ▒▓▓▒    ▒▓  ▒▓░▒▓▓▓▒ ▓▓▓▓░  ░▓▓░     
+    ▒▓▓░ ▒▓▓▓▓▓▓▓░  ░░░ ▒▓▒░▓▓░           ▒▓▓▒   ░▒▓  ▓▓░▒▓░   ▓▒░▒▓░▒▓▒░▓▒░   
+   ░▒▓▒░ ▒▓▓▓▓▓▓▓▓░ ░░░░░▓▒░▓▓░           ▒▓▓▒   ░▒▓  ▓▓░▒▓▓▓░ ▓▒░▒▓ ▒▓░       
+   ░▓▓▒    ░▒▓▓▓▓▓▓▒ ░░░ ▓░░▓▓            ▒▓▓▒   ░▒▓  ▓▒░▒▓░   ▓▓▓▓▒░▒▓░░▓▓░   
+   ▒▓▓▒       ░▒▓▓▓▓▒ ░░ ▒░░▓░            ▒▓▓▒   ░▒▓ ░▓▒░▒▓░   ▓▓ ▒▓░▒▓▓▓▓▓░   
+   ▒▓▓░▒▒▒░░░    ▒▓▓▓░                    ▒▓▓▒    ░▓▓▓▓░ ▒▓░   ▓▓ ░▓▓  ▓▓      
+   ▓▓▓░▓▓▓▓▓▓▓▓▒  ░▒▓░   ░░               ▒▓▓▒                          ░▒▒▒▒░ 
+  ░▓▓▓░▓▓▓▓▓▓▓▓▓▓▒░ ░  ░▓▓▓▓▓▓▒▒░░░       ░░░░               ░░░░▒▒▒▓▓▓▒▒░░    
+  ░▓▓▒░▓▓▓▓▓▓▓▓▓▓▓▓░  ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░            
+  ░▒▒░                   ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒░░░                   
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      B;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   #codeStream
+
+{
+
+codeInclude
+#{
+	#include "fvCFD.H"
+	#include <IFstream.H>
+	#include <OFstream.H>
+	#include <ctime>
+	#include "clock.H"
+	#include "string.H"
+	#include <sstream>
+	#include <iomanip>
+#};
+
+codeOptions
+#{
+-I$(LIB_SRC)/finiteVolume/lnInclude \
+-I$(LIB_SRC)/meshTools/lnInclude
+#};
+
+codeLibs
+#{
+-lmeshTools \
+-lfiniteVolume
+#};
+
+code
+#{
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+        const fvMesh& mesh = refCast<const fvMesh>(d.db());	
+        scalarField B(mesh.nCells(), scalar(1e-4));
+			
+		//const vectorField& CC = mesh.C(); //cell centers
+
+		label zoneID = mesh.cellZones().findZoneID("Rotor");
+		const labelList& 	cellr	= mesh.cellZones()[zoneID]; // list of cells in BF zone
+
+		label zoneIDs = mesh.cellZones().findZoneID("Stator");
+		const labelList& 	cells	= mesh.cellZones()[zoneIDs]; // list of cells in BF zone
+
+        forAll(cellr, i)
+        {               
+        		 B[cellr[i]] = 16;
+        }
+        
+        forAll(cells, i)
+        {               
+        		 B[cells[i]] = 20;
+        }
+        B.writeEntry("", os); 
+                
+#};
+
+};
+
+boundaryField
+{
+    ".*"
+    {
+        type            zeroGradient;
+    } 
+
+    #includeEtc "caseDicts/setConstraintTypes"
+}
+
+
+// ************************************************************************* //

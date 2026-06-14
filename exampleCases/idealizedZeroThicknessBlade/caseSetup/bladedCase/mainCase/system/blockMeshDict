@@ -1,0 +1,454 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2112                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// The axis of rotation of this machine is the z axis
+// Hence the radial direction is denoted x and the axial direction is z (x = mz + c)
+// There are three positions in the circumferential cordinate in this domain 
+// The positive rotation is represented as p and negative as n while the middle position is represented as m
+
+//scale  0.001; // The data came in millimeters so this converts it to m (SI units)
+tol 3e-3;
+
+//ptsX 200; //This is the number of cells along X
+ptsY 61.0;
+//ptsZ 50;
+
+ptX1 84.0;
+ptX2 85.0;
+ptX3 85.0;
+
+ptsZ 19.0;
+
+x1P 0.25;
+x2P 0.25;
+x3P 0.25;
+y1P 0.04454997794484641;
+y2P 0.04454997794484641;
+y3P 0.04454997794484641;
+z1P 0.11663156952426468;
+z2P 0.11663156952426468;
+z3P 0.11663156952426468;
+ 
+x1N 0.7129476813417112;
+x2N 0.4223302145499651;
+x3N 0.7099930594785797;
+y1N 0.14754098360655737;
+y2N 0.14754098360655737;
+y3N 0.14754098360655737;
+z1N 0.27631578947368424;
+z2N 0.27631578947368424;
+z3N 0.27631578947368424;
+
+x1upG 0.000401447744599903;
+x2upG 0.003300639415299763;
+x3upG 0.0004525196087506408;
+y1p 179.1404094039486;
+y2p 179.1404094039486;
+y3p 179.1404094039486;
+z1upG 738.1626875126818;
+z2upG 738.1626875126818;
+z3upG 738.1626875126818;
+
+x1mG 1;
+x2mG 1;
+x3mG 1;
+z1mG 1;
+z2mG 1;
+z3mG 1;
+ 
+x1dwG 2490.984227590157;
+x2dwG 302.97159858317343;
+x3dwG 2209.848989220368;
+y1n 0.0055822134342959585;
+y2n 0.0055822134342959585;
+y3n 0.0055822134342959585;
+z1dwG 0.0013547149116539701;
+z2dwG 0.0013547149116539701;
+z3dwG 0.0013547149116539701;
+
+ 
+
+
+xInH -2;
+rInH 0.9;
+xInC -2;
+rInC 1;
+
+xLEH 0;
+rLEH 0.9;
+xLEC 0;
+rLEC 1;
+
+xTEH 1;
+rTEH 0.9;
+xTEC 1;
+rTEC 1;
+
+xOutH 3;
+rOutH 0.9;
+xOutC 3;
+rOutC 1;
+
+x1r0m (0.8987665812791165 -0.04710236061864983 -1);
+x1r1m (0.9986295347545738 -0.05233595624294425 -1);
+x2r0m (0.8987665812791165 -0.04710236061864983 0);
+x2r1m (0.9986295347545738 -0.05233595624294425 0);
+
+x1r0p (0.9 0.0 -1.0);
+x1r1p (1.0 0.0 -1.0);
+x2r0p (0.9 0.0 0.0);
+x2r1p (1.0 0.0 0.0);
+x3r0p (0.8999574766334987 0.008748728562806292 0.1);
+x3r1p (0.9999617289128874 0.00874875474276544 0.1);
+x4r0p (0.8999574766334987 0.008748728562806292 1.0);
+x4r1p (0.9999617289128874 0.00874875474276544 1.0);
+
+x1r0n (0.895069705831446 -0.09407561694088888 -1.0);
+x1r1n (0.9945218953682733 -0.1045284632676543 -1.0);
+x2r0n (0.895069705831446 -0.09407561694088888 0.0);
+x2r1n (0.9945218953682733 -0.1045284632676543 0.0);
+x3r0n (0.8959419065646116 -0.08537036992639055 0.1);
+x3r1n (0.9953983278229471 -0.0958236347008438 0.1);
+x4r0n (0.8959419065646116 -0.08537036992639055 1.0);
+x4r1n (0.9953983278229471 -0.0958236347008438 1.0);
+
+x3r0m (0.8987665812791165 -0.04710236061864983 0.1);
+x3r1m (0.9986295347545738 -0.05233595624294425 0.1);
+x4r0m (0.8987665812791165 -0.04710236061864983 1);
+x4r1m (0.9986295347545738 -0.05233595624294425 1);
+
+geometry
+{
+	pPerS
+	{
+		type	triSurfaceMesh;
+		file	"pPer.stl";
+	} 
+	nPerS 
+	{
+		type	triSurfaceMesh;
+		file	"nPer.stl";
+	}	
+	hubS
+	{
+		type	triSurfaceMesh;
+		file	"hub.stl";
+	} 
+	casS 
+	{
+		type	triSurfaceMesh;
+		file	"casing.stl";
+	}			
+}
+vertices
+(
+	name Px1r0 $x1r0p
+	name Px2r0 $x2r0p
+	name Px3r0 $x3r0p
+	name Px4r0 $x4r0p
+
+	name Px1r1 $x1r1p
+	name Px2r1 $x2r1p
+	name Px3r1 $x3r1p
+	name Px4r1 $x4r1p
+
+	name Nx1r0 $x1r0n
+	name Nx2r0 $x2r0n
+	name Nx3r0 $x3r0n
+	name Nx4r0 $x4r0n
+
+	name Nx1r1 $x1r1n
+	name Nx2r1 $x2r1n
+	name Nx3r1 $x3r1n
+	name Nx4r1 $x4r1n
+
+				
+);
+
+edges
+(
+	project Px2r0 Px3r0 (hubS pPerS)
+	project Px2r1 Px3r1 (casS pPerS)
+	project Nx2r0 Nx3r0 (hubS nPerS)
+	project Nx2r1 Nx3r1 (casS nPerS)
+	
+	arc Px1r0 Nx1r0 $x1r0m
+	arc Px1r1 Nx1r1 $x1r1m
+	arc Px2r0 Nx2r0 $x2r0m
+	arc Px2r1 Nx2r1 $x2r1m
+	arc Px3r0 Nx3r0 $x3r0m
+	arc Px3r1 Nx3r1 $x3r1m	
+	arc Px4r0 Nx4r0 $x4r0m
+	arc Px4r1 Nx4r1 $x4r1m
+	
+);
+
+blocks
+(
+	//     0    1     2     3     4     5     6     7
+ 	hex (Px1r0 Px2r0 Nx2r0 Nx1r0 Px1r1 Px2r1 Nx2r1 Nx1r1) ($ptX1 $ptsY $ptsZ) 
+ 	edgeGrading //(1 1 1)
+ 	(
+		(
+			(#eval{1 - $x1P} #eval{1 - $x1N} $x1mG)
+   			($x1P $x1N $x1upG)
+   		)  	
+		(
+			(#eval{1 - $x1P} #eval{1 - $x1N} $x1mG)
+   			($x1P $x1N $x1upG)
+   		)
+		(
+			(#eval{1 - $x1P} #eval{1 - $x1N} $x1mG)
+   			($x1P $x1N $x1upG)
+   		)
+		(
+			(#eval{1 - $x1P} #eval{1 - $x1N} $x1mG)
+   			($x1P $x1N $x1upG)
+   		)   		   		   			
+		1 
+		(
+			($y1P $y1N $y1p)
+			(#eval{1 - 2*$y1P} #eval{1 - 2*$y1N} $z1mG)
+			($y1P $y1N  $y1n)
+		)
+		(
+			($y1P $y1N $y1p)
+			(#eval{1 - 2*$y1P} #eval{1 - 2*$y1N} $z1mG)
+			($y1P $y1N  $y1n)
+		)		 
+		1
+		(
+			($z1P $z1N $z1upG)
+			(#eval{1 - 2*$z1P} #eval{1 - 2*$z1N} $z1mG)
+			($z1P $z1N  $z1dwG)
+		)
+		(
+			($z1P $z1N $z1upG)
+			(#eval{1 - 2*$z1P} #eval{1 - 2*$z1N} $z1mG)
+			($z1P $z1N  $z1dwG)
+		)
+		(
+			($z1P $z1N $z1upG)
+			(#eval{1 - 2*$z1P} #eval{1 - 2*$z1N} $z1mG)
+			($z1P $z1N  $z1dwG)
+		)
+		(
+			($z1P $z1N $z1upG)
+			(#eval{1 - 2*$z1P} #eval{1 - 2*$z1N} $z1mG)
+			($z1P $z1N  $z1dwG)
+		)						
+	) 
+ 	hex (Px2r0 Px3r0 Nx3r0 Nx2r0 Px2r1 Px3r1 Nx3r1 Nx2r1) Rotor ($ptX2 $ptsY $ptsZ) 
+ 	edgeGrading //(1 1 1)
+ 	(
+		(
+			($x2P $x2N $x2dwG)
+			(#eval{1 - 2*$x2P} #eval{1 - 2*$x2N} $x2mG)
+			($x2P $x2N  $x2upG)
+		)	
+		(
+			($x2P $x2N $x2dwG)
+			(#eval{1 - 2*$x2P} #eval{1 - 2*$x2N} $x2mG)
+			($x2P $x2N  $x2upG)
+		)
+		(
+			($x2P $x2N $x2dwG)
+			(#eval{1 - 2*$x2P} #eval{1 - 2*$x2N} $x2mG)
+			($x2P $x2N  $x2upG)
+		)
+		(
+			($x2P $x2N $x2dwG)
+			(#eval{1 - 2*$x2P} #eval{1 - 2*$x2N} $x2mG)
+			($x2P $x2N  $x2upG)
+		)						
+		(
+			($y1P $y1N $y1p)
+			(#eval{1 - 2*$y1P} #eval{1 - 2*$y1N} $z1mG)
+			($y1P $y1N  $y1n)
+		)
+		(
+			($y1P $y1N $y1p)
+			(#eval{1 - 2*$y1P} #eval{1 - 2*$y1N} $z1mG)
+			($y1P $y1N  $y1n)
+		)
+		(
+			($y1P $y1N $y1p)
+			(#eval{1 - 2*$y1P} #eval{1 - 2*$y1N} $z1mG)
+			($y1P $y1N  $y1n)
+		)
+		(
+			($y1P $y1N $y1p)
+			(#eval{1 - 2*$y1P} #eval{1 - 2*$y1N} $z1mG)
+			($y1P $y1N  $y1n)
+		)				
+		(
+			($z2P $z2N $z2upG)
+			(#eval{1 - 2*$z2P} #eval{1 - 2*$z2N} $z2mG)
+			($z2P $z2N  $z2dwG)
+		)
+		(
+			($z2P $z2N $z2upG)
+			(#eval{1 - 2*$z2P} #eval{1 - 2*$z2N} $z2mG)
+			($z2P $z2N  $z2dwG)
+		)
+		(
+			($z2P $z2N $z2upG)
+			(#eval{1 - 2*$z2P} #eval{1 - 2*$z2N} $z2mG)
+			($z2P $z2N  $z2dwG)
+		)
+		(
+			($z2P $z2N $z2upG)
+			(#eval{1 - 2*$z2P} #eval{1 - 2*$z2N} $z2mG)
+			($z2P $z2N  $z2dwG)
+		)						
+	)
+ 	hex (Px3r0 Px4r0 Nx4r0 Nx3r0 Px3r1 Px4r1 Nx4r1 Nx3r1) ($ptX3 $ptsY $ptsZ) 
+ 	edgeGrading //(1 1 1)
+ 	(		
+		(
+   			($x3P $x3N $x3dwG)
+   			(#eval{1 - $x3P} #eval{1 - $x3N} $z3mG)
+   		) 
+		(
+   			($x3P $x3N $x3dwG)
+   			(#eval{1 - $x3P} #eval{1 - $x3N} $z3mG)
+   		) 
+		(
+   			($x3P $x3N $x3dwG)
+   			(#eval{1 - $x3P} #eval{1 - $x3N} $z3mG)
+   		) 
+		(
+   			($x3P $x3N $x3dwG)
+   			(#eval{1 - $x3P} #eval{1 - $x3N} $z3mG)
+   		)    		   		   		
+		(
+			($y1P $y1N $y1p)
+			(#eval{1 - 2*$y1P} #eval{1 - 2*$y1N} $z1mG)
+			($y1P $y1N  $y1n)
+		)
+		1 1
+		(
+			($y1P $y1N $y1p)
+			(#eval{1 - 2*$y1P} #eval{1 - 2*$y1N} $z1mG)
+			($y1P $y1N  $y1n)
+		)		
+		(
+			($z3P $z3N $z3upG)
+			(#eval{1 - 2*$z3P} #eval{1 - 2*$z3N} $z3mG)
+			($z3P $z3N  $z3dwG)
+		)
+		(
+			($z3P $z3N $z3upG)
+			(#eval{1 - 2*$z3P} #eval{1 - 2*$z3N} $z3mG)
+			($z3P $z3N  $z3dwG)
+		)
+		(
+			($z3P $z3N $z3upG)
+			(#eval{1 - 2*$z3P} #eval{1 - 2*$z3N} $z3mG)
+			($z3P $z3N  $z3dwG)
+		)
+		(
+			($z3P $z3N $z3upG)
+			(#eval{1 - 2*$z3P} #eval{1 - 2*$z3N} $z3mG)
+			($z3P $z3N  $z3dwG)
+		)						
+	)
+);
+
+faces
+(
+	
+);
+
+boundary
+(
+	inlet
+	{
+		type patch;
+		faces
+		(
+			// 0 3 7 4
+			(Px1r0 Nx1r0 Nx1r1 Px1r1)
+		);
+	}
+	outlet
+	{
+		type patch;
+		faces
+		(
+			// 1 2 6 5 	
+			(Px4r0 Nx4r0 Nx4r1 Px4r1)
+		);
+	}	
+	hub
+	{
+		type wall;
+		faces
+		(
+			// 0 1 2 3
+			(Px1r0 Px2r0 Nx2r0 Nx1r0)
+			(Px3r0 Px4r0 Nx4r0 Nx3r0)
+			(Px2r0 Px3r0 Nx3r0 Nx2r0)
+		);
+	}
+	casing
+	{
+		type wall;
+		faces
+		(
+			// 4 5 6 7 
+			(Px1r1 Px2r1 Nx2r1 Nx1r1)
+			(Px2r1 Px3r1 Nx3r1 Nx2r1)
+			(Px3r1 Px4r1 Nx4r1 Nx3r1)
+		);
+	}
+	blade
+	{
+		type wall;
+		faces
+		(
+			(Nx2r0 Nx2r1 Nx3r1 Nx3r0)
+			(Px2r0 Px2r1 Px3r1 Px3r0)			
+		);
+				
+	}
+	nPer
+	{
+		type wall;
+		faces
+		(
+			//(3 7 6 2)
+			(Nx1r0 Nx1r1 Nx2r1 Nx2r0)
+			(Nx3r0 Nx3r1 Nx4r1 Nx4r0) 			
+		);
+	}
+	pPer
+	{
+		type wall;
+		faces
+		(
+			//(0 4 5 1)
+			(Px1r0 Px1r1 Px2r1 Px2r0)
+			(Px3r0 Px3r1 Px4r1 Px4r0)			
+		);
+	}
+);
+
+mergePatchPairs
+(
+);
+
+
+// ************************************************************************* //

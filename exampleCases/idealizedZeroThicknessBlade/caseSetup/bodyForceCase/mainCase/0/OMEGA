@@ -1,0 +1,107 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+
+/* Turbomachinery and Unsteady Flows Research Group | University of Windsor  *\
+                    ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░░░                                 
+                 ░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░                            
+               ░▒▓▓▒▒░░░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░                      
+             ░▒▓▓░   ▒▓░    ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░                  
+            ▒▓▓░   ░▒▓▓▓░ ░▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░               
+           ▒▓▒░░░  ░▓▓▓▓▒░▓▓▓▓▒░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░            
+         ░▓▓▒ ░░░░ ░▓▓▓▓▓ ▒▓▓▓▒  ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒          
+         ▒▓▒  ░░░░░ ▒▓▓▓▓░░▓▓▓▒  ░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒        
+        ▓▓▒   ░░░░░░░▓▓▓▓░░▓▓▓▒                        ░░▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓░      
+       ▒▓▓░   ░░░░░░ ░▓▓▓▒ ▓▓▓▒       ░░░▒▒▒▒▒▒▒▒▒░░░░          ░░░▒▓▓▓▓▓░     
+      ▒▓▓▒░    ░░░░░░ ▒▓▓▒ ▒▓▓▒ ░▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒░░     ▒░     
+      ▓▓▓░▓▓▒    ░░░░ ░▓▓▓░▒▓▓▒  ░▓▓▓▓▒░  ▒▓▓▒                   ░▒▒▓▓▓▓▒      
+     ▒▓▓░▒▓▓▓▓░   ░░░░ ▒▓▓░░▓▓▒           ▒▓▓▒    ░                      ░░▒▒░ 
+    ░▓▓▒ ▒▓▓▓▓▓▒   ░░░░░▓▓░░▓▓▒           ▒▓▓▒    ▒▓  ▒▓░▒▓▓▓▒ ▓▓▓▓░  ░▓▓░     
+    ▒▓▓░ ▒▓▓▓▓▓▓▓░  ░░░ ▒▓▒░▓▓░           ▒▓▓▒   ░▒▓  ▓▓░▒▓░   ▓▒░▒▓░▒▓▒░▓▒░   
+   ░▒▓▒░ ▒▓▓▓▓▓▓▓▓░ ░░░░░▓▒░▓▓░           ▒▓▓▒   ░▒▓  ▓▓░▒▓▓▓░ ▓▒░▒▓ ▒▓░       
+   ░▓▓▒    ░▒▓▓▓▓▓▓▒ ░░░ ▓░░▓▓            ▒▓▓▒   ░▒▓  ▓▒░▒▓░   ▓▓▓▓▒░▒▓░░▓▓░   
+   ▒▓▓▒       ░▒▓▓▓▓▒ ░░ ▒░░▓░            ▒▓▓▒   ░▒▓ ░▓▒░▒▓░   ▓▓ ▒▓░▒▓▓▓▓▓░   
+   ▒▓▓░▒▒▒░░░    ▒▓▓▓░                    ▒▓▓▒    ░▓▓▓▓░ ▒▓░   ▓▓ ░▓▓  ▓▓      
+   ▓▓▓░▓▓▓▓▓▓▓▓▒  ░▒▓░   ░░               ▒▓▓▒                          ░▒▒▒▒░ 
+  ░▓▓▓░▓▓▓▓▓▓▓▓▓▓▒░ ░  ░▓▓▓▓▓▓▒▒░░░       ░░░░               ░░░░▒▒▒▓▓▓▒▒░░    
+  ░▓▓▒░▓▓▓▓▓▓▓▓▓▓▓▓░  ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒░            
+  ░▒▒░                   ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒░░░                   
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      OMEGA;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 -1 0 0 0 0];
+
+OMEGAval	0; // angular velocity in rad/s (about +c axis)
+
+internalField   #codeStream
+
+{
+
+codeInclude
+#{
+	#include "fvCFD.H"
+	#include <IFstream.H>
+	#include <OFstream.H>
+	#include <ctime>
+	#include "clock.H"
+	#include "string.H"
+	#include <sstream>
+	#include <iomanip>
+#};
+
+codeOptions
+#{
+-I$(LIB_SRC)/finiteVolume/lnInclude \
+-I$(LIB_SRC)/meshTools/lnInclude
+#};
+
+codeLibs
+#{
+-lmeshTools \
+-lfiniteVolume
+#};
+
+code
+#{
+		Pout<< " \n Setting BF zone angular velocities.... \n" << endl;
+
+        const IOdictionary& d = static_cast<const IOdictionary&>(dict);
+        const fvMesh& mesh = refCast<const fvMesh>(d.db());	
+        vectorField OMEGA(mesh.nCells(), vector(0,0,0));
+			
+		label zoneID = mesh.cellZones().findZoneID("Rotor");
+		const labelList& 	cellr	= mesh.cellZones()[zoneID]; // list of cells in BF zone
+
+        forAll(cellr, i)
+        {               
+        		 OMEGA[cellr[i]] = vector(0,0,$OMEGAval);
+        }
+        OMEGA.writeEntry("", os);
+#};
+
+};
+
+boundaryField
+{
+    ".*"
+    {
+        type            zeroGradient;
+    } 
+
+    #includeEtc "caseDicts/setConstraintTypes"
+}
+
+
+// ************************************************************************* //

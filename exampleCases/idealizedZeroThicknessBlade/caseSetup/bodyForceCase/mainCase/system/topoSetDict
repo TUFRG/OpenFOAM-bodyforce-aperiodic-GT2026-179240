@@ -1,0 +1,878 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    // Blade 0 at 0.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  new;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  -1.5000;
+        theta2  1.5000;
+    }
+
+    // Blade 1 at 6.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  4.5000;
+        theta2  7.5000;
+    }
+
+    // Blade 2 at 12.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  10.5000;
+        theta2  13.5000;
+    }
+
+    // Blade 3 at 18.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  16.5000;
+        theta2  19.5000;
+    }
+
+    // Blade 4 at 24.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  22.5000;
+        theta2  25.5000;
+    }
+
+    // Blade 5 at 30.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  28.5000;
+        theta2  31.5000;
+    }
+
+    // Blade 6 at 36.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  34.5000;
+        theta2  37.5000;
+    }
+
+    // Blade 7 at 42.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  40.5000;
+        theta2  43.5000;
+    }
+
+    // Blade 8 at 48.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  46.5000;
+        theta2  49.5000;
+    }
+
+    // Blade 9 at 54.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  52.5000;
+        theta2  55.5000;
+    }
+
+    // Blade 10 at 60.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  58.5000;
+        theta2  61.5000;
+    }
+
+    // Blade 11 at 66.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  64.5000;
+        theta2  67.5000;
+    }
+
+    // Blade 12 at 72.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  70.5000;
+        theta2  73.5000;
+    }
+
+    // Blade 13 at 78.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  76.5000;
+        theta2  79.5000;
+    }
+
+    // Blade 14 at 84.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  82.5000;
+        theta2  85.5000;
+    }
+
+    // Blade 15 at 90.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  88.5000;
+        theta2  91.5000;
+    }
+
+    // Blade 16 at 96.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  94.5000;
+        theta2  97.5000;
+    }
+
+    // Blade 17 at 102.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  100.5000;
+        theta2  103.5000;
+    }
+
+    // Blade 18 at 108.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  106.5000;
+        theta2  109.5000;
+    }
+
+    // Blade 19 at 114.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  112.5000;
+        theta2  115.5000;
+    }
+
+    // Blade 20 at 120.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  118.5000;
+        theta2  121.5000;
+    }
+
+    // Blade 21 at 126.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  124.5000;
+        theta2  127.5000;
+    }
+
+    // Blade 22 at 132.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  130.5000;
+        theta2  133.5000;
+    }
+
+    // Blade 23 at 138.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  136.5000;
+        theta2  139.5000;
+    }
+
+    // Blade 24 at 144.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  142.5000;
+        theta2  145.5000;
+    }
+
+    // Blade 25 at 150.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  148.5000;
+        theta2  151.5000;
+    }
+
+    // Blade 26 at 156.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  154.5000;
+        theta2  157.5000;
+    }
+
+    // Blade 27 at 162.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  160.5000;
+        theta2  163.5000;
+    }
+
+    // Blade 28 at 168.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  166.5000;
+        theta2  169.5000;
+    }
+
+    // Blade 29 at 174.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  172.5000;
+        theta2  175.5000;
+    }
+
+    // Blade 30 at 180.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  178.5000;
+        theta2  181.5000;
+    }
+
+    // Blade 31 at 186.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  184.5000;
+        theta2  187.5000;
+    }
+
+    // Blade 32 at 192.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  190.5000;
+        theta2  193.5000;
+    }
+
+    // Blade 33 at 198.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  196.5000;
+        theta2  199.5000;
+    }
+
+    // Blade 34 at 204.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  202.5000;
+        theta2  205.5000;
+    }
+
+    // Blade 35 at 210.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  208.5000;
+        theta2  211.5000;
+    }
+
+    // Blade 36 at 216.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  214.5000;
+        theta2  217.5000;
+    }
+
+    // Blade 37 at 222.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  220.5000;
+        theta2  223.5000;
+    }
+
+    // Blade 38 at 228.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  226.5000;
+        theta2  229.5000;
+    }
+
+    // Blade 39 at 234.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  232.5000;
+        theta2  235.5000;
+    }
+
+    // Blade 40 at 240.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  238.5000;
+        theta2  241.5000;
+    }
+
+    // Blade 41 at 246.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  244.5000;
+        theta2  247.5000;
+    }
+
+    // Blade 42 at 252.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  250.5000;
+        theta2  253.5000;
+    }
+
+    // Blade 43 at 258.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  256.5000;
+        theta2  259.5000;
+    }
+
+    // Blade 44 at 264.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  262.5000;
+        theta2  265.5000;
+    }
+
+    // Blade 45 at 270.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  268.5000;
+        theta2  271.5000;
+    }
+
+    // Blade 46 at 276.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  274.5000;
+        theta2  277.5000;
+    }
+
+    // Blade 47 at 282.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  280.5000;
+        theta2  283.5000;
+    }
+
+    // Blade 48 at 288.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  286.5000;
+        theta2  289.5000;
+    }
+
+    // Blade 49 at 294.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  292.5000;
+        theta2  295.5000;
+    }
+
+    // Blade 50 at 300.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  298.5000;
+        theta2  301.5000;
+    }
+
+    // Blade 51 at 306.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  304.5000;
+        theta2  307.5000;
+    }
+
+    // Blade 52 at 312.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  310.5000;
+        theta2  313.5000;
+    }
+
+    // Blade 53 at 318.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  316.5000;
+        theta2  319.5000;
+    }
+
+    // Blade 54 at 324.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  322.5000;
+        theta2  325.5000;
+    }
+
+    // Blade 55 at 330.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  328.5000;
+        theta2  331.5000;
+    }
+
+    // Blade 56 at 336.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  334.5000;
+        theta2  337.5000;
+    }
+
+    // Blade 57 at 342.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  340.5000;
+        theta2  343.5000;
+    }
+
+    // Blade 58 at 348.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  346.5000;
+        theta2  349.5000;
+    }
+
+    // Blade 59 at 354.00°
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  add;
+        source  cylinderAnnulusToFace;
+        p1      (0 0 -2.0);
+        p2      (0 0 3.0);
+        outerRadius 1.0;
+        innerRadius 0.9;
+        theta1  352.5000;
+        theta2  355.5000;
+    }
+
+    // Keep only internal faces (remove boundary faces)
+    {
+        name    bladeSet;
+        type    faceSet;
+        action  subset;
+        source  faceToFace;
+        set     bladeSet;
+    }
+    
+    // Convert faceSet to faceZone
+    {
+        name    blade;
+        type    faceZoneSet;
+        action  new;
+        source  setToFaceZone;
+        faceSet bladeSet;
+    }
+);
+
+// ************************************************************************* //

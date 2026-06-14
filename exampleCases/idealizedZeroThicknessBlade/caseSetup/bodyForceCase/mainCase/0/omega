@@ -1,0 +1,72 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      omega;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 -1 0 0 0 0];
+
+v  0.000014607; //kinematic viscosity
+y	0.000011; // first element size
+
+//w #eval{(6*$v)/(0.075*$y*$y)}; //ref https://www.tfd.chalmers.se/~hani/kurser/OS_CFD_2016/FangqingLiu/openfoamFinal.pdf
+U 119;
+w #eval{$U/(0.07*0.2)};
+internalField   uniform $w;
+
+boundaryField
+{
+	#includeEtc "caseDicts/setConstraintTypes"
+	
+	inlet
+	{
+		type            turbulentMixingLengthFrequencyInlet;
+	    mixingLength    #eval{0.07*0.2}; // 7% percent of hydraulic diamter (for circular pipes hydraulic diamter = pipe diameter)
+	    phi             phi;
+	    k               k;
+	    value           $internalField;
+	}
+	outlet
+	{
+		type            zeroGradient;		
+	}
+	hub
+	{
+        type            omegaWallFunction;   
+        blending        binomial;
+        n               2;
+        beta1           0.075;
+        value           $internalField;	
+	}
+	casing
+	{
+        type            omegaWallFunction;
+        blending        binomial;
+        n               2;
+        beta1           0.075;
+        value           $internalField;	
+	}
+/*	blade
+	{
+        type            omegaWallFunction;   
+        blending        binomial;
+        n               2;
+        beta1           0.075;
+        value           $internalField;	
+	}*/
+
+}
+
+
+// ************************************************************************* //
