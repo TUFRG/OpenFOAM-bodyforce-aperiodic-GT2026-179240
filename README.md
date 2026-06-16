@@ -1,5 +1,7 @@
 # OpenFOAM-bodyforce-aperiodic-GT2026-179240
-Contains folders for body force input generation, custom OpenFOAM solvers, grid generation templates, and example cases.
+Contains submodules sourced from repositories for body force input generation, custom OpenFOAM solvers, gird generation templates, and example cases
+
+A sample Data has been included for a quick and easy test.
 
 This readMe will make an attempt to explain what is in each folder and how to use them.
 *****************************************************************************************
@@ -136,7 +138,8 @@ DETAILS OF FOLDER CONTENTS
 	casing can be different but the unit must be consistent with the camber data. The names cannot be different 
 	from the name shown in this folder
 	-	camberData
-	The camberData is the same camber data generated from our in house code. 
+	The camberData is the same camber data generated from our in house code.
+	copy the camberData files from the 
 
 *****************************************************************************************
  
