@@ -1,5 +1,5 @@
 # OpenFOAM-bodyforce-aperiodic-GT2026-179240
-Contains submodules sourced from repositories for body force input generation, custom OpenFOAM solvers, gird generation templates, and example cases
+Contains folders for body force input generation, custom OpenFOAM solvers, grid generation templates, and example cases.
 
 A sample Data has been included for a quick and easy test.
 
