@@ -66,23 +66,29 @@ else:
     
     
 rBlade = np.zeros([Nbr, rSections, Nr, 3])
+rCamber = np.zeros([Nbr, rSections, N, 3])
 sBlade = np.zeros([Nbs, sSections, Ns, 3])
+sCamber = np.zeros([Nbs, sSections, N, 3])
 for a in range(Nbr):
     for b in range(rSections):
         if periodicOrAperiodic == 0:
             rBlade[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/blade{}.txt'.format(a,b), delimiter=',')
+            rCamber[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/camber{}.txt'.format(a,b), delimiter=',')
             outputDatapath = '../inputData/periodic/'
         else:
-            rBlade[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/blade{}.txt'.format(a,b), delimiter=',')          
+            rBlade[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/blade{}.txt'.format(a,b), delimiter=',')   
+            rCamber[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/camber{}.txt'.format(a,b), delimiter=',')
             outputDatapath = '../inputData/nonPeriodic/'
             
 for c in range(Nbs):
     for d in range(sSections):
         if periodicOrAperiodic == 0:
             sBlade[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/blade{}.txt'.format(c,d), delimiter=',')
+            sCamber[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/camber{}.txt'.format(c,d), delimiter=',')
             outputDatapath = '../inputData/periodic/'
         else:
-            sBlade[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/blade{}.txt'.format(c,d), delimiter=',')           
+            sBlade[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/blade{}.txt'.format(c,d), delimiter=',')  
+            sCamber[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/camber{}.txt'.format(c,d), delimiter=',')
             outputDatapath = '../inputData/nonPeriodic/'
 
 #%% Used functions
@@ -219,14 +225,18 @@ def saveThicknessData(rotor_interp, stator_interp, output_path):
             
 #%% Convert rotor blade data from Cartesian to Cylindrical
 rBladeCyl = np.zeros([Nbr, rSections, Nr, 3])
+rCamberCyl = np.zeros([Nbr, rSections, N, 3])
 rLETE = np.zeros([Nbr,rSections,6])
 sLETE = np.zeros([Nbs,sSections,6]) 
 for e in range(Nbr):
     for ee in range(rSections):
         rBladeCyl[e,ee,:,:] = np.array(cart2pol(rBlade[e,ee,:,0], rBlade[e,ee,:,1], rBlade[e,ee,:,2])).T 
+        rCamberCyl[e,ee,:,:] = np.array(cart2pol(rCamber[e,ee,:,0], rCamber[e,ee,:,1], rCamber[e,ee,:,2])).T 
 
         if max(rBladeCyl[e,ee,:,0]) - min(rBladeCyl[e,ee,:,0]) > np.pi:
             rBladeCyl[e,ee,:,:] = np.array(cart2pol2(rBlade[e,ee,:,0], rBlade[e,ee,:,1], rBlade[e,ee,:,2])).T 
+        if max(rCamberCyl[e,ee,:,0]) - min(rCamberCyl[e,ee,:,0]) > np.pi:
+            rCamberCyl[e,ee,:,:] = np.array(cart2pol2(rCamber[e,ee,:,0], rCamber[e,ee,:,1], rCamber[e,ee,:,2])).T 
         minIdx = np.argmin(rBladeCyl[e,ee,:,2]) 
         maxIdx = np.argmax(rBladeCyl[e,ee,:,2]) 
         rLETE[e,ee] = np.hstack((rBladeCyl[e,ee,minIdx], rBladeCyl[e,ee,maxIdx]))
@@ -234,15 +244,20 @@ for e in range(Nbr):
 
 # Convert stator blade data from Cartesian to Cylindrical
 sBladeCyl = np.zeros([Nbs, sSections, Ns, 3])
+sCamberCyl = np.zeros([Nbs, sSections, N, 3])
 for g in range(Nbs):
     for h in range(sSections):
         sBladeCyl[g,h,:,:] = np.array(cart2pol(sBlade[g,h,:,0], sBlade[g,h,:,1], sBlade[g,h,:,2])).T
+        sCamberCyl[g,h,:,:] = np.array(cart2pol(sCamber[g,h,:,0], sCamber[g,h,:,1], sCamber[g,h,:,2])).T
 
         if max(sBladeCyl[g,h,:,0]) - min(sBladeCyl[g,h,:,0]) > np.pi:
             sBladeCyl[g,h,:,:] = np.array(cart2pol2(sBlade[g,h,:,0], sBlade[g,h,:,1], sBlade[g,h,:,2])).T
+        if max(sCamberCyl[g,h,:,0]) - min(sCamberCyl[g,h,:,0]) > np.pi:
+            sCamberCyl[g,h,:,:] = np.array(cart2pol2(sCamber[g,h,:,0], sCamber[g,h,:,1], sCamber[g,h,:,2])).T             
         minIdx = np.argmin(sBladeCyl[g,h,:,2]) 
         maxIdx = np.argmax(sBladeCyl[g,h,:,2])         
         sLETE[g,h] = np.hstack((sBladeCyl[g,h,minIdx], sBladeCyl[g,h,maxIdx]))
+
 #%% Determine blade thickness based on Profiles 
 rotorThickness = np.zeros([Nbr, rSections, N, 4])
 statorThickness = np.zeros([Nbs, sSections, N, 4])
@@ -253,9 +268,30 @@ for j in range(Nbs):
 for h in range(Nbr):
     rotorThickness[h,:,:,:] = calculate_thickness_distribution(rBladeCyl[h], rSections, rLETE[h], N)
 
+#%% Now interpolate the calculated thickness using the camber cooridnates to match LETE
+rotorThicknessExt = np.zeros([Nbr, rSections, N, 4])
+statorThicknessExt = np.zeros([Nbs, sSections, N, 4])
+
+for i in range(Nbs):
+    for k in range(sSections):
+        sFuncR = interp1d(statorThickness[i,k,:,2], statorThickness[i,k,:,1])
+        sFuncQ = interp1d(statorThickness[i,k,:,2], statorThickness[i,k,:,0])
+        statorThicknessExt[i,k,:,3] = statorThickness[i,k,:,3]
+        statorThicknessExt[i,k,:,2] = sCamberCyl[i,k,:,2]
+        statorThicknessExt[i,k,:,1] = sFuncR(sCamberCyl[i,k,:,2])
+        statorThicknessExt[i,k,:,0] = sFuncQ(sCamberCyl[i,k,:,2])
+        
+for m in range(Nbr):
+    for n in range(rSections):
+        rFuncR = interp1d(rotorThickness[m,n,:,2], rotorThickness[m,n,:,1])
+        rFuncQ = interp1d(rotorThickness[m,n,:,2], rotorThickness[m,n,:,0])
+        rotorThicknessExt[m,n,:,3] = rotorThickness[m,n,:,3]
+        rotorThicknessExt[m,n,:,2] = rCamberCyl[m,n,:,2]
+        rotorThicknessExt[m,n,:,1] = rFuncR(rCamberCyl[m,n,:,2])
+        rotorThicknessExt[m,n,:,0] = rFuncQ(rCamberCyl[m,n,:,2])   
 #%% Now do the radial interpolation to ensure that the blockage is representative of the blade
-rotorInterp = structuredInterpolation(rotorThickness, rSections, N, Np)
-statorInterp = structuredInterpolation(statorThickness, sSections, N, Np)
+rotorInterp = structuredInterpolation(rotorThicknessExt, rSections, N, Np)
+statorInterp = structuredInterpolation(statorThicknessExt, sSections, N, Np)
 
 rotor, stator = saveThicknessData(rotorInterp, statorInterp, outputDatapath)
 
