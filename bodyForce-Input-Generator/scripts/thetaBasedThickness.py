@@ -66,23 +66,29 @@ else:
     
     
 rBlade = np.zeros([Nbr, rSections, Nr, 3])
+rCamber = np.zeros([Nbr, rSections, N, 3])
 sBlade = np.zeros([Nbs, sSections, Ns, 3])
+sCamber = np.zeros([Nbs, sSections, N, 3])
 for a in range(Nbr):
     for b in range(rSections):
         if periodicOrAperiodic == 0:
             rBlade[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/blade{}.txt'.format(a,b), delimiter=',')
+            rCamber[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/camber{}.txt'.format(a,b), delimiter=',')
             outputDatapath = '../inputData/periodic/'
         else:
-            rBlade[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/blade{}.txt'.format(a,b), delimiter=',')          
+            rBlade[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/blade{}.txt'.format(a,b), delimiter=',')   
+            rCamber[a,b,:] = np.loadtxt(dataPath + '/rotor/blade{}/camber{}.txt'.format(a,b), delimiter=',')
             outputDatapath = '../inputData/nonPeriodic/'
             
 for c in range(Nbs):
     for d in range(sSections):
         if periodicOrAperiodic == 0:
             sBlade[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/blade{}.txt'.format(c,d), delimiter=',')
+            sCamber[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/camber{}.txt'.format(c,d), delimiter=',')
             outputDatapath = '../inputData/periodic/'
         else:
-            sBlade[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/blade{}.txt'.format(c,d), delimiter=',')           
+            sBlade[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/blade{}.txt'.format(c,d), delimiter=',')  
+            sCamber[c,d,:] = np.loadtxt(dataPath + '/stator/blade{}/camber{}.txt'.format(c,d), delimiter=',')
             outputDatapath = '../inputData/nonPeriodic/'
 
 #%% Used functions
@@ -130,7 +136,7 @@ def separate_blade_surfaces(blade_cylindrical):
         print("WARNING: Surface 2 is not monotonic in axial direction!")
     return s1, s2
 
-def calculate_thickness_distribution(bladeData, num_profiles, newLETE, n):
+def calculate_thickness_distribution(bladeData, num_profiles, n, camberData):
     """Calculate thickness distribution including theta coordinates"""
     thicknessData = np.zeros((num_profiles,n, 4))
     for blade_num, blade_cylindrical in enumerate(bladeData):
@@ -149,14 +155,15 @@ def calculate_thickness_distribution(bladeData, num_profiles, newLETE, n):
         s2_theta = s2_theta_spline(axial_distro) 
         thickness = np.abs(s1_theta - s2_theta)
 
-        new_mn = newLETE[blade_num, 2]  # column 2 is new LE axial
-        new_mx = newLETE[blade_num, 5]  # column 5 is new TE axial
+        camberSection = camberData[blade_num]
+        new_mn = min(camberSection[:,2])  
+        new_mx = max(camberSection[:,2])
         if distro == 'cosine':
             new_axial_distro = (new_mx - new_mn) * (0.5 * (1 - np.cos(np.linspace(0, np.pi, n)))) + new_mn
         else:
             new_axial_distro = np.linspace(new_mn, new_mx, n)        
-        r_interp = interp1d(blade_cylindrical[:,2], blade_cylindrical[:,1], fill_value='extrapolate') #handles floating point problems
-        theta_interp = interp1d(blade_cylindrical[:,2], blade_cylindrical[:,0], fill_value='extrapolate')       
+        r_interp = interp1d(camberSection[:,2], camberSection[:,1], fill_value='extrapolate') #handles floating point problems
+        theta_interp = interp1d(camberSection[:,2], camberSection[:,0], fill_value='extrapolate')       
         new_mean_r = r_interp(new_axial_distro)
         new_mean_theta = theta_interp(new_axial_distro)
         # Store results
@@ -219,40 +226,50 @@ def saveThicknessData(rotor_interp, stator_interp, output_path):
             
 #%% Convert rotor blade data from Cartesian to Cylindrical
 rBladeCyl = np.zeros([Nbr, rSections, Nr, 3])
-rLETE = np.zeros([Nbr,rSections,6])
-sLETE = np.zeros([Nbs,sSections,6]) 
+rCamberCyl = np.zeros([Nbr, rSections, N, 3])
+#rLETE = np.zeros([Nbr,rSections,6])
+#sLETE = np.zeros([Nbs,sSections,6]) 
 for e in range(Nbr):
     for ee in range(rSections):
         rBladeCyl[e,ee,:,:] = np.array(cart2pol(rBlade[e,ee,:,0], rBlade[e,ee,:,1], rBlade[e,ee,:,2])).T 
+        rCamberCyl[e,ee,:,:] = np.array(cart2pol(rCamber[e,ee,:,0], rCamber[e,ee,:,1], rCamber[e,ee,:,2])).T 
 
         if max(rBladeCyl[e,ee,:,0]) - min(rBladeCyl[e,ee,:,0]) > np.pi:
             rBladeCyl[e,ee,:,:] = np.array(cart2pol2(rBlade[e,ee,:,0], rBlade[e,ee,:,1], rBlade[e,ee,:,2])).T 
+        if max(rCamberCyl[e,ee,:,0]) - min(rCamberCyl[e,ee,:,0]) > np.pi:
+            rCamberCyl[e,ee,:,:] = np.array(cart2pol2(rCamber[e,ee,:,0], rCamber[e,ee,:,1], rCamber[e,ee,:,2])).T 
         minIdx = np.argmin(rBladeCyl[e,ee,:,2]) 
         maxIdx = np.argmax(rBladeCyl[e,ee,:,2]) 
-        rLETE[e,ee] = np.hstack((rBladeCyl[e,ee,minIdx], rBladeCyl[e,ee,maxIdx]))
+        #rLETE[e,ee] = np.hstack((rBladeCyl[e,ee,minIdx], rBladeCyl[e,ee,maxIdx]))
 
 
 # Convert stator blade data from Cartesian to Cylindrical
 sBladeCyl = np.zeros([Nbs, sSections, Ns, 3])
+sCamberCyl = np.zeros([Nbs, sSections, N, 3])
 for g in range(Nbs):
     for h in range(sSections):
         sBladeCyl[g,h,:,:] = np.array(cart2pol(sBlade[g,h,:,0], sBlade[g,h,:,1], sBlade[g,h,:,2])).T
+        sCamberCyl[g,h,:,:] = np.array(cart2pol(sCamber[g,h,:,0], sCamber[g,h,:,1], sCamber[g,h,:,2])).T
 
         if max(sBladeCyl[g,h,:,0]) - min(sBladeCyl[g,h,:,0]) > np.pi:
             sBladeCyl[g,h,:,:] = np.array(cart2pol2(sBlade[g,h,:,0], sBlade[g,h,:,1], sBlade[g,h,:,2])).T
+        if max(sCamberCyl[g,h,:,0]) - min(sCamberCyl[g,h,:,0]) > np.pi:
+            sCamberCyl[g,h,:,:] = np.array(cart2pol2(sCamber[g,h,:,0], sCamber[g,h,:,1], sCamber[g,h,:,2])).T             
         minIdx = np.argmin(sBladeCyl[g,h,:,2]) 
         maxIdx = np.argmax(sBladeCyl[g,h,:,2])         
-        sLETE[g,h] = np.hstack((sBladeCyl[g,h,minIdx], sBladeCyl[g,h,maxIdx]))
+        #sLETE[g,h] = np.hstack((sBladeCyl[g,h,minIdx], sBladeCyl[g,h,maxIdx]))
+
 #%% Determine blade thickness based on Profiles 
 rotorThickness = np.zeros([Nbr, rSections, N, 4])
 statorThickness = np.zeros([Nbs, sSections, N, 4])
 
 for j in range(Nbs):
-    statorThickness[j,:,:,:] = calculate_thickness_distribution(sBladeCyl[j], sSections, sLETE[j], N)
+    statorThickness[j,:,:,:] = calculate_thickness_distribution(sBladeCyl[j], sSections, N, sCamberCyl[j])
     
 for h in range(Nbr):
-    rotorThickness[h,:,:,:] = calculate_thickness_distribution(rBladeCyl[h], rSections, rLETE[h], N)
+    rotorThickness[h,:,:,:] = calculate_thickness_distribution(rBladeCyl[h], rSections, N, rCamberCyl[h])
 
+   
 #%% Now do the radial interpolation to ensure that the blockage is representative of the blade
 rotorInterp = structuredInterpolation(rotorThickness, rSections, N, Np)
 statorInterp = structuredInterpolation(statorThickness, sSections, N, Np)
